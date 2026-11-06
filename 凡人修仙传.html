@@ -1,0 +1,4698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>凡人修仙传 · 寿元</title>
+<meta name="description" content="一款以寿元为筹码的凡人修仙文字游戏。每一次选择消耗一载乃至百载寿元；修功法、择法术、斗妖魔，从凡人百年到化神飞升。">
+<meta name="theme-color" content="#0a0d0a">
+<meta property="og:title" content="凡人修仙传 · 寿元">
+<meta property="og:description" content="一介凡人，百年寿元。每一次选择都耗去数年光景。修功法、择法术、斗妖魔，你能走到化神飞升吗？">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23a8402c'/%3E%3Ctext x='32' y='47' font-size='40' font-family='serif' fill='%23f4e7d0' text-anchor='middle'%3E%E5%87%A1%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0a0d0a;
+  --ink:#e9e3d4;
+  --ink-2:#b9b3a3;
+  --ink-3:#7d7869;
+  --gold:#c9a961;
+  --gold-2:#e2c78d;
+  --gold-dim:rgba(201,169,97,.34);
+  --jade:#7fb39a;
+  --red:#c2604a;
+  --line:rgba(201,169,97,.16);
+  --line-2:rgba(255,255,255,.07);
+  --kai:"KaiTi","STKaiti","Kaiti SC","楷体","Noto Serif SC",serif;
+  --song:"Songti SC","STSong","SimSun","宋体","Noto Serif SC",serif;
+  --sans:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--kai);
+  font-size:17px;
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1100px 620px at 50% -12%, rgba(126,160,128,.13), transparent 62%),
+    radial-gradient(900px 520px at 88% 108%, rgba(201,169,97,.07), transparent 60%),
+    radial-gradient(700px 400px at 6% 20%, rgba(80,110,100,.06), transparent 60%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+::selection{background:rgba(201,169,97,.28);color:#fff}
+
+/* ---------- 山影 ---------- */
+.bg-mountains{position:fixed;left:0;right:0;bottom:0;z-index:0;pointer-events:none;opacity:.55}
+.bg-mountains svg{position:absolute;bottom:0;left:0;width:100%;display:block}
+.bg-mountains .m1{height:46vh;fill:#111710}
+.bg-mountains .m2{height:30vh;fill:#0c110c;opacity:.9}
+.bg-mountains .m3{height:18vh;fill:#090c09;opacity:.85}
+
+.screen{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
+
+/* ---------- 标题页 ---------- */
+#screen-title{justify-content:center;align-items:center;padding:56px 24px 80px}
+.title-inner{width:100%;max-width:720px;text-align:center;position:relative;animation:fadeUp .9s ease both}
+.title-mark{
+  position:absolute;top:-6px;right:6%;width:54px;height:54px;border-radius:5px;
+  background:linear-gradient(155deg,#a8402c,#7a2a1c);
+  color:#f4e7d0;font-family:var(--song);font-size:30px;line-height:54px;text-align:center;
+  box-shadow:0 12px 34px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.16);
+  transform:rotate(6deg);opacity:.94;
+}
+.title-eyebrow{display:block;font-size:11px;letter-spacing:.62em;color:var(--ink-3);margin-bottom:30px;text-indent:.62em}
+.title-main{
+  font-family:var(--song);font-size:clamp(46px,10.5vw,88px);font-weight:400;
+  letter-spacing:.13em;margin:0;padding-left:.13em;line-height:1.15;
+  background:linear-gradient(180deg,#f7efdd 0%,#dccca8 46%,#b3955f 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 70px rgba(201,169,97,.16);
+}
+.title-sub{display:flex;align-items:center;justify-content:center;gap:18px;margin:16px 0 30px}
+.title-sub i{display:block;width:min(90px,16vw);height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim))}
+.title-sub i:last-child{background:linear-gradient(270deg,transparent,var(--gold-dim))}
+.title-sub span{font-size:12px;letter-spacing:.62em;color:var(--gold);text-indent:.62em}
+.title-desc{color:var(--ink-2);font-size:16px;line-height:2.1;margin:0 0 38px}
+.title-form{display:flex;gap:12px;justify-content:center;align-items:stretch;flex-wrap:wrap}
+.title-form input{
+  width:210px;background:rgba(255,255,255,.03);border:1px solid var(--line);
+  border-bottom-color:var(--gold-dim);color:var(--ink);padding:12px 16px;
+  font-family:var(--kai);font-size:16px;letter-spacing:.14em;outline:none;border-radius:2px;
+  transition:all .25s ease;
+}
+.title-form input::placeholder{color:var(--ink-3);letter-spacing:.1em}
+.title-form input:focus{border-color:var(--gold-dim);background:rgba(201,169,97,.05);box-shadow:0 0 30px rgba(201,169,97,.07)}
+.title-foot{margin:44px 0 0;font-size:11.5px;letter-spacing:.14em;color:var(--ink-3);line-height:2;text-wrap:balance}
+.title-foot b{color:var(--gold-dim);font-weight:400}
+
+/* ---------- 按钮 ---------- */
+.btn{
+  font-family:var(--song);font-size:15px;letter-spacing:.24em;text-indent:.24em;
+  padding:12px 26px;border-radius:2px;cursor:pointer;transition:all .25s ease;
+  border:1px solid var(--gold-dim);background:transparent;color:var(--gold-2);
+}
+.btn:hover{background:rgba(201,169,97,.12);border-color:var(--gold);box-shadow:0 0 26px rgba(201,169,97,.14);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(180deg,rgba(201,169,97,.18),rgba(201,169,97,.04))}
+.btn-ghost{border-color:var(--line-2);color:var(--ink-2);font-size:13px;padding:9px 20px;letter-spacing:.22em;text-indent:.22em}
+.btn-ghost:hover{border-color:var(--gold-dim);color:var(--gold-2);background:rgba(201,169,97,.06)}
+#btn-continue{margin-top:18px}
+
+/* ---------- 灵根 ---------- */
+.root-panel{animation:fadeUp .55s ease both;max-width:440px;margin:0 auto}
+.root-kicker{font-size:11px;letter-spacing:.56em;color:var(--ink-3);margin-bottom:14px;text-indent:.56em}
+.root-name{font-family:var(--song);font-size:clamp(34px,7vw,42px);color:var(--gold-2);letter-spacing:.1em;text-indent:.1em;line-height:1.3}
+.root-stars{color:var(--gold);letter-spacing:.32em;margin:8px 0 16px;font-size:14px;text-indent:.32em}
+.root-desc{color:var(--ink-2);font-size:15px;line-height:2;margin:0 0 30px;min-height:62px}
+.root-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- 状态栏 ---------- */
+.hud{
+  position:sticky;top:0;z-index:20;
+  background:linear-gradient(180deg,rgba(10,13,10,.96),rgba(10,13,10,.8));
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.hud-inner{
+  max-width:940px;margin:0 auto;padding:10px 24px 11px;
+  display:grid;
+  grid-template-columns:auto 186px 236px 1fr;
+  grid-template-areas:"realm life prog res" "vitals vitals vitals vitals" "meta meta meta meta";
+  gap:8px 26px;align-items:center;
+}
+.hud-realm{grid-area:realm;min-width:82px}
+.realm-name{font-family:var(--song);font-size:20px;color:var(--gold-2);letter-spacing:.08em;line-height:1.35;white-space:nowrap}
+.realm-phase{font-size:10.5px;color:var(--ink-3);letter-spacing:.26em;white-space:nowrap}
+.hud-life{grid-area:life}
+.hud-prog{grid-area:prog}
+.hud-res{grid-area:res;justify-self:end;display:flex;gap:18px}
+.hud-vitals{grid-area:vitals;display:flex;gap:26px;border-top:1px solid var(--line-2);padding-top:7px}
+.vital{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.vital-label{font-size:10.5px;color:var(--ink-3);letter-spacing:.18em;white-space:nowrap}
+.vital .bar{flex:1;min-width:40px}
+.vital-num{font-size:10.5px;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bar.hp i{background:linear-gradient(90deg,#7d2f26,#d1654c)}
+.bar.mp i{background:linear-gradient(90deg,#24495a,#6fa3c0)}
+.life-row,.prog-row{display:flex;justify-content:flex-start;align-items:baseline;font-size:11.5px;color:var(--ink-2);letter-spacing:.08em;margin-bottom:6px;gap:8px}
+.prog-row span:first-child{color:var(--ink-3);letter-spacing:.2em}
+.bar{height:2px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;border-radius:2px}
+.bar i{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-2));transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.bar.life i{background:linear-gradient(90deg,rgba(127,179,154,.4),var(--jade))}
+.bar.life.low i{background:linear-gradient(90deg,rgba(194,96,74,.5),var(--red))}
+.res{display:flex;flex-direction:column;align-items:flex-end;line-height:1.25}
+.res b{font-family:var(--song);font-size:16px;color:var(--ink);font-weight:400}
+.res em{font-style:normal;font-size:10px;color:var(--ink-3);letter-spacing:.2em}
+
+/* ---------- 主舞台 ---------- */
+.stage{flex:1;padding:48px 24px 100px}
+.stage-inner{max-width:760px;margin:0 auto}
+.year-line{display:flex;align-items:center;gap:16px;font-size:11.5px;letter-spacing:.42em;color:var(--ink-3);margin-bottom:22px;text-indent:.42em}
+.year-line::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.scene-title{
+  font-family:var(--song);font-size:clamp(24px,4vw,32px);font-weight:400;
+  color:var(--ink);letter-spacing:.06em;margin:0 0 22px;line-height:1.4;
+  animation:fadeUp .55s ease both;
+}
+.scene-text{font-size:17px;line-height:2.15;color:var(--ink-2);letter-spacing:.02em;animation:fadeUp .55s .06s ease both;transition:opacity .45s ease}
+.scene-text.dim{opacity:.48}
+.scene-text p{margin:0 0 12px}
+.scene-text p:last-child{margin-bottom:0}
+.scene-text .em{color:var(--gold-2)}
+
+.options{display:flex;flex-direction:column;gap:10px;margin-top:36px}
+.opt{
+  position:relative;display:flex;gap:16px;align-items:flex-start;width:100%;text-align:left;
+  padding:16px 18px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.008));
+  border:1px solid var(--line-2);border-left:1px solid var(--line);border-radius:3px;
+  color:var(--ink);cursor:pointer;font-family:var(--kai);font-size:16.5px;line-height:1.65;
+  transition:all .22s ease;animation:fadeUp .5s ease both;
+}
+.opt:hover{border-color:rgba(201,169,97,.45);border-left-color:var(--gold);background:linear-gradient(90deg,rgba(201,169,97,.1),rgba(201,169,97,.015));transform:translateX(3px)}
+.opt .num{
+  flex:0 0 24px;width:24px;height:24px;line-height:21px;text-align:center;margin-top:2px;
+  font-family:var(--song);font-size:12px;color:var(--gold);
+  border:1px solid var(--gold-dim);border-radius:50%;
+}
+.opt .label{flex:1}
+.opt .tag{
+  display:inline-block;font-family:var(--sans);font-size:10px;line-height:1.5;letter-spacing:.16em;
+  padding:1px 7px;margin-left:9px;border:1px solid;border-radius:2px;vertical-align:2px;white-space:nowrap;
+}
+.tag-稳{color:var(--jade);border-color:rgba(127,179,154,.4)}
+.tag-险{color:var(--red);border-color:rgba(194,96,74,.45)}
+.tag-机{color:var(--gold-2);border-color:rgba(201,169,97,.45)}
+.tag-耗{color:var(--ink-3);border-color:rgba(255,255,255,.16)}
+.opt .cost{flex:0 0 auto;font-size:10.5px;color:var(--ink-3);letter-spacing:.14em;margin-top:4px}
+.opt:disabled{opacity:.4;cursor:default}
+
+.result{margin-top:32px;animation:fadeUp .45s ease both}
+.result-body{border-left:2px solid var(--gold-dim);padding:2px 0 2px 22px;font-size:16.5px;line-height:2.05;color:var(--ink)}
+.result-body p{margin:0 0 10px}
+.result-body p:last-child{margin:0}
+.result-body .warn{color:var(--red)}
+.result-body .good{color:var(--jade)}
+.deltas{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 28px}
+.chip{font-family:var(--sans);font-size:12px;letter-spacing:.04em;padding:3px 10px;border-radius:2px;border:1px solid;background:rgba(255,255,255,.02)}
+.chip.up{color:var(--jade);border-color:rgba(127,179,154,.32)}
+.chip.down{color:var(--red);border-color:rgba(194,96,74,.32)}
+.chip.gold{color:var(--gold-2);border-color:rgba(201,169,97,.32)}
+.chip.plain{color:var(--ink-3);border-color:rgba(255,255,255,.12)}
+.next{width:100%;margin-top:4px}
+
+.artifacts{margin-top:46px;padding-top:14px;border-top:1px solid var(--line-2);font-size:12px;color:var(--ink-3);letter-spacing:.12em}
+.artifacts b{color:var(--gold-dim);font-weight:400;margin-right:6px}
+.artifacts span{color:var(--ink-2)}
+
+/* ---------- 储物袋 ---------- */
+.bag-btn{
+  position:fixed;right:22px;bottom:24px;z-index:25;
+  width:52px;height:52px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, rgba(201,169,97,.3), rgba(20,25,19,.92));
+  border:1px solid var(--gold-dim);color:var(--gold-2);
+  font-family:var(--song);font-size:20px;cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  transition:all .25s ease;
+}
+.bag-btn:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 0 28px rgba(201,169,97,.25)}
+.modal{
+  position:fixed;inset:0;z-index:50;background:rgba(4,6,4,.74);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:24px;animation:softIn .22s ease;
+}
+.bag-panel{
+  width:min(560px,100%);max-height:82vh;overflow:auto;
+  background:linear-gradient(180deg,#151a15,#0e120e);
+  border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6);
+  animation:fadeUp .28s ease;
+}
+.bag-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:15px 20px;border-bottom:1px solid var(--line);
+  font-family:var(--song);letter-spacing:.3em;color:var(--gold-2);font-size:16px;
+}
+.bag-head button{background:none;border:none;color:var(--ink-3);font-size:24px;cursor:pointer;line-height:1}
+.bag-head button:hover{color:var(--gold)}
+.bag-body{padding:4px 20px 20px}
+.bag-sec{padding-top:14px}
+.bag-title{font-size:11px;letter-spacing:.3em;color:var(--ink-3);margin-bottom:8px}
+.bag-count{color:var(--gold-dim);letter-spacing:.1em}
+.bag-list{display:flex;flex-direction:column;gap:6px}
+.bag-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line-2);background:rgba(255,255,255,.02)}
+.bag-item .bi-name{font-family:var(--song);color:var(--ink);font-size:15px;min-width:66px}
+.bag-item .bi-desc{flex:1;font-size:12px;color:var(--ink-3);line-height:1.6}
+.bag-item .bi-count{font-size:12px;color:var(--gold-2);font-family:var(--song)}
+.bag-item .bi-use{font-size:11px;padding:4px 12px;border:1px solid var(--gold-dim);background:transparent;color:var(--gold-2);cursor:pointer;letter-spacing:.1em}
+.bag-item .bi-use:hover{background:rgba(201,169,97,.12)}
+.bag-item .bi-use:disabled{opacity:.28;cursor:default}
+.bag-empty{font-size:12px;color:var(--ink-3);padding:8px 0}
+.bag-art{border-left:2px solid var(--gold-dim);padding:8px 12px;background:rgba(255,255,255,.02)}
+.bag-art b{font-family:var(--song);color:var(--gold-2);font-weight:400;margin-right:8px}
+.bag-art span{font-size:12px;color:var(--ink-3)}
+.save-row{display:flex;gap:10px;flex-wrap:wrap}
+.save-row .bi-use{padding:7px 16px;font-size:12px}
+.save-tip{margin-top:8px;font-size:11px;color:var(--ink-3);line-height:1.8}
+.toast{
+  position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:60;
+  background:rgba(20,26,20,.96);border:1px solid var(--gold-dim);color:var(--gold-2);
+  font-size:13px;letter-spacing:.08em;padding:10px 22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);animation:fadeUp .25s ease;
+}
+
+/* ---------- 战斗 ---------- */
+.battle{
+  position:fixed;inset:0;z-index:45;
+  background:radial-gradient(900px 600px at 50% 0%, rgba(110,26,26,.18), transparent 62%), rgba(5,7,5,.93);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;padding:24px;animation:softIn .28s ease;
+}
+.battle-inner{
+  width:min(680px,100%);background:linear-gradient(180deg,#171b16,#0d100d);
+  border:1px solid rgba(194,96,74,.35);box-shadow:0 40px 100px rgba(0,0,0,.7);
+  padding:20px 24px 16px;position:relative;
+}
+.battle-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.4em;color:var(--red);margin-bottom:14px}
+.battle-turn{color:var(--ink-3);letter-spacing:.18em}
+.enemy-card{padding:12px 14px;border:1px solid rgba(194,96,74,.25);background:linear-gradient(180deg,rgba(194,96,74,.08),transparent)}
+.enemy-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.enemy-name{font-family:var(--song);font-size:22px;color:#e8d7c8}
+.enemy-art{font-size:10.5px;color:var(--gold-2);letter-spacing:.1em}
+.bar.enemy-hp{height:4px;margin:10px 0 6px;background:rgba(255,255,255,.08)}
+.bar.enemy-hp i{background:linear-gradient(90deg,#6f2a22,#d1654c)}
+.enemy-nums{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3)}
+.battle-log{
+  height:150px;overflow-y:auto;margin:16px 0;padding:12px 14px;
+  border-left:2px solid var(--line);background:rgba(0,0,0,.22);
+  font-size:13.5px;line-height:1.9;color:var(--ink-2);
+}
+.battle-log p{margin:0 0 6px}
+.battle-log b{color:var(--gold-2);font-weight:400}
+.battle-log .warn{color:var(--red)}
+.battle-log .good{color:var(--jade)}
+.battle-self{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
+.self-row{display:flex;align-items:center;gap:10px;font-size:11px}
+.self-label{width:28px;color:var(--ink-3);letter-spacing:.1em}
+.self-row .bar{flex:1}
+.self-row b{width:88px;text-align:right;font-weight:400;color:var(--ink-2);font-size:11px;font-variant-numeric:tabular-nums}
+.battle-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.battle-actions button{
+  font-family:var(--song);font-size:14px;letter-spacing:.12em;padding:11px 4px;
+  background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--ink);
+  cursor:pointer;transition:all .2s ease;
+}
+.battle-actions button:hover:not(:disabled){border-color:var(--gold);background:rgba(201,169,97,.1);color:var(--gold-2)}
+.battle-actions button:disabled{opacity:.28;cursor:default}
+.battle-hint{margin-top:10px;font-size:10.5px;color:var(--ink-3);letter-spacing:.1em;text-align:center;min-height:14px}
+
+/* ---------- 难度选择 ---------- */
+.diff-row{display:flex;gap:8px;justify-content:center;margin:0 0 10px}
+.diff-btn{
+  font-family:var(--song);font-size:13px;letter-spacing:.2em;text-indent:.2em;
+  padding:7px 20px;background:transparent;border:1px solid var(--line-2);
+  color:var(--ink-3);cursor:pointer;transition:all .2s ease;
+}
+.diff-btn:hover{border-color:var(--gold-dim);color:var(--gold-2)}
+.diff-btn.on{border-color:var(--gold);color:var(--gold-2);background:rgba(201,169,97,.1)}
+.diff-tip{font-size:12px;color:var(--ink-3);margin:0 0 30px;min-height:18px;letter-spacing:.06em}
+
+/* ---------- HUD 功法与气象 ---------- */
+.hud-meta{
+  grid-area:meta;display:flex;gap:18px;align-items:center;
+  border-top:1px solid var(--line-2);padding-top:7px;
+  font-size:10.5px;color:var(--ink-3);letter-spacing:.08em;overflow:hidden;
+}
+.hud-meta b{color:var(--gold-dim);font-weight:400;margin-right:6px;letter-spacing:.2em}
+.hud-meta .meta-tech{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.hud-meta .meta-tag{white-space:nowrap}
+.hud-meta .meta-tag em{font-style:normal;color:var(--gold-2)}
+
+/* ---------- 战斗状态与法术面板 ---------- */
+.enemy-status,.battle-status{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0 0}
+.battle-status{margin:0 0 12px}
+.st{
+  font-family:var(--sans);font-size:10px;letter-spacing:.04em;padding:1px 7px;
+  border:1px solid rgba(201,169,97,.35);color:var(--gold-2);border-radius:2px;
+  background:rgba(201,169,97,.06);
+}
+.st i{font-style:normal;opacity:.6;margin-left:3px}
+.st-poison{color:#9ad17a;border-color:rgba(154,209,122,.4)}
+.st-stun{color:#c0a3d8;border-color:rgba(192,163,216,.4)}
+.st-dmgReduce,.st-thorns{color:#7fb39a;border-color:rgba(127,179,154,.4)}
+.st-shield{color:#7fa8c0;border-color:rgba(111,163,192,.45)}
+.st-extra{color:#e2c78d;border-color:var(--gold)}
+.skill-panel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0;max-height:232px;overflow-y:auto}
+.sk{
+  position:relative;text-align:left;padding:9px 11px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid var(--line);color:var(--ink);cursor:pointer;
+  transition:all .18s ease;font-family:var(--kai);
+}
+.sk:hover:not(:disabled){border-color:var(--gold);background:rgba(201,169,97,.1)}
+.sk:disabled{opacity:.34;cursor:default}
+.sk-name{display:block;font-family:var(--song);font-size:15px;color:var(--gold-2);letter-spacing:.06em;padding-right:64px}
+.sk-cost{position:absolute;right:10px;top:9px;font-size:10px;color:#6fa3c0;letter-spacing:.04em}
+.sk-cd{display:block;font-size:10px;color:var(--ink-3);margin-top:1px}
+.sk-desc{display:block;font-size:11.5px;color:var(--ink-3);line-height:1.55;margin-top:3px}
+.sk-no{display:block;font-size:10px;color:var(--red);margin-top:2px}
+.sk-owner{display:block;font-size:10px;color:var(--gold-dim);margin-top:2px}
+.sk-empty{grid-column:1/-1;font-size:12px;color:var(--ink-3);padding:8px 0}
+.battle-actions button.on{border-color:var(--gold);background:rgba(201,169,97,.16);color:var(--gold-2)}
+
+/* ---------- 储物袋功法 ---------- */
+.bag-tech em{display:block;font-style:normal;font-size:11px;color:var(--gold-dim);margin-top:3px}
+
+
+/* ---------- 结局 ---------- */
+#screen-end{justify-content:center;align-items:center;padding:56px 24px;text-align:center}
+.end-inner{max-width:660px;width:100%;animation:fadeUp 1s ease both}
+.end-kicker{font-size:11px;letter-spacing:.64em;color:var(--ink-3);margin-bottom:20px;text-indent:.64em}
+.end-title{
+  font-family:var(--song);font-size:clamp(40px,9vw,72px);font-weight:400;margin:0 0 30px;
+  letter-spacing:.14em;text-indent:.14em;line-height:1.25;
+  background:linear-gradient(180deg,#f7efdd,#d9c69b 55%,#a98c55);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.end-inner.win .end-title{filter:drop-shadow(0 0 40px rgba(201,169,97,.32))}
+.end-inner.win .end-kicker{color:var(--gold);font-size:12px}
+.end-inner.dark .end-title{background:linear-gradient(180deg,#cfc9bb,#8d8778);-webkit-background-clip:text;background-clip:text}
+.end-text{font-size:16.5px;line-height:2.2;color:var(--ink-2);margin:0 auto 40px;max-width:540px;white-space:pre-line}
+.end-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);margin:0 0 42px;text-align:center}
+.end-stats div{background:#0c100c;padding:16px 8px}
+.end-stats b{display:block;font-family:var(--song);font-size:20px;color:var(--gold-2);font-weight:400;line-height:1.4}
+.end-stats span{font-size:10px;letter-spacing:.22em;color:var(--ink-3)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes softIn{from{opacity:0}to{opacity:1}}
+
+@media (max-width:760px){
+  .title-mark{width:44px;height:44px;line-height:44px;font-size:24px;right:2%;top:0}
+  .title-eyebrow{margin-bottom:24px}
+  .title-desc{font-size:15px;margin-bottom:30px}
+  .title-foot{font-size:10px;letter-spacing:.08em}
+  .hud-inner{
+    display:grid;grid-template-columns:auto 1fr;
+    grid-template-areas:"realm life" "prog prog" "vitals vitals" "meta meta" "res res";
+    gap:7px 16px;padding:9px 16px 10px;
+  }
+  .hud-realm,.hud-life{min-width:0}
+  .hud-prog{max-width:none}
+  .hud-vitals{flex-direction:column;gap:5px}
+  .hud-res{justify-self:stretch;justify-content:space-between;border-top:1px solid var(--line-2);padding-top:7px}
+  .res{align-items:flex-start}
+  .stage{padding:30px 18px 80px}
+  .opt{font-size:15.5px;padding:14px 14px;gap:12px}
+  .opt .cost{font-size:9.5px;margin-top:3px}
+  .end-stats b{font-size:17px}
+  .battle{padding:0}
+  .battle-inner{width:100%;min-height:100%;border:none;padding:18px 16px;display:flex;flex-direction:column;justify-content:center}
+  .battle-log{height:132px;font-size:12.5px}
+  .battle-actions{gap:6px}
+  .battle-actions button{font-size:12.5px;letter-spacing:.04em;padding:10px 2px}
+  .skill-panel{grid-template-columns:1fr;max-height:200px}
+  .hud-meta{gap:10px}
+  .bag-btn{right:16px;bottom:18px;width:48px;height:48px;font-size:18px}
+  .bag-item{flex-wrap:wrap;gap:6px 10px}
+  .bag-item .bi-desc{flex:1 0 100%;order:3}
+}
+@media (max-width:400px){
+  .title-main{letter-spacing:.08em}
+  .realm-name{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="bg-mountains" aria-hidden="true">
+  <svg class="m1" viewBox="0 0 1440 420" preserveAspectRatio="none"><path d="M0 336 L104 246 L186 288 L306 158 L402 244 L508 180 L618 292 L742 150 L844 238 L962 118 L1078 216 L1196 156 L1324 246 L1440 190 L1440 420 L0 420 Z"/></svg>
+  <svg class="m2" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 258 L140 206 L250 250 L390 176 L520 248 L660 196 L800 268 L940 190 L1080 252 L1220 200 L1340 254 L1440 216 L1440 320 L0 320 Z"/></svg>
+  <svg class="m3" viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="M0 176 L180 148 L330 182 L500 142 L680 188 L860 150 L1040 186 L1220 152 L1440 180 L1440 220 L0 220 Z"/></svg>
+</div>
+
+<div id="app">
+  <!-- ======== 标题页 ======== -->
+  <section id="screen-title" class="screen">
+    <div class="title-inner">
+      <span class="title-eyebrow">一介凡人 · 百年寿元</span>
+      <div class="title-mark">凡</div>
+      <h1 class="title-main">凡人修仙传</h1>
+      <div class="title-sub"><i></i><span>寿元</span><i></i></div>
+      <p class="title-desc">每一次选择，耗去一载、十载乃至百载寿元。斩妖、夺宝、闭关、远遁——<br>从青牛镇到灵界之门，你能走多远？</p>
+
+      <div id="title-start">
+        <div class="diff-row" id="diff-row">
+          <button class="diff-btn" data-diff="0">顺 遂</button>
+          <button class="diff-btn on" data-diff="1">寻 常</button>
+          <button class="diff-btn" data-diff="2">艰 险</button>
+        </div>
+        <div class="diff-tip" id="diff-tip">修仙本艰。成算与凶险皆如常理。</div>
+        <div class="title-form">
+          <input id="input-name" maxlength="8" placeholder="道号（可留空）" autocomplete="off" spellcheck="false">
+          <button id="btn-roll" class="btn btn-primary">测 灵 根</button>
+        </div>
+        <button id="btn-continue" class="btn btn-ghost" hidden>继 续 前 世</button>
+      </div>
+
+      <div id="root-panel" class="root-panel" hidden>
+        <div class="root-kicker">灵 根 测 定</div>
+        <div class="root-name" id="root-name">三灵根</div>
+        <div class="root-stars" id="root-stars">★★★☆☆</div>
+        <p class="root-desc" id="root-desc"></p>
+        <div class="root-actions">
+          <button id="btn-reroll" class="btn btn-ghost">再 测 一 次</button>
+          <button id="btn-enter" class="btn btn-primary">踏 入 仙 途</button>
+        </div>
+      </div>
+
+      <p class="title-foot">凡人寿一百 · 炼气百二 · 筑基二百 · 金丹五百 · 元婴一千 · 化神飞升<br><b>同人作品 · 致敬忘语《凡人修仙传》</b></p>
+    </div>
+  </section>
+
+  <!-- ======== 游戏页 ======== -->
+  <section id="screen-game" class="screen" hidden>
+    <header class="hud">
+      <div class="hud-inner">
+        <div class="hud-realm">
+          <div class="realm-name" id="hud-realm">凡人</div>
+          <div class="realm-phase" id="hud-phase">红尘</div>
+        </div>
+        <div class="hud-life">
+          <div class="life-row"><span id="hud-age">十六岁</span><span id="hud-lifespan">寿元 84</span></div>
+          <div class="bar life" id="hud-life-bar-wrap"><i id="hud-life-bar"></i></div>
+        </div>
+        <div class="hud-prog">
+          <div class="prog-row"><span>修为</span><span id="hud-prog-text">0 / 80</span></div>
+          <div class="bar"><i id="hud-prog-bar"></i></div>
+        </div>
+        <div class="hud-res">
+          <span class="res"><b id="hud-stones">0</b><em>灵石</em></span>
+          <span class="res"><b id="hud-pills">0</b><em>丹药</em></span>
+          <span class="res"><b id="hud-mood">60</b><em>心境</em></span>
+        </div>
+        <div class="hud-vitals">
+          <div class="vital"><span class="vital-label">气血</span><div class="bar hp"><i id="hud-hp-bar"></i></div><span class="vital-num" id="hud-hp-text">90 / 90</span></div>
+          <div class="vital"><span class="vital-label">法力</span><div class="bar mp"><i id="hud-mp-bar"></i></div><span class="vital-num" id="hud-mp-text">12 / 12</span></div>
+        </div>
+        <div class="hud-meta">
+          <span class="meta-tech" id="hud-tech">尚未修习功法</span>
+          <span class="meta-tag"><b>道途</b><em id="hud-diff">寻常</em></span>
+          <span class="meta-tag"><b>气运</b><em id="hud-world">太平年景</em></span>
+        </div>
+      </div>
+    </header>
+    <main class="stage">
+      <div class="stage-inner">
+        <div class="year-line"><span id="hud-year">第一年</span></div>
+        <article class="scene">
+          <h2 class="scene-title" id="scene-title"></h2>
+          <div class="scene-text" id="scene-text"></div>
+          <div class="options" id="scene-options"></div>
+          <div class="result" id="scene-result" hidden>
+            <div class="result-body" id="result-text"></div>
+            <div class="deltas" id="result-deltas"></div>
+            <button class="btn btn-primary next" id="btn-next">又 是 一 年</button>
+          </div>
+        </article>
+        <div class="artifacts" id="artifact-line" hidden><b>法宝</b><span id="artifact-list"></span></div>
+      </div>
+    </main>
+
+    <button id="btn-bag" class="bag-btn" title="储物袋（B）">囊</button>
+
+    <div id="battle" class="battle" hidden>
+      <div class="battle-inner">
+        <div class="battle-top">
+          <span class="battle-tag">斗 法</span>
+          <span class="battle-turn" id="battle-turn">第一回合</span>
+        </div>
+        <div class="enemy-card">
+          <div class="enemy-head">
+            <span class="enemy-name" id="enemy-name"></span>
+            <span class="enemy-art" id="enemy-art"></span>
+          </div>
+          <div class="bar enemy-hp"><i id="enemy-hp-bar"></i></div>
+          <div class="enemy-nums"><span id="enemy-hp-text"></span><span id="enemy-atk"></span></div>
+          <div class="enemy-status" id="enemy-status"></div>
+        </div>
+        <div class="battle-log" id="battle-log"></div>
+        <div class="battle-self">
+          <div class="self-row"><span class="self-label">气血</span><div class="bar hp"><i id="battle-hp-bar"></i></div><b id="battle-hp-text"></b></div>
+          <div class="self-row"><span class="self-label">法力</span><div class="bar mp"><i id="battle-mp-bar"></i></div><b id="battle-mp-text"></b></div>
+        </div>
+        <div class="battle-status" id="battle-status"></div>
+        <div class="battle-actions" id="battle-actions">
+          <button data-act="attack">出 剑</button>
+          <button data-act="spell">法 术</button>
+          <button data-act="art">法 宝</button>
+          <button data-act="item">服 丹</button>
+          <button data-act="flee">遁 走</button>
+        </div>
+        <div class="skill-panel" id="skill-panel" hidden></div>
+        <div class="battle-hint" id="battle-hint"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== 结局页 ======== -->
+  <section id="screen-end" class="screen" hidden>
+    <div class="end-inner" id="end-inner">
+      <div class="end-kicker" id="end-kicker">道 消</div>
+      <h2 class="end-title" id="end-title"></h2>
+      <p class="end-text" id="end-text"></p>
+      <div class="end-stats" id="end-stats"></div>
+      <button class="btn btn-primary" id="btn-restart">再 世 为 人</button>
+    </div>
+  </section>
+</div>
+
+<div id="bag-modal" class="modal" hidden>
+  <div class="bag-panel">
+    <div class="bag-head"><span>储 物 袋</span><button id="btn-bag-close" aria-label="关闭">×</button></div>
+    <div class="bag-body">
+      <div class="bag-sec">
+        <div class="bag-title">丹 药</div>
+        <div id="bag-items" class="bag-list"></div>
+      </div>
+      <div class="bag-sec">
+        <div class="bag-title">功 法</div>
+        <div id="bag-techs" class="bag-list"></div>
+      </div>
+      <div class="bag-sec">
+        <div class="bag-title">法 宝 <span id="bag-art-count" class="bag-count"></span></div>
+        <div id="bag-arts" class="bag-list"></div>
+      </div>
+      <div class="bag-sec">
+        <div class="bag-title">存 档</div>
+        <div class="save-row">
+          <button id="btn-export" class="bi-use">导出存档码</button>
+          <button id="btn-import" class="bi-use">导入存档</button>
+        </div>
+        <div class="save-tip">换电脑：点「导出存档码」复制全部文字，到新设备点「导入存档」粘贴即可。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script>
+/* ---- data.js ---- */
+'use strict';
+/* =============================================================
+   凡人修仙传 · 寿元 —— 数据层
+   境界 / 灵根 / 难度 / 功法 / 法术 / 法宝 / 妖魔 / 冲关
+   ============================================================= */
+
+/* ---------------- 基础工具 ---------------- */
+const CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+function cn(n) {
+  if (n < 0) return '负' + cn(-n);
+  if (n < 10) return CN[n];
+  if (n < 20) return '十' + (n % 10 ? CN[n % 10] : '');
+  if (n < 100) return CN[Math.floor(n / 10)] + '十' + (n % 10 ? CN[n % 10] : '');
+  if (n < 1000) {
+    const h = Math.floor(n / 100), r = n % 100;
+    if (!r) return CN[h] + '百';
+    return CN[h] + '百' + (r < 10 ? '零' + CN[r] : cn(r));
+  }
+  if (n < 10000) {
+    const t = Math.floor(n / 1000), r = n % 1000;
+    if (!r) return CN[t] + '千';
+    return CN[t] + '千' + (r < 10 ? '零' + CN[r] : r < 100 ? '零' + cn(r) : cn(r));
+  }
+  return String(n);
+}
+const NUM_CN = ['一', '二', '三', '四'];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const chance = (p) => Math.random() < p;
+const rnd = (a, b) => a + Math.random() * (b - a);
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+function shuffle(a) {
+  const r = a.slice();
+  for (let i = r.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = r[i]; r[i] = r[j]; r[j] = t;
+  }
+  return r;
+}
+
+/* ---------------- 境界 ---------------- */
+/* life 为该境界的寿元上限；need 为突破所需修为；gain 为每年基础打坐所得占比 */
+const REALMS = [
+  { name: '凡人',   phase: '红尘',     life: 90,   need: 70,   hp: 90,    mp: 14,    atk: 14,   def: 2,   bb: 0.62 },
+  { name: '炼气期', phase: '引气入体', life: 120,  need: 150,  hp: 260,   mp: 90,    atk: 42,   def: 8,   bb: 0.50 },
+  { name: '筑基期', phase: '筑就道基', life: 200,  need: 260,  hp: 760,   mp: 360,   atk: 116,  def: 26,  bb: 0.40 },
+  { name: '金丹期', phase: '结成金丹', life: 500,  need: 420,  hp: 2100,  mp: 1200,  atk: 300,  def: 70,  bb: 0.32 },
+  { name: '元婴期', phase: '元婴出窍', life: 1000, need: 640,  hp: 5200,  mp: 3200,  atk: 760,  def: 180, bb: 0.20 },
+  { name: '化神期', phase: '神游太虚', life: 2000, need: 0,    hp: 13000, mp: 8600,  atk: 1900, def: 460, bb: 0 },
+];
+
+/* 每个境界中，一次普通抉择默认耗去的年数（真实寿元节奏） */
+const YEAR_COST = [1, 2, 7, 20, 55];
+
+/* ---------------- 灵根 ---------------- */
+const ROOTS = [
+  { name: '天灵根', stars: 5, mult: 1.00, elem: '天', bb: 0.10, wits: 3, mood: 0, weight: 1, cost: 0.90,
+    desc: '单一属性，万中无一。灵气入体如百川归海，旁人苦修一日，抵不过你一个时辰。诸般功法一学便会。' },
+  { name: '变异雷灵根', stars: 5, mult: 0.82, elem: '雷', bb: 0.08, wits: 2, mood: 0, weight: 4, cost: 0.82,
+    desc: '雷光缠身，攻伐无双。雷系法术损耗大减。天资绝顶，却也为正道所忌，世人既羡且惧。' },
+  { name: '双灵根', stars: 4, mult: 0.55, elem: null, bb: 0.06, wits: 1, mood: 0, weight: 12, cost: 0.95,
+    desc: '两系相济，资质上佳，足以叩开大宗门墙。放在任何一处，都是要被人抢的弟子。' },
+  { name: '三灵根', stars: 3, mult: 0.35, elem: null, bb: 0.03, wits: 0, mood: 0, weight: 30, cost: 1.00,
+    desc: '资质平平。可修仙一途，心性有时比灵根更重要——这话你听人说过很多次。' },
+  { name: '四灵根', stars: 2, mult: 0.20, elem: null, bb: 0.00, wits: 0, mood: 6, weight: 34, cost: 1.05,
+    desc: '杂而不纯，世人称之为伪灵根。你从小就听惯了这句话，也从小就不服。' },
+  { name: '五灵根', stars: 1, mult: 0.10, elem: null, bb: 0.00, wits: 0, mood: 12, weight: 20, cost: 1.12,
+    desc: '五行俱全，修行奇慢，所得修为仅天灵根十分之一。可五行俱全，也意味着什么都能学。' },
+];
+
+/* ---------------- 难度 ---------------- */
+const DIFFS = [
+  { name: '顺遂', desc: '天意眷顾。判定易成，妖魔气弱，另赐一枚还魂丹。', check: -0.14, enemy: 0.75, el: 0.07 },
+  { name: '寻常', desc: '修仙本艰。成算与凶险皆如常理。', check: 0.00, enemy: 1.00, el: 0.16 },
+  { name: '艰险', desc: '步步杀机。判定艰难，妖魔强悍，稍有不慎即身死道消。', check: 0.11, enemy: 1.20, el: 0.22 },
+];
+
+/* ---------------- 物品 ---------------- */
+const ITEMS = {
+  heal:   { name: '回春丹', desc: '恢复四成气血', short: '回春' },
+  mana:   { name: '聚灵丹', desc: '恢复四成法力', short: '聚灵' },
+  break:  { name: '破障丹', desc: '冲关时服下，成功率 +16%', short: '破障' },
+  escape: { name: '遁地符', desc: '战斗中必定脱身', short: '遁地' },
+  revive: { name: '还魂丹', desc: '战败时自动保命，恢复三成气血', short: '还魂' },
+  marrow: { name: '洗髓丹', desc: '洗炼灵根，提升一阶（最高天灵根）', short: '洗髓' },
+  calm:   { name: '凝神丹', desc: '争斗中驱散心魔侵扰，心境 +8', short: '凝神' },
+};
+
+/* ---------------- 法宝 ----------------
+   atk/def/hp/mp/cult/crit/lifesteal/flee/mood 为数值
+   fx 为特殊效果：
+     shieldStart 开局护盾（占上限比例）
+     dmgReduce   受到伤害减免
+     spellPower  法术伤害加成
+     healOnKill  斩杀后回血比例
+     execute     敌方气血低于此比例时伤害翻倍
+     manaRegen   每回合回复法力（占上限比例）
+     thorns      反弹伤害比例
+     firstStrike 开战先手一击
+     synergy     与某功法同修时额外加成
+     active      可主动祭出的法术 id
+------------------------------------------------ */
+const ARTS = {
+  '青元剑':   { atk: 26, fx: { synergy: 'qingyuan', synergyAtk: 0.18 }, desc: '攻击 +26。修成青元剑诀者，剑上更添三分剑芒。' },
+  '雷击木剑': { atk: 34, crit: 0.10, fx: { spellPower: 0.10 }, desc: '攻击 +34，暴击 +10%，法术伤害 +10%。' },
+  '白玉簪':   { cult: 0.08, mp: 40, desc: '修炼所得 +8%，法力 +40。掩月宗的信物。' },
+  '玄铁令牌': { def: 12, hp: 90, fx: { dmgReduce: 0.05 }, desc: '防御 +12，气血 +90，受伤减免 5%。' },
+  '定海珠':   { hp: 180, mp: 80, fx: { shieldStart: 0.18 }, desc: '气血 +180，法力 +80。开战时自动凝成护罩。' },
+  '虚天鼎影': { atk: 38, cult: 0.12, fx: { dmgReduce: 0.10 }, desc: '攻击 +38，修炼 +12%，受伤减免 10%。重得像一座山。' },
+  '老怪遗宝': { atk: 46, crit: 0.08, fx: { execute: 0.22 }, desc: '攻击 +46，暴击 +8%。敌人气血低于两成时伤害翻倍。' },
+  '界外残片': { mp: 150, cult: 0.15, fx: { spellPower: 0.18 }, desc: '法力 +150，修炼 +15%，法术伤害 +18%。' },
+  '上古兽骨': { hp: 110, def: 8, fx: { thorns: 0.10 }, desc: '气血 +110，防御 +8。受击时反弹一成伤害。' },
+  '赤蛟鳞':   { def: 16, hp: 120, fx: { dmgReduce: 0.07 }, desc: '防御 +16，气血 +120，受伤减免 7%。' },
+  '噬魂幡':   { atk: 28, lifesteal: 0.14, fx: { healOnKill: 0.20, active: 'shihun' }, desc: '攻击 +28，吸血 14%，斩杀后回血两成。可祭出幡中阴魂。' },
+  '紫电锥':   { atk: 42, crit: 0.08, fx: { active: 'zidianzhui' }, desc: '攻击 +42，暴击 +8%。可祭出紫电一击。' },
+  '护心镜':   { hp: 200, def: 10, fx: { active: 'huxin' }, desc: '气血 +200，防御 +10。危急时可凝一面护心光镜。' },
+  '聚灵珠':   { mp: 120, cult: 0.06, fx: { manaRegen: 0.05 }, desc: '法力 +120，修炼 +6%，每回合回复 5% 法力。' },
+  '遁光梭':   { flee: 0.18, fx: { firstStrike: 0.8 }, desc: '遁走 +18%。开战先发一击。' },
+  '养魂木':   { mood: 2, hp: 60, fx: { calm: true }, desc: '每年心境 +2，气血 +60。心魔难侵。' },
+  '幽冥鬼火': { atk: 30, mp: 60, fx: { active: 'guihuo', spellPower: 0.12 }, desc: '攻击 +30，法术 +12%。可祭出鬼火灼魂。' },
+  '太乙玉简': { cult: 0.10, wits: 1, fx: { active: 'wudao' }, desc: '修炼 +10%，悟性 +1。可借玉简参悟，短暂通明。' },
+};
+const ART_KEYS = Object.keys(ARTS);
+
+/* ---------------- 功法 ----------------
+   passive: 常驻加成（cult 为比例，其余为数值）
+   spells : 可修习的法术
+------------------------------------------------ */
+const TECHS = {
+  changchun: {
+    name: '长春功', tier: 1, elem: '木',
+    desc: '木属性养生功法。不求攻伐，只求活得久一些。墨大夫压箱底的残卷。',
+    passive: { cult: 0.06, life: 0 },
+    spells: ['huichun', 'muling'],
+  },
+  lingjian: {
+    name: '灵剑诀', tier: 1, elem: '剑',
+    desc: '剑修入门。以气御剑，一剑既出，先声夺人。',
+    passive: { atk: 8, crit: 0.03 },
+    spells: ['jianqi', 'yujian'],
+  },
+  luoyan: {
+    name: '罗烟步', tier: 1, elem: '身法',
+    desc: '轻身功夫。身如罗烟，来去无痕，最擅保命。',
+    passive: { flee: 0.12, def: 4 },
+    spells: ['luoyanshen', 'jifeng'],
+  },
+  yuling: {
+    name: '御灵术', tier: 1, elem: '御兽',
+    desc: '驱虫驭兽之法。灵虫虽小，噬人骨髓；灵兽虽愚，可挡一刀。',
+    passive: { mp: 30, cult: 0.04 },
+    spells: ['lingchong', 'yishou'],
+  },
+  qingyuan: {
+    name: '青元剑诀', tier: 2, elem: '剑',
+    desc: '上乘剑诀。练至深处，剑光可分化万千，一剑破万法。',
+    passive: { atk: 22, crit: 0.06 },
+    spells: ['qingmang', 'jianguang', 'wanjian'],
+  },
+  xuanyin: {
+    name: '玄阴经', tier: 2, elem: '魔',
+    desc: '玄骨上人所留魔功。阴气蚀骨，血光缠身，伤人亦伤己。',
+    passive: { atk: 18, lifesteal: 0.10 },
+    spells: ['yinmo', 'xuemodun', 'xuanyinzhua'],
+  },
+  dayan: {
+    name: '大衍诀', tier: 2, elem: '神识',
+    desc: '大衍神君的神识功法。修的是神魂，非肉身。神念一动，千里可察。',
+    passive: { mp: 110, wits: 1, cult: 0.10 },
+    spells: ['jingshen', 'fenshen', 'dayanguang'],
+  },
+  wulei: {
+    name: '五雷正法', tier: 3, elem: '雷',
+    desc: '正一道雷法。五雷齐落，专克妖魔鬼祟。',
+    passive: { atk: 38, crit: 0.05 },
+    spells: ['bixie', 'zidian', 'tianlei'],
+  },
+  yuanci: {
+    name: '元磁神光', tier: 3, elem: '磁',
+    desc: '极北神通。借元磁之力束人、护己、反震来敌。',
+    passive: { def: 20, dmgReduce: 0.05 },
+    spells: ['ciguang', 'yuancishu'],
+  },
+  tuotian: {
+    name: '托天魔功', tier: 3, elem: '魔',
+    desc: '魔道炼体功法。以魔气淬骨，皮糙肉厚，悍不畏死。',
+    passive: { hp: 380, atk: 26 },
+    spells: ['mohua', 'tianmojieti'],
+  },
+  jingang: {
+    name: '金刚诀', tier: 3, elem: '佛',
+    desc: '佛门护法之功。金刚不坏，明王镇魔。',
+    passive: { def: 28, hp: 320 },
+    spells: ['jingangbuhuai', 'mingwang'],
+  },
+  huaxue: {
+    name: '化血神光', tier: 4, elem: '血',
+    desc: '血道秘术。以血为引，以命换命。修此功者，多半不得善终。',
+    passive: { mp: 180, lifesteal: 0.15 },
+    spells: ['xuedun', 'huaxue'],
+  },
+};
+
+/* ---------------- 法术 ----------------
+   cost: 占法力上限比例；cd: 冷却回合；power: 倍率
+   fx: 附加效果
+------------------------------------------------ */
+const SPELLS = {
+  huichun:      { name: '回春术', tech: 'changchun', elem: '木', cost: 0.20, cd: 3, kind: 'heal',
+                  power: 0.35, desc: '恢复三成五气血，并驱散中毒。' },
+  muling:       { name: '木灵护体', tech: 'changchun', elem: '木', cost: 0.16, cd: 3, kind: 'shield',
+                  power: 0.30, fx: { turns: 3 }, desc: '凝木灵护盾，可挡三成气血之伤，持续三回合。' },
+
+  jianqi:       { name: '剑气斩', tech: 'lingjian', elem: '剑', cost: 0.14, cd: 0, kind: 'attack',
+                  power: 1.35, desc: '一剑化气，造成 135% 伤害。' },
+  yujian:       { name: '御剑术', tech: 'lingjian', elem: '剑', cost: 0.20, cd: 2, kind: 'attack',
+                  power: 1.05, hits: 2, desc: '御剑连击两段，无视一成防御。', fx: { ignoreDef: 0.1 } },
+
+  luoyanshen:   { name: '罗烟身法', tech: 'luoyan', elem: '身法', cost: 0.12, cd: 4, kind: 'buff',
+                  desc: '身化罗烟，三回合内闪避 +35%。', fx: { evade: 0.35, turns: 3 } },
+  jifeng:       { name: '疾风步', tech: 'luoyan', elem: '身法', cost: 0.10, cd: 3, kind: 'buff',
+                  desc: '抢得先机，三回合内暴击 +25%。', fx: { crit: 0.25, turns: 3 } },
+
+  lingchong:    { name: '灵虫噬', tech: 'yuling', elem: '御兽', cost: 0.16, cd: 3, kind: 'attack',
+                  power: 0.70, fx: { poison: 0.055, turns: 4 }, desc: '放出灵虫，造成伤害并使敌中毒四回合。' },
+  yishou:       { name: '役兽', tech: 'yuling', elem: '御兽', cost: 0.24, cd: 4, kind: 'attack',
+                  power: 1.55, fx: { ignoreDef: 0.5 }, desc: '灵兽扑击，无视半数防御。' },
+
+  qingmang:     { name: '青元剑芒', tech: 'qingyuan', elem: '剑', cost: 0.26, cd: 2, kind: 'attack',
+                  power: 2.00, desc: '剑芒贯体，造成 200% 伤害。' },
+  jianguang:    { name: '剑光分化', tech: 'qingyuan', elem: '剑', cost: 0.22, cd: 3, kind: 'attack',
+                  power: 0.85, hits: 3, desc: '剑光三分，连斩三下。' },
+  wanjian:      { name: '万剑归一', tech: 'qingyuan', elem: '剑', cost: 0.40, cd: 5, kind: 'attack',
+                  power: 3.00, fx: { execute: 0.25 }, desc: '倾力一剑。敌残血时伤害翻倍。' },
+
+  yinmo:        { name: '阴魔斩', tech: 'xuanyin', elem: '魔', cost: 0.24, cd: 1, kind: 'attack',
+                  power: 1.70, fx: { lifesteal: 0.35 }, desc: '阴魔之气凝刃，造成 170% 伤害并吸血三成五。' },
+  xuemodun:     { name: '血魔遁', tech: 'xuanyin', elem: '魔', cost: 0.00, cd: 4, kind: 'special',
+                  hpCost: 0.08, power: 1.90, fx: { evade: 0.30, turns: 2 },
+                  desc: '耗八成气血化血光遁形，重击并闪避两回合。' },
+  xuanyinzhua:  { name: '玄阴爪', tech: 'xuanyin', elem: '魔', cost: 0.18, cd: 2, kind: 'attack',
+                  power: 1.20, fx: { lifesteal: 0.50, poison: 0.05, turns: 3 }, desc: '阴爪噬血，吸血五成并使敌中毒。' },
+
+  jingshen:     { name: '惊神刺', tech: 'dayan', elem: '神识', cost: 0.20, cd: 2, kind: 'attack',
+                  power: 1.50, fx: { ignoreDef: 1.0, mpDamage: 0.06 }, desc: '直刺神魂，无视防御，并削敌法力。' },
+  fenshen:      { name: '分神术', tech: 'dayan', elem: '神识', cost: 0.30, cd: 5, kind: 'special',
+                  fx: { extraTurn: true }, desc: '分神代劳，本回合可再行动一次。' },
+  dayanguang:   { name: '大衍神光', tech: 'dayan', elem: '神识', cost: 0.35, cd: 4, kind: 'attack',
+                  power: 1.90, fx: { ignoreDef: 0.4 }, desc: '神光扫荡，无视四成防御。' },
+
+  bixie:        { name: '辟邪神雷', tech: 'wulei', elem: '雷', cost: 0.26, cd: 2, kind: 'attack',
+                  power: 1.80, fx: { bonusVs: ['魔', '鬼', '妖'], bonus: 0.70 }, desc: '雷光诛邪，对妖魔鬼怪额外七成伤害。' },
+  zidian:       { name: '紫电缠身', tech: 'wulei', elem: '雷', cost: 0.30, cd: 4, kind: 'attack',
+                  power: 1.40, fx: { stun: 1 }, desc: '紫电缚敌，令其停滞一回合。' },
+  tianlei:      { name: '天雷破', tech: 'wulei', elem: '雷', cost: 0.42, cd: 5, kind: 'attack',
+                  power: 2.70, desc: '引落一道天雷，造成 270% 伤害。' },
+
+  ciguang:      { name: '磁光罩', tech: 'yuanci', elem: '磁', cost: 0.22, cd: 4, kind: 'shield',
+                  power: 0.40, fx: { thorns: 0.20, turns: 3 }, desc: '元磁护罩，挡四成气血之伤并反弹两成。' },
+  yuancishu:    { name: '元磁束缚', tech: 'yuanci', elem: '磁', cost: 0.28, cd: 5, kind: 'special',
+                  fx: { stun: 2, sund: 0.25, turns: 3 }, desc: '以元磁束敌两回合，并削其防御两成五。' },
+
+  mohua:        { name: '魔化', tech: 'tuotian', elem: '魔', cost: 0.24, cd: 5, kind: 'buff',
+                  hpCost: 0.10, fx: { atk: 0.55, turns: 4 }, desc: '燃血魔化，四回合内攻击 +55%。' },
+  tianmojieti:  { name: '天魔解体', tech: 'tuotian', elem: '魔', cost: 0.00, cd: 6, kind: 'special',
+                  hpCost: 0.35, power: 4.00, desc: '燃尽三成五气血，造成 400% 伤害。' },
+
+  jingangbuhuai:{ name: '金刚不坏', tech: 'jingang', elem: '佛', cost: 0.18, cd: 4, kind: 'buff',
+                  fx: { def: 0.60, dmgReduce: 0.25, turns: 3 }, desc: '三回合内防御 +60%，减伤 25%。' },
+  mingwang:     { name: '明王法相', tech: 'jingang', elem: '佛', cost: 0.32, cd: 5, kind: 'special',
+                  power: 1.60, fx: { heal: 0.20 }, desc: '佛光加身，伤敌并回复两成气血。' },
+
+  xuedun:       { name: '血遁', tech: 'huaxue', elem: '血', cost: 0.00, cd: 3, kind: 'special',
+                  hpCost: 0.12, fx: { mpGain: 0.25, evade: 0.40, turns: 2 }, desc: '燃血化遁，换取法力与两回合闪避。' },
+  huaxue:       { name: '化血神光', tech: 'huaxue', elem: '血', cost: 0.30, cd: 3, kind: 'attack',
+                  power: 1.60, fx: { lifesteal: 0.60, poison: 0.04, turns: 3 }, desc: '血光噬敌，吸血六成。' },
+
+  /* ---- 法宝祭出（由法宝 active 提供，不需功法） ---- */
+  shihun:       { name: '幡中阴魂', tech: null, elem: '鬼', cost: 0.18, cd: 3, kind: 'attack',
+                  power: 1.40, fx: { lifesteal: 0.45 }, desc: '放出幡中阴魂噬敌，吸血四成五。', art: '噬魂幡' },
+  zidianzhui:   { name: '紫电一击', tech: null, elem: '雷', cost: 0.22, cd: 3, kind: 'attack',
+                  power: 2.20, desc: '紫电锥破空一击，造成 220% 伤害。', art: '紫电锥' },
+  huxin:        { name: '护心光镜', tech: null, elem: '佛', cost: 0.14, cd: 4, kind: 'shield',
+                  power: 0.35, fx: { turns: 3 }, desc: '凝一面光镜，可挡三成五气血之伤。', art: '护心镜' },
+  guihuo:       { name: '幽冥鬼火', tech: null, elem: '鬼', cost: 0.20, cd: 3, kind: 'attack',
+                  power: 1.50, fx: { poison: 0.06, turns: 3 }, desc: '鬼火附骨，灼烧并中毒三回合。', art: '幽冥鬼火' },
+  wudao:        { name: '参悟玉简', tech: null, elem: '神识', cost: 0.10, cd: 5, kind: 'buff',
+                  fx: { crit: 0.30, spellPower: 0.30, turns: 3 }, desc: '三回合内暴击与法术威力大增。', art: '太乙玉简' },
+};
+
+/* ---------------- 妖魔 ----------------
+   相对本境界基准的比例；traits 决定战斗行为
+------------------------------------------------ */
+const ENEMY_POOL = {
+  0: [
+    { name: '青牛镇悍匪', tags: ['人'], hp: 0.80, atk: 0.090, def: 0.45, w: 3 },
+    { name: '独眼山君',   tags: ['妖'], hp: 0.95, atk: 0.100, def: 0.50, w: 2, traits: ['enrage'] },
+    { name: '黑风寨刀客', tags: ['人'], hp: 0.75, atk: 0.095, def: 0.40, w: 3, traits: ['bleed'] },
+    { name: '饿极的狼群', tags: ['妖'], hp: 0.70, atk: 0.080, def: 0.25, w: 3, traits: ['fast'] },
+    { name: '游方恶道',   tags: ['人', '鬼'], hp: 0.88, atk: 0.098, def: 0.42, w: 2, traits: ['caster'] },
+  ],
+  1: [
+    { name: '铁背妖狼',   tags: ['妖'], hp: 0.90, atk: 0.098, def: 0.55, w: 3, traits: ['enrage'] },
+    { name: '散修劫匪',   tags: ['人'], hp: 0.82, atk: 0.100, def: 0.50, w: 3, traits: ['caster'] },
+    { name: '赤牙野猪',   tags: ['妖'], hp: 1.05, atk: 0.092, def: 0.40, w: 2, traits: ['physResist'] },
+    { name: '噬灵蛛',     tags: ['妖'], hp: 0.78, atk: 0.086, def: 0.35, w: 3, traits: ['poison'] },
+    { name: '邪修',       tags: ['人', '魔'], hp: 0.85, atk: 0.104, def: 0.45, w: 2, traits: ['drain'] },
+  ],
+  2: [
+    { name: '血袍客',     tags: ['人', '魔'], hp: 0.92, atk: 0.104, def: 0.55, w: 3, traits: ['drain'] },
+    { name: '傀儡甲士',   tags: ['傀儡'], hp: 1.08, atk: 0.096, def: 0.65, w: 3, traits: ['physResist', 'shieldStart'] },
+    { name: '四阶妖蟒',   tags: ['妖'], hp: 1.02, atk: 0.100, def: 0.40, w: 2, traits: ['poison', 'enrage'] },
+    { name: '双首妖禽',   tags: ['妖'], hp: 0.85, atk: 0.108, def: 0.32, w: 3, traits: ['fast'] },
+    { name: '魔道执事',   tags: ['人', '魔'], hp: 0.95, atk: 0.102, def: 0.52, w: 2, traits: ['caster'] },
+  ],
+  3: [
+    { name: '魔道长老',   tags: ['人', '魔'], hp: 0.95, atk: 0.104, def: 0.60, w: 3, traits: ['caster', 'drain'] },
+    { name: '五阶妖禽',   tags: ['妖'], hp: 0.88, atk: 0.110, def: 0.38, w: 3, traits: ['fast'] },
+    { name: '元婴散修',   tags: ['人'], hp: 1.02, atk: 0.100, def: 0.62, w: 2, traits: ['shieldStart'] },
+    { name: '古尸',       tags: ['鬼'], hp: 1.12, atk: 0.096, def: 0.55, w: 2, traits: ['physResist', 'regen'] },
+    { name: '妖兽王者',   tags: ['妖'], hp: 1.05, atk: 0.106, def: 0.45, w: 2, traits: ['enrage', 'physResist'] },
+  ],
+  4: [
+    { name: '化神残魂',   tags: ['鬼'], hp: 0.98, atk: 0.108, def: 0.50, w: 3, traits: ['drain', 'caster'] },
+    { name: '上古凶兽',   tags: ['妖'], hp: 1.15, atk: 0.104, def: 0.52, w: 2, traits: ['enrage', 'physResist'] },
+    { name: '魔道巨枭',   tags: ['人', '魔'], hp: 1.02, atk: 0.106, def: 0.58, w: 3, traits: ['caster', 'shieldStart'] },
+    { name: '天外邪物',   tags: ['魔'], hp: 1.08, atk: 0.110, def: 0.46, w: 2, traits: ['poison', 'regen'] },
+    { name: '域外天魔',   tags: ['魔', '鬼'], hp: 1.00, atk: 0.108, def: 0.54, w: 2, traits: ['drain', 'caster'] },
+  ],
+};
+
+/* 妖魔招式（power 相对自身攻击的倍率） */
+const ENEMY_SKILLS = {
+  heavy:   { name: '全力一击', power: 1.55, cd: 3, log: '鼓足气力，狠狠砸下' },
+  cast:    { name: '邪法', power: 1.35, cd: 2, log: '掐诀念咒，祭出一道邪法' },
+  drain:   { name: '吸血', power: 1.10, cd: 3, log: '扑上来撕咬，吸走你的气血', drain: 0.5 },
+  poison:  { name: '毒雾', power: 0.85, cd: 3, log: '喷出一片腥臭毒雾', poison: 0.06 },
+  breath:  { name: '吐息', power: 1.45, cd: 4, log: '张口吐出一道灼热吐息' },
+  wail:    { name: '厉啸', power: 1.20, cd: 4, log: '发出一声穿魂厉啸', mpDamage: 0.15 },
+};
+
+/* ---------------- 冲关 ---------------- */
+const BREAK_INFO = [
+  { title: '引气入体',
+    text: '丹田里那点凉气已经聚成一团。今夜若冲不过去，它就要散了。你关上门窗，在蒲团上坐下。',
+    win: '你睁开眼时，窗纸已经泛白。丹田里那团气不再散了，它沉在深处，缓缓转动。你伸出手，指尖有一缕风。',
+    lose: '气团散了。你吐出一口血，经脉像被火烧过。', pen: 2 },
+  { title: '筑基',
+    text: '灵气如潮，一遍遍拍打丹田。筑基，是把这团气压实成基。压不住，就散了。这一步，寻常人要熬上三十年。',
+    win: '“轰”的一声，灵气压实成基。你听见自己骨头在响。从此寿元二百，凡俗的生死，再管不到你。',
+    lose: '灵气冲关不成，反噬丹田。你在地上躺了三个月，连手指都抬不起来。', pen: 8 },
+  { title: '结丹',
+    text: '灵气在丹田中旋转、压缩，越来越快，像要在你体内结出一颗星。可这颗星一旦结歪，便是终身金丹无望。',
+    win: '那颗星终于凝实，金光内敛。你吐出一口气，洞府外的山雀齐齐惊飞。',
+    lose: '结丹失败，灵气炸开。你的丹田像一只漏了的袋子，修为散了大半。', pen: 25 },
+  { title: '破丹成婴',
+    text: '金丹裂开一道细纹。破丹成婴，九死一生。',
+    win: '金丹碎裂，一个寸许高的婴孩盘坐其中，眉眼与你一模一样。你看着他，他也看着你。',
+    lose: '破丹不成。金丹上多了一道裂纹，你的元婴缩在丹田角落，瑟瑟发抖。', pen: 70 },
+  { title: '化神天劫',
+    text: '天上聚起了劫云。紫色的雷光在云层里翻滚，像一条即将落下的龙。你走出洞府，站在山巅。',
+    win: '最后一道天雷落下时，你没有躲。雷光穿体而过，元婴在雷火中化作一团金光。金光散开，你已站在云层之上。脚下是这片山河，头顶是另一片天地。',
+    lose: '天劫落下，你的元婴几乎被劈散。你从山巅滚落，浑身焦黑，寿元折损了两百六十年。', pen: 260 },
+];
+
+/* =============================================================
+   事件容器
+   ============================================================= */
+const EVENTS = [];
+function ev(o) { EVENTS.push(o); return o; }
+
+/* ---------------- 世界气运：每局随机 ---------------- */
+const WORLD_MOODS = [
+  { id: 'calm',   name: '太平年景', desc: '四方无事，山门清静。', battle: -0.05, cult: 1.06, el: -0.04 },
+  { id: 'tide',   name: '灵潮涌动', desc: '天地灵气充盈，修炼事半功倍。', battle: 0, cult: 1.18, el: 0 },
+  { id: 'chaos',  name: '魔道横行', desc: '黑云压境，处处有杀机。', battle: 0.12, cult: 0.98, el: 0.10 },
+  { id: 'famine', name: '灵材枯竭', desc: '丹药难求，灵石价贵。', battle: 0.04, cult: 0.92, el: 0 },
+  { id: 'star',   name: '星辰移位', desc: '星象紊乱，奇遇与灾祸皆多。', battle: 0.06, cult: 1.10, el: 0.06 },
+];
+
+</script>
+<script>
+/* ---- events.js ---- */
+'use strict';
+/* =============================================================
+   凡人修仙传 · 寿元 —— 事件层
+   选项格式：[文字, 标签(稳/险/机/耗), 执行函数, 可选条件, 耗年数]
+   标签：稳=稳妥, 险=凶险, 机=机巧, 耗=耗费
+   ============================================================= */
+
+/* =============================================================
+   凡人 · 青牛镇（境界 0）
+   ============================================================= */
+ev({ id: 'f1', realm: 0, w: 10, title: '七玄门招徒',
+  text: '青牛镇外的山道上贴出告示：七玄门三年一度收徒，年满十六、身家清白者皆可一试。你挤在人群里，听见有人压低声音说，入了仙门，便再不是凡人了。',
+  opts: [
+    ['抢先上前，跪求仙缘', '险', () => {
+      if (chk(0.62)) { gainPct(0.45); addStones(2); addPills(1); return '你随众童上山，在石阶前跪了半日。执事见你筋骨尚可，记了名字，赐下一瓶粗制辟谷丹。'; }
+      addMood(-8); addStones(1);
+      return '你挤在最前头，被守门的杂役一脚踹下石阶。等爬起来，名册已经收走了，你只捞到一枚赏钱。';
+    }],
+    ['先在一旁观望，摸清门道', '稳', () => {
+      gainPct(0.32); addMood(4);
+      return '你在人群外看了整整一日，把执事问话的路数记了个七七八八。轮到你时，答得滴水不漏，被分去了药圃。';
+    }],
+    ['不凑这个热闹，独自上山砍柴', '机', () => {
+      gainPct(0.22);
+      if (chk(0.45)) {
+        addWits(1); addMood(3); addItem('heal', 1);
+        return '你在后山砍柴，撞见一名重伤倒地的灰衣老者。他攥着你的手腕塞给你半块玉简，说：<span class="em">莫要声张。</span>';
+      }
+      addMood(-3);
+      return '你在后山砍了一天柴，什么也没遇上，只带回一身露水。';
+    }],
+  ],
+});
+
+ev({ id: 'f2', realm: 0, w: 9, title: '神手谷 · 墨大夫',
+  text: '药圃的管事姓墨，面色青白，常年咳血。他看你的眼神，像在打量一味药材。这日他唤你入谷，说有一桩机缘，也有几分凶险。',
+  opts: [
+    ['应下差事，替他试药', '险', () => {
+      if (chk(0.5)) {
+        gainPct(0.55); addMood(-4); learnTech('changchun');
+        return '药汁入喉，五脏如焚。墨大夫盯着你的脸看了许久，忽然笑了：“好，好。”他破例传了你半篇<span class="em">长春功</span>。';
+      }
+      shortenLife(4); addMood(-10);
+      return '你喝完药便昏死过去，醒来时已躺在柴房。墨大夫说，你命大。';
+    }],
+    ['婉言推脱，只求安稳', '稳', () => {
+      gainPct(0.2); addMood(3);
+      return '你低头说资质愚钝，怕误了大人的事。墨大夫盯了你一会儿，摆手让你走了。';
+    }],
+    ['暗中查他的底细', '机', () => {
+      if (chk(0.45)) {
+        addWits(1); gainPct(0.3);
+        if (!hasTech('changchun')) learnTech('changchun');
+        return '你夜里翻了他的药柜，发现底下压着半本《长春功》残卷。你默记于心，又原样放回。';
+      }
+      addMood(-6); shortenLife(2);
+      return '你什么也没查到，反倒被墨大夫撞见，挨了一顿训斥，在柴房里关了三天。';
+    }],
+  ], when: () => !hasTech('changchun'),
+});
+
+ev({ id: 'f3', realm: 0, w: 8, title: '柴房门前',
+  text: '外门弟子王大力堵在柴房门口，要你把这个月的灵石份例交出来。他身后还站着两个帮闲，抱着胳膊看你。',
+  opts: [
+    ['忍气吞声，破财消灾', '稳', () => {
+      addStones(-2); addMood(-4);
+      return '你把两枚灵石放在他手心。王大力掂了掂，笑着走了。你站在原地，手心全是汗。';
+    }],
+    ['抄起柴刀，与他拼命', '险', () => {
+      if (chk(0.42)) {
+        gainPct(0.42); addMood(6); addWits(1);
+        return '柴刀劈在门框上，木屑四溅。王大力没料到你真敢动手，退了两步，骂骂咧咧地走了。';
+      }
+      shortenLife(3); addMood(-8); loseHp(0.35);
+      return '你被三个人按在泥里打了一顿，肋骨断了两根。';
+    }],
+    ['假意服软，夜里告到执事那里', '机', () => {
+      if (chk(0.55)) {
+        addStones(4); addMood(3);
+        return '执事罚了王大力三个月的份例，其中一半赔给了你。';
+      }
+      addMood(-6); addStones(-1);
+      return '执事懒得管这些腌臜事，反倒嫌你多事，扣了你一个月的份例。';
+    }],
+  ],
+});
+
+ev({ id: 'f4', realm: 0, w: 8, title: '后山石隙',
+  text: '你追一只野兔，误入后山一处石隙。隙底有泉水汩汩，水汽扑在脸上，竟带着一丝说不清的凉意——那是灵气。',
+  opts: [
+    ['每日来此吐纳', '稳', () => {
+      gainPct(0.5);
+      return '你把这里当成了自己的秘密。每日天不亮便来，坐到日上三竿。三个月后，你第一次感觉到丹田里有一粒黄豆大的气团。';
+    }],
+    ['取水回屋，慢慢琢磨', '稳', () => {
+      gainPct(0.26); addPills(1);
+      return '你用竹筒装了一筒泉水，夜里对着月光看，什么也看不出来。倒是那水放了三日不腐。';
+    }],
+    ['报与宗门，换取赏赐', '机', () => {
+      addStones(6); gainPct(0.08); addMood(-4);
+      return '执事带人封了石隙，赏了你六枚灵石。后来你听说，那处泉眼被一位师叔占了。';
+    }],
+  ],
+});
+
+ev({ id: 'f5', realm: 0, w: 8, title: '独眼山君',
+  text: '采药归途，一头吊睛白额的独眼山君拦住去路。它已开了灵智，腥气扑面，开口问你：想做它的口粮，还是替它寻一味药？',
+  opts: [
+    ['替它寻药，换一条命', '险', () => {
+      if (chk(0.48)) {
+        gainPct(0.4); addStones(3); addItem('heal', 1);
+        return '你连夜翻过两座山头，采回一株它要的紫叶草。山君嗅了嗅，让开了路，还丢给你三枚灵石。';
+      }
+      shortenLife(6); loseHp(0.3);
+      return '你没能找到那味药。山君一掌拍在你肩上，你滚下山坡，昏了三天。';
+    }],
+    ['拔腿就跑', '险', () => {
+      if (chk(0.4)) {
+        gainPct(0.2); return '你钻进了林子，身后传来一声震耳欲聋的咆哮。你跑了整整一个时辰，才敢停下喘气。';
+      }
+      shortenLife(5); addMood(-6); loseHp(0.25);
+      return '你跑出没几步就被扑倒，若不是滚进一道石缝，这条命就交代了。';
+    }],
+    ['跪地求饶，献上干粮', '稳', () => {
+      addMood(-6);
+      return '你把干粮袋双手奉上。山君闻了闻，似乎觉得无趣，转身走了。你在原地跪了很久。';
+    }],
+  ],
+});
+
+ev({ id: 'f6', realm: 0, w: 7, title: '溪边绿瓶',
+  text: '你在溪边捡到一只拇指大的绿瓶，瓶身斑驳，看不出材质。夜里，瓶口竟凝出一滴晶莹的露水，落在枯草上，枯草转瞬抽芽。',
+  opts: [
+    ['把露水滴在药圃的药草上', '机', () => {
+      S.bottle = true; gainPct(0.35);
+      return '第二日，那几株药草长得比人还高。你心跳如鼓，把绿瓶贴身藏好——这件事，谁也不能知道。';
+    }],
+    ['拿去镇上当铺换钱', '稳', () => {
+      addStones(9); addMood(2);
+      return '当铺掌柜翻来覆去看了半晌，给了你九枚灵石。你走出门时，忽然有些后悔。';
+    }],
+    ['谁都不告诉，贴身藏好', '稳', () => {
+      S.bottle = true; addMood(5); gainPct(0.15);
+      return '你把绿瓶缝进贴身的内衬。它凉凉的，像一块永远不会暖起来的玉。';
+    }],
+  ], when: () => !S.bottle,
+});
+
+ev({ id: 'f7', realm: 0, w: 7, title: '镇上药铺',
+  text: '每逢初五，镇上药铺收药材。你背着晒干的草药下山，掌柜的秤杆压得极低。',
+  opts: [
+    ['与他理论', '险', () => {
+      if (chk(0.45)) { addStones(5); return '你把秤杆一提，围观的人都看了过来。掌柜怕影响生意，按实价收了你的药。'; }
+      addMood(-5); addStones(1);
+      return '掌柜叫来两个伙计，把你的药倒在地上。你蹲着一株一株捡回来。';
+    }],
+    ['忍了，换些米面', '稳', () => {
+      addStones(2); addMood(2);
+      return '你换了半袋米、一小罐盐。回山的路上，你觉得这大概就是凡人的日子。';
+    }],
+    ['取出一株品相最好的药材', '机', () => {
+      if (S.bottle) {
+        addStones(12); addMood(-3);
+        return '那株灵药一拿出来，掌柜的眼睛就直了。他压低声音问：“还有吗？”你摇头，心里却记下了这个价。';
+      }
+      addStones(3);
+      return '你拿不出什么稀罕东西，掌柜的秤杆依旧压得很低。';
+    }],
+  ],
+});
+
+ev({ id: 'f8', realm: 0, w: 7, title: '山道上的瞎眼老头',
+  text: '山道旁有个摆摊算命的瞎眼老头，收了你的铜钱，忽然抓住你的手：“你身上有灵气。”他塞给你一册残破的《长春功》。',
+  opts: [
+    ['拜他为师', '稳', () => {
+      gainPct(0.35); addWits(1);
+      if (!hasTech('changchun')) learnTech('changchun');
+      return '老头不教你法术，只教你怎样呼吸。他说：“气是活的，你要顺着它，别拽它。”';
+    }],
+    ['只当是骗子，转身就走', '稳', () => {
+      addMood(2); gainPct(0.08);
+      return '你走出很远，回头看了一眼。老头还坐在那里，竹竿上挂着的幌子在风里晃。';
+    }],
+    ['请他喝酒，套问来历', '机', () => {
+      addStones(-1);
+      if (chk(0.5)) {
+        gainPct(0.6); addWits(1);
+        return '三碗酒下肚，老头说了很多。原来他年轻时也是七玄门的弟子，后来散了功，瞎了眼，下了山。';
+      }
+      gainPct(0.15);
+      return '老头只顾喝酒，什么也不肯说。';
+    }],
+  ],
+});
+
+ev({ id: 'f9', realm: 0, w: 7, title: '山下疫病',
+  text: '山下村子起了疫病，丹房缺人手得很。执事说，去的人记一功，也可能把命搭进去。',
+  opts: [
+    ['自请前往', '险', () => {
+      if (chk(0.55)) {
+        addStones(5); addMood(8); gainPct(0.3); addItem('calm', 1);
+        return '你在疫区待了两个月，熬药、埋人、安抚哭闹的孩子。回山那日，村里人跪了一地。';
+      }
+      shortenLife(4); loseHp(0.35);
+      return '你也染上了病，烧了七日七夜。命是捡回来了，身子却亏了。';
+    }],
+    ['留在山中修炼', '稳', () => {
+      gainPct(0.3);
+      return '山下的哭声隐约传上来。你闭上眼，把心思收回丹田。';
+    }],
+    ['偷偷把宗门的丹药拿去卖', '险', () => {
+      if (chk(0.28)) {
+        addStones(10); addMood(-12); shortenLife(3);
+        return '钱是到手了，可你总觉得背后有人在看你。夜里开始睡不着。';
+      }
+      addStones(10); addMood(-10);
+      return '你换了十枚灵石。那天夜里，山下的哭声格外响。';
+    }],
+  ],
+});
+
+ev({ id: 'f10', realm: 0, w: 7, title: '一线凉气',
+  text: '这日夜里，你打坐至三更，忽觉丹田一热，似有一线凉气自尾椎直冲天灵。窗外的月亮，好像比往常亮了些。',
+  opts: [
+    ['趁热打铁，彻夜冲关', '险', () => {
+      if (chk(0.5)) {
+        gainPct(0.65);
+        return '凉气冲上百会，又落回丹田，转了一圈。你睁开眼，天已经亮了，浑身上下像被水洗过。';
+      }
+      addMood(-6); shortenLife(2); loseHp(0.2);
+      return '凉气冲到一半便散了。你吐出一口血，眼前发黑。';
+    }],
+    ['稳住心神，缓缓引导', '稳', () => {
+      gainPct(0.4); addMood(3);
+      return '你不敢快，只一寸一寸地引。天亮时，丹田里多了一粒温热的东西。';
+    }],
+    ['停下来，去请教执事', '机', () => {
+      gainPct(0.2); addWits(1);
+      return '执事听完，脸色变了变，只说了四个字：“莫要外传。”';
+    }],
+  ],
+});
+
+ev({ id: 'f11', realm: 0, w: 6, title: '剑冢残碑',
+  text: '你在后山塌陷的半座剑冢里，看见一块断碑。碑上刻着半篇剑诀，字迹被雨水磨得快看不清了。碑前还插着几柄生锈的剑。',
+  opts: [
+    ['就着月光抄下剑诀', '稳', () => {
+      addWits(1); gainPct(0.3);
+      if (!hasTech('lingjian')) { learnTech('lingjian'); return '你抄到天明，指节都僵了。这半篇<span class="em">灵剑诀</span>虽残缺，起手式却完整。'; }
+      return '你抄到天明，发现与你所修剑诀大同小异，只是多了两处印证。';
+    }],
+    ['拔出那几柄锈剑', '险', () => {
+      if (chk(0.45)) { addArtifact('青元剑'); gainPct(0.2); return '其中一柄剑锈落之后，剑身竟泛着青光。你握住它时，剑柄是热的。'; }
+      loseHp(0.3); shortenLife(2);
+      return '剑冢下的禁制还没散尽。你被震得倒飞出去，锈剑碎成了一把铁屑。';
+    }],
+    ['在碑前拜了三拜就走', '机', () => {
+      addMood(6); gainPct(0.18);
+      return '你恭恭敬敬磕了三个头。起身时，风把碑上的尘土吹散了些，露出两个字：青元。';
+    }],
+  ], when: () => !hasTech('lingjian'),
+});
+
+ev({ id: 'f12', realm: 0, w: 6, title: '猎户之子',
+  text: '你在山里遇到一个猎户的儿子，他爹被妖兽拖走了，他一个人守着一间破屋，靠剥兽皮过活。他问你：仙人也怕死吗？',
+  opts: [
+    ['教他几手吐纳', '机', () => {
+      addMood(8); addWits(1); gainPct(0.2);
+      return '你把最粗浅的呼吸法教了他。他学得极慢，却很认真。临走时，他把一张最好的狼皮塞给你。';
+    }],
+    ['给他一枚灵石，让他下山', '耗', () => {
+      addStones(-1); addMood(5); addStones(6);
+      return '他捧着灵石，眼睛亮得吓人。后来你听说，他下山当了学徒，活得还不错。';
+    }],
+    ['不作停留，继续赶路', '稳', () => {
+      gainPct(0.25); addMood(-4);
+      return '你没有回答。走出很远，那句话还在你耳朵里打转。';
+    }],
+  ],
+});
+
+ev({ id: 'f13', realm: 0, w: 6, title: '荒庙夜雨',
+  text: '夜雨突至，你躲进一座荒庙。庙里供着的不知是哪路神像，脸已经塌了半边。火堆旁还坐着个赶考的书生。',
+  opts: [
+    ['与书生围火夜谈', '稳', () => {
+      addMood(7); addWits(1); gainPct(0.15);
+      return '书生讲了一夜功名，你讲了一夜长生。天亮时雨停了，你们各走各路，谁也没说服谁。';
+    }],
+    ['搜神像底下的暗格', '险', () => {
+      if (chk(0.5)) { addStones(8); return '神像底座果然是空的，里面藏着一小袋碎灵石，不知是哪年香客所留。'; }
+      loseHp(0.2); addMood(-5);
+      return '暗格里只有一窝老鼠。你被咬了一口，半夜开始发热。';
+    }],
+    ['打坐一夜，天明就走', '稳', () => {
+      gainPct(0.3);
+      return '雨声里打坐，心反而格外静。天亮时，雨停了，你的丹田也满了一分。';
+    }],
+  ],
+});
+
+ev({ id: 'f14', realm: 0, w: 5, title: '采药队的规矩',
+  text: '采药队进山，领队说：遇上妖兽，跑得快的有命，跑得慢的就是药引。众人都笑，只有你知道他不是在说笑。',
+  opts: [
+    ['跟着队伍，寸步不离', '稳', () => {
+      addStones(3); gainPct(0.22);
+      return '你采了满满一篓药，一路没遇上什么凶险。分药时，领队多给了你半份。';
+    }],
+    ['独自往深处去', '险', () => {
+      if (chk(0.42)) { addStones(11); addItem('heal', 1); gainPct(0.35); return '深处药好，也险。你采到两株百年黄精，还躲过一头正在休眠的妖兽。'; }
+      loseHp(0.35); shortenLife(3);
+      return '你惊动了一头妖兽，扔下药篓就跑。回到山门时，身上只剩一件破单衣。';
+    }],
+    ['与领队套近乎，多分些', '机', () => {
+      addStones(5); addMood(-2);
+      return '你替领队扛了一路药篓，说了许多好听的话。分药时，你多拿了一份。';
+    }],
+  ],
+});
+
+/* ---------------- 境界 0 · 日常 ---------------- */
+ev({ id: 'r0', realm: 0, repeat: true, w: 2, title: '山中岁月',
+  texts: [
+    '日头从东边升起来，又落到西山后面。砍柴、挑水、打坐，日子像山涧里的水，一天一天流过去。',
+    '山上的雪化了。你数着石壁上的刻痕，才发现又过了几年。',
+    '这一年的春天来得特别晚。你坐在门槛上，看院子里的草一点点绿起来。',
+  ],
+  opts: [
+    ['苦修不辍', '稳', () => { gainPct(0.4); return '你把每一天都过成了同一天。丹田里的气团，慢慢从黄豆大变成了鸽卵大。'; }, null, 2],
+    ['帮工换些灵石', '稳', () => { addStones(2); gainPct(0.12); return '你替丹房劈了三个月的柴，换来两枚灵石。'; }, null, 2],
+    ['下山闲逛', '稳', () => { addMood(6); gainPct(0.08); return '你在镇上吃了一碗热汤面，看了一场庙会。修仙的事，暂时被忘在脑后。'; }],
+  ],
+});
+
+/* =============================================================
+   炼气期（境界 1）
+   ============================================================= */
+ev({ id: 'l1', realm: 1, w: 8, title: '太南小会',
+  text: '太南谷的坊市十年一开。修士们以灵石换丹药、换法器，也有人蹲在角落里卖来路不明的东西。你听见有人叫卖：“筑基丹的方子，只要六枚灵石。”',
+  opts: [
+    ['买下那张方子', '险', () => {
+      if (S.stones < 6) { addMood(-3); return '你摸遍全身，凑不出六枚灵石。那人嗤笑一声，把方子收了回去。'; }
+      addStones(-6);
+      if (chk(0.4)) { addPills(2); addMood(2); return '方子是真的，只是缺了三味主药。你照着上面的法子，居然炼出两枚聚气丹。'; }
+      addMood(-6); shortenLife(2);
+      return '你回去照方抓药，炼出一炉黑渣。方子是假的，还白搭了两年工夫。';
+    }],
+    ['只买一瓶聚气丹', '耗', () => {
+      if (S.stones < 4) { addMood(-3); return '你数了又数，只有三枚灵石。摊主把丹药收了回去。'; }
+      addStones(-4); addPills(1);
+      return '瓷瓶入手微温，丹香清苦。你把它贴身收好，没舍得立刻吃。';
+    }],
+    ['蹲在角落听人讲价', '机', () => {
+      gainPct(0.18); addWits(1);
+      return '你听了一整日，学会了怎么从一个人的袖口、鞋底和说话口气里，看出他有多少灵石。';
+    }],
+  ],
+});
+
+ev({ id: 'l2', realm: 1, w: 8, title: '地火炉',
+  text: '丹房的老道借你一座地火炉，说炼废了算你的，炼成了分他一半。',
+  opts: [
+    ['接下这活', '险', () => {
+      if (chk(0.52)) { addPills(2); gainPct(0.25); return '第七日开炉，丹香满室。老道捏起一粒看了看，点点头，分走了一半。'; }
+      shortenLife(3); addMood(-5); loseHp(0.25);
+      return '炉子炸了。你半边眉毛被燎没了，还赔了老道一炉药材。';
+    }],
+    ['只在一旁看他炼丹', '稳', () => {
+      gainPct(0.15); addWits(1);
+      return '你看了整整一个月，记住了他下料的次序和火候的收放。有些东西，书上是没有的。';
+    }],
+    ['夜里偷开炉', '险', () => {
+      if (chk(0.38)) { addPills(3); gainPct(0.2); return '你炼到天明，出了三枚成色不错的丹药。老道什么也没发现。'; }
+      shortenLife(6); addMood(-6); loseHp(0.4);
+      return '地火失控，你被气浪掀翻在地，养了半年才缓过来。';
+    }],
+  ],
+});
+
+ev({ id: 'l3', realm: 1, w: 8, title: '黑风岭悬赏',
+  text: '宗门悬赏：黑风岭有一头一阶后期的赤牙野猪，取其内丹者赏灵石三十。',
+  opts: [
+    ['独自猎杀', '险', () => {
+      if (chk(0.45)) { addStones(10); gainPct(0.3); return '你在它饮水时出手，一剑刺穿咽喉。野猪临死反扑，獠牙擦着你的肋下过去，带走一片皮肉。'; }
+      shortenLife(7); loseHp(0.45);
+      return '你低估了一阶后期妖兽的皮糙肉厚。被撞飞出去十几丈，内丹没取到，命差点丢了。';
+    }],
+    ['与人结伴', '稳', () => {
+      if (chk(0.72)) { addStones(5); gainPct(0.16); return '你们三人围猎，野猪死在乱剑之下。内丹归了带头的师兄，你分到五枚灵石。'; }
+      shortenLife(3); loseHp(0.25);
+      return '野猪冲破包围，同伴四散。你被撞伤了腿，躺了一个月。';
+    }],
+    ['放弃悬赏，去采药', '稳', () => {
+      addStones(3); gainPct(0.22);
+      return '你绕开黑风岭，在山阴采了半篓草药。回去的路上，听见岭上传来一声惨叫。';
+    }],
+  ],
+});
+
+ev({ id: 'l4', realm: 1, w: 8, title: '演武台',
+  text: '内门弟子赵元朗当众讥你“泥腿子出身，也配修仙”，约你三日后演武台见。周围的人都看着你。',
+  opts: [
+    ['应战', '险', () => {
+      if (chk(0.42)) { addMood(10); gainPct(0.28); addStones(4); return '三招之内，你把他打落台下。赵元朗爬起来时，脸比衣裳还白。'; }
+      shortenLife(5); addMood(-8); loseHp(0.5);
+      return '你被他一记火球术烧穿了肩头，在台上躺了很久才爬起来。';
+    }],
+    ['当众认输', '稳', () => {
+      addMood(-8); gainPct(0.12);
+      return '你说了声“我输了”，转身走下台。身后的哄笑声跟了你很久。';
+    }],
+    ['夜里在他的丹炉上动手脚', '险', () => {
+      if (chk(0.45)) { addMood(-5); addStones(6); return '赵元朗炸了炉，闭关三月。没人查到你头上，可你从此睡得不太安稳。'; }
+      addMood(-18); addStones(-5); shortenLife(4);
+      return '事情败露，你被罚跪在祖师堂前七日七夜。';
+    }],
+  ],
+});
+
+ev({ id: 'l5', realm: 1, w: 7, title: '乱石岗',
+  text: '有人在乱石岗发现一条废矿脉，尚有零星灵石。消息传开，夜里便有人偷偷去挖。',
+  opts: [
+    ['连夜去挖', '险', () => {
+      if (chk(0.5)) { addStones(15); return '你挖了三个夜晚，攒下十五枚灵石。第四夜，矿洞塌了，压死了两个人。'; }
+      shortenLife(4); addStones(2); loseHp(0.3);
+      return '你被落石砸伤了背，只刨出两枚碎灵石。';
+    }],
+    ['白天去，捡别人剩下的', '稳', () => {
+      addStones(4); gainPct(0.1);
+      return '白天矿洞里空无一人。你捡了四枚别人看不上的碎灵石，倒也不亏。';
+    }],
+    ['不去，专心修炼', '稳', () => {
+      gainPct(0.3);
+      return '夜里山那边传来叮叮当当的凿石声。你闭着眼，一遍一遍地运转功法。';
+    }],
+  ],
+});
+
+ev({ id: 'l6', realm: 1, w: 7, title: '湿透的孩子',
+  text: '打坐时，你看见一个浑身湿透的孩子站在床前——那是你小时候没能救起的玩伴。他问你：你为什么不伸手？',
+  opts: [
+    ['直面他，把话说完', '险', () => {
+      if (chk(0.5)) { addMood(10); gainPct(0.3); return '你在心里对他说了很久的话。说到最后，那孩子笑了一下，像水汽一样散了。'; }
+      addMood(-15); shortenLife(3);
+      return '你一句话也说不出来。他扑上来，掐住你的脖子。你惊醒时，枕头全是冷汗。';
+    }],
+    ['默念清心诀，强行压下', '稳', () => {
+      addMood(-3); gainPct(0.18);
+      return '口诀念到第九遍，幻象散了。你知道它还会回来。';
+    }],
+    ['收功起身，去山下喝酒', '稳', () => {
+      addMood(6); gainPct(0.06);
+      return '你喝到天亮，醉得走不动路。有些事，想不起来也挺好。';
+    }],
+  ],
+});
+
+ev({ id: 'l7', realm: 1, w: 7, title: '姓孙的散修',
+  text: '一名姓孙的散修找到你，说他发现了一处前人洞府，缺个帮手，事成之后五五分。',
+  opts: [
+    ['同去', '险', () => {
+      if (chk(0.5)) { addStones(12); addPills(1); gainPct(0.35); return '洞府里只剩些残破法器，你们分了。临走时，孙姓散修回头看了一眼，眼神有些可惜。'; }
+      shortenLife(6); addStones(-2); loseHp(0.4);
+      return '洞府里有一道没破干净的禁制。你替他挡了一下，险些把命留在那里。';
+    }],
+    ['婉拒', '稳', () => {
+      gainPct(0.16);
+      return '你说自己修为浅薄，怕拖累他。他笑笑，独自走了。';
+    }],
+    ['假意答应，暗中准备黑吃黑', '险', () => {
+      if (chk(0.32)) { addStones(25); addPills(2); addMood(-8); return '你在洞里先动的手。孙姓散修倒下时，眼睛还睁着。你把东西收进储物袋，没有回头。'; }
+      shortenLife(9); addMood(-10); loseHp(0.5);
+      return '他早有防备。你被反制在地，丢了两枚灵石，还被废了一只手的经脉。';
+    }],
+  ],
+});
+
+ev({ id: 'l8', realm: 1, w: 6, title: '黑袍修士',
+  text: '一个穿黑袍的修士在坊市外拦住你，说你的根骨适合修他的功法，只需一滴精血。',
+  opts: [
+    ['断然拒绝', '稳', () => { addMood(3); gainPct(0.15); return '你绕开他走了。走出很远，还觉得后颈发凉。'; }],
+    ['与他交易', '险', () => {
+      if (chk(0.42)) { gainPct(0.55); addMood(-12); return '一滴精血换来一篇残诀。你照着练了三日，修为涨得飞快，夜里却开始做同一个梦。'; }
+      shortenLife(8); addMood(-8); loseHp(0.35);
+      return '他取走的不止一滴。你昏了两天，醒来时丹田空了一半。';
+    }],
+    ['假意应允，套出功法', '机', () => {
+      if (chk(0.55)) { addWits(1); gainPct(0.3); return '你与他周旋了半个月，套出大半篇口诀，趁夜远遁。'; }
+      shortenLife(5); loseHp(0.3);
+      return '他看出你在拖延，一巴掌把你拍进墙里。';
+    }],
+  ],
+});
+
+ev({ id: 'l9', realm: 1, w: 7, title: '筑基丹的消息',
+  text: '宗门传来消息：三年后开炉炼制筑基丹，凡炼气后期弟子皆可求一粒。你的修为，恰好卡在这道门槛上。',
+  opts: [
+    ['闭关苦修，务求圆满', '稳', () => { gainPct(0.4); addMood(-4); return '你把洞府的门封死，只留一个送饭的小孔。三年后出关，须发长了半尺。'; }],
+    ['下山历练，以战养修', '险', () => {
+      if (chk(0.5)) { gainPct(0.5); addStones(6); return '你在凡俗江湖里走了三年，杀过马贼，也救过镖队。回来时，剑上有了一层洗不掉的血色。'; }
+      shortenLife(6); loseHp(0.4);
+      return '你在外头惹了不该惹的人，被人追杀了半年，能活着回来已是万幸。';
+    }],
+    ['为丹房跑腿换功勋', '稳', () => { addStones(5); addPills(1); gainPct(0.2); return '你替丹房跑了三年腿，认得了每一味药，也认得了每一个管事的脾气。'; }],
+  ],
+});
+
+ev({ id: 'l10', realm: 1, w: 6, title: '夜半钟声',
+  text: '子夜，后山藏经阁的钟自己响了。你循声而去，看见阁楼顶层亮着一盏灯。',
+  opts: [
+    ['推门进去', '险', () => {
+      if (chk(0.45)) { addWits(2); gainPct(0.35); if (!hasTech('dayan')) learnTech('dayan'); return '顶层只有一个落满灰尘的蒲团，和一本没有封皮的手札。你在里面坐了一夜，出来时天已经大亮。'; }
+      addMood(-10); shortenLife(3); loseHp(0.3);
+      return '你刚推开门，就被一道禁制弹了出去，在台阶上滚了十几级。';
+    }],
+    ['在门外磕三个头就走', '稳', () => { addMood(5); gainPct(0.12); return '你磕了三个头，转身下山。身后那盏灯，好像灭了一下。'; }],
+    ['回去叫上同门一起', '稳', () => { addStones(2); gainPct(0.16); return '你们七八个人举着火把上去，什么也没有。倒是守阁的老头，第二天多看了你两眼。'; }],
+  ],
+});
+
+ev({ id: 'l11', realm: 1, w: 6, title: '雨巷里的老乞丐',
+  text: '坊市后巷，一个浑身湿透的老乞丐拦住你，说他有一门保命的步法，只要你肯背他走过这条巷子。',
+  opts: [
+    ['背他过去', '稳', () => {
+      addMood(5); gainPct(0.15);
+      if (!hasTech('luoyan')) { learnTech('luoyan'); return '你背他走过长巷。他在你耳边念了一路口诀，最后拍拍你的肩：“<span class="em">罗烟步</span>，记住了。”'; }
+      return '你背他走过长巷。他念的口诀与你所学的身法可以互相印证。';
+    }],
+    ['给他几枚灵石，让他自己走', '耗', () => {
+      if (S.stones < 3) { addMood(-2); return '你身上连三枚灵石都摸不出来。老乞丐摇摇头，自己走了。'; }
+      addStones(-3); addMood(4);
+      return '他收下灵石，冲你笑了笑，一步一晃地走进雨里。';
+    }],
+    ['不理他，径直离开', '稳', () => { gainPct(0.2); addMood(-3); return '你从他身边绕过去。走出巷口回头时，那里已经没有人了。'; }],
+  ], when: () => !hasTech('luoyan'),
+});
+
+ev({ id: 'l12', realm: 1, w: 6, title: '灵虫谷',
+  text: '你在山谷里发现一个巨大的蜂巢状虫穴。灵虫纷飞，蜜露垂滴。谷口坐着一具白骨，腿上还压着一只断了的玉篓。',
+  opts: [
+    ['取玉篓，收灵虫', '险', () => {
+      if (chk(0.45)) { gainPct(0.3); addItem('mana', 2); if (!hasTech('yuling')) learnTech('yuling'); return '你被灵虫追了半个山头，终于用玉篓扣住几只。白骨上的玉简里，记着粗浅的御灵之术。'; }
+      loseHp(0.45); shortenLife(4);
+      return '灵虫铺天盖地地扑上来。你滚下山坡，身上肿得像发面馒头。';
+    }],
+    ['只在谷口取些蜜露', '稳', () => { addItem('mana', 1); addItem('calm', 1); gainPct(0.12); return '你小心地取了一小瓶蜜露。灵虫绕着你的手飞了两圈，没伤人。'; }],
+    ['远远绕开', '稳', () => { gainPct(0.18); return '你从山脊那边绕了过去。回望虫谷，嗡嗡声像一层薄雾。'; }],
+  ],
+});
+
+ev({ id: 'l13', realm: 1, w: 6, title: '落霞岛坊市',
+  text: '落霞岛的坊市一个月三开。今日正好赶上，人潮从码头一直排到山门。',
+  opts: [
+    ['摆个摊，卖些草药', '稳', () => { addStones(7); gainPct(0.1); return '你把攒了半年的草药铺在地上。倒有识货的，很快卖完，比卖给宗门划算。'; }],
+    ['去拍卖会看看', '机', () => {
+      if (chk(0.5)) { addArtifact(randomArt()); addStones(-5); return '你身上灵石不多，却在一堆破烂里认出一件不错的东西。咬咬牙买下，赌对了。'; }
+      addStones(-3); addMood(-3);
+      return '你举了两次牌就被人看穿底细，最后什么也没拍到，还搭了三枚入场灵石。';
+    }],
+    ['打听功法下落', '机', () => {
+      addWits(1); gainPct(0.16);
+      return '你在茶楼里坐了一日，听人说东边石林里有一座废弃的道观，观里的人早死绝了，经书却还在。';
+    }],
+  ],
+});
+
+ev({ id: 'l14', realm: 1, w: 6, title: '断魂涧',
+  text: '断魂涧下有一条窄道，据说走通的人能得到一枚上古修士留下的令牌。窄道两边是万丈深涧，中间只有一道铁索。',
+  opts: [
+    ['走铁索过去', '险', () => {
+      if (chk(0.4)) { addArtifact('玄铁令牌'); addStones(12); gainPct(0.2); return '铁索晃得厉害。你走到对岸，洞里果真有半枚令牌，还有前人留下的一捧灵石。'; }
+      loseHp(0.5); shortenLife(6);
+      return '走到一半，铁索上结了冰。你摔了下去，抓住一根枯藤才没进涧底。';
+    }],
+    ['绕远路', '稳', () => { gainPct(0.2); shortenLife(2); return '你绕了半个月的山路。到对岸时，洞门已经塌了，只捡到几枚碎灵石。'; }],
+    ['就在涧口打坐', '稳', () => { gainPct(0.3); return '涧中水汽极足，灵气也足。你坐了一个月，修为涨得比洞里可能给的更踏实。'; }],
+  ],
+});
+
+ev({ id: 'l15', realm: 1, w: 5, title: '旧书铺',
+  text: '镇尾有一间旧书铺，掌柜是个半瞎的老妇。她说经史子集都卖，也卖些“不该卖的”。',
+  opts: [
+    ['淘一本修行杂记', '耗', () => {
+      if (S.stones < 4) { addMood(-2); return '你摸了摸袖中的灵石，退了出来。'; }
+      addStones(-4);
+      const t = randomTech(1);
+      if (t) { learnTech(t.id); addWits(1); return '你翻到一本封皮都烂了的杂记。里面记着一门残功，名为《' + t.name + '》，居然看得懂。'; }
+      gainPct(0.2);
+      return '你翻了半天，只找到几本讲炼丹火候的旧册子，倒也有用。';
+    }],
+    ['替老妇修屋顶', '机', () => { addMood(8); addStones(5); gainPct(0.1); return '你爬上屋顶补了三天瓦。老妇塞给你一包碎灵石，说是儿子留下的。'; }],
+    ['只买纸笔', '稳', () => { addStones(-1); addWits(1); return '你买了些纸笔，打算把这些年所见所闻都记下来。'; }],
+  ],
+});
+
+ev({ id: 'l16', realm: 1, w: 5, title: '同门的邀约',
+  text: '同门李二狗邀你去探一处水下洞穴，说里面有条蛟龙的蜕皮，值不少灵石。',
+  opts: [
+    ['同去', '险', () => {
+      if (chk(0.48)) { addStones(14); addArtifact('赤蛟鳞'); return '洞在水下三丈。你们摸进去，果然有一片巨大的蛟蜕。上来时，两人的气都憋到了极限。'; }
+      loseHp(0.4); shortenLife(5);
+      return '洞里没有蛟蜕，只有一团浑浊的水草和一条睡着的蟒。你们连滚带爬逃出来。';
+    }],
+    ['只在水面接应', '稳', () => { addStones(5); gainPct(0.12); return '你在船上守了两天。李二狗上来时脸都青了，把一半东西分给了你。'; }],
+    ['劝他别去', '稳', () => { addMood(6); gainPct(0.2); return '你说这买卖太险。他犹豫了半天，最后没去。半年后，那处洞穴塌了。'; }],
+  ],
+});
+
+/* ---------------- 境界 1 · 日常 ---------------- */
+ev({ id: 'r1', realm: 1, repeat: true, w: 2, title: '洞府外的雪',
+  texts: [
+    '洞府外落了三场雪。你从入定中醒来，觉得丹田里的灵气又厚了一分。',
+    '又是几年。石壁上的刻痕已经数不清了，只有丹田里的气旋一年比一年沉。',
+    '春去秋来，山门的钟声照旧。你忽然想起，自己已经很久没和人说过话了。',
+  ],
+  opts: [
+    ['继续闭关', '稳', () => { gainPct(0.34); return '你重新闭上眼。雪化了又下，下了又化，你只当没看见。'; }, null, 4],
+    ['出关走走', '稳', () => { addMood(8); gainPct(0.12); return '你在山道上走了走，看见一株野桃开了花。原来已经春天了。'; }],
+    ['强行冲关', '险', () => {
+      if (chk(0.5)) { gainPct(0.5); return '你运功过猛，经脉胀痛，修为却也涨了一截。'; }
+      shortenLife(6); addMood(-6); loseHp(0.3);
+      return '气走岔了道。你吐出一口血，在床上躺了半个月。';
+    }, null, 3],
+  ],
+});
+
+/* =============================================================
+   筑基期（境界 2）
+   ============================================================= */
+ev({ id: 'z1', realm: 2, w: 8, title: '血色禁地',
+  text: '宗门开启血色禁地，筑基弟子入内采药，生死各安天命。禁地里有百年灵药，也有别派修士的刀。',
+  opts: [
+    ['深入核心', '险', () => {
+      if (chk(0.42)) { addPills(3); addStones(20); gainPct(0.35); return '你在核心地带找到一株三百年的紫猴花，又顺手摸了两个死人身上的储物袋。出来时，你身上有别人的血。'; }
+      shortenLife(18); loseHp(0.5);
+      return '核心地带的禁制比你想象的多。你被困在一处幻阵里整整九日，出来时人瘦了一圈。';
+    }],
+    ['在外围采药', '稳', () => { addStones(8); gainPct(0.18); return '你在外围采了满满一篓灵草，没碰上一个活人。这已经是很不错的收成。'; }],
+    ['守在入口，抢落单的人', '险', () => {
+      if (chk(0.45)) { addStones(15); addMood(-5); return '你截住一个落单的散修。他丢下储物袋就跑，跑得比兔子还快。'; }
+      addMood(-15); shortenLife(10); loseHp(0.45);
+      return '你挑错了人。对方是筑基后期的老手，你被一剑穿肩，储物袋也丢了。';
+    }],
+  ],
+});
+
+ev({ id: 'z2', realm: 2, w: 7, title: '白衣女子',
+  text: '禁地深处，一名白衣女子被三名魔修围攻，剑光已乱。你认得她腰间的掩月宗令牌。',
+  opts: [
+    ['出手相救', '险', () => {
+      if (chk(0.45)) {
+        addMood(12); gainPct(0.3); addArtifact('白玉簪');
+        return '你从背后出手，先斩一人。那女子剑光一盛，与你合力逼退了余下两人。她临走时，把一支白玉簪抛给你：“掩月宗，南宫婉。欠你一次。”';
+      }
+      shortenLife(14); loseHp(0.55);
+      return '你挡下了第一击，却没挡住第二击。女子带你杀出重围时，你已经昏了过去。';
+    }],
+    ['绕道走', '稳', () => { gainPct(0.16); addMood(-5); return '你压低气息，从另一侧绕了过去。身后的剑鸣声渐渐远了。'; }],
+    ['等他们两败俱伤再出手', '险', () => {
+      if (chk(0.32)) { addStones(25); addPills(2); addMood(-10); return '你等到最后一人也倒下去，才从暗处走出。白衣女子已经不见了，地上只有三具尸体和三个储物袋。'; }
+      shortenLife(12); addMood(-10); loseHp(0.5);
+      return '你算错了。白衣女子败退时发现了你，三名魔修也发现了你。你成了他们共同的猎物。';
+    }],
+  ],
+});
+
+ev({ id: 'z3', realm: 2, w: 7, title: '灵脉之争',
+  text: '你在一处山谷中发现一条下品灵脉，刚布下禁制，黄枫谷的人就到了。',
+  opts: [
+    ['据理力争', '稳', () => {
+      if (chk(0.45)) { gainPct(0.25); addMood(4); return '你报出宗门名号，又露了一手。对方权衡再三，退走了。这条灵脉归了你。'; }
+      addMood(-5); gainPct(0.06);
+      return '对方人多势众，你只能眼睁睁看着他们把旗子插上山头。';
+    }],
+    ['让出灵脉，换一笔灵石', '稳', () => { addStones(12); return '你收了十二枚灵石，收起禁制走了。修仙界里，命比灵脉值钱。'; }],
+    ['暗中破坏灵脉，谁也得不到', '险', () => {
+      if (chk(0.45)) { gainPct(0.3); addMood(-8); return '你在地脉上动了手脚。三个月后，那条灵脉枯了。黄枫谷的人查了很久，没查到你。'; }
+      shortenLife(9); loseHp(0.4); addMood(-6);
+      return '你还没布置完，就被巡山的弟子撞见。一场恶斗，你带着伤逃了出来。';
+    }],
+  ],
+});
+
+ev({ id: 'z4', realm: 2, w: 7, title: '结丹老怪的洞府',
+  text: '一位结丹期散修要收你为记名弟子，条件是替他守三十年洞府。三十年，对筑基修士不算长。',
+  opts: [
+    ['答应', '耗', () => { gainPct(0.4); addStones(10); addMood(-5); return '你在洞府外守了三十年。老怪心情好时，会隔着石门讲几句结丹的要诀。'; }, null, 30],
+    ['拒绝', '稳', () => { gainPct(0.12); return '你说自己野惯了，受不得拘束。老怪也不恼，只是摆了摆手。'; }],
+    ['讨价还价，只守十年', '机', () => {
+      if (chk(0.55)) { addStones(8); gainPct(0.25); return '老怪眯着眼看了你半晌，忽然笑了：“有点意思。”他答应只留你十年。'; }
+      addMood(-6);
+      return '老怪脸色一沉。你识趣地退了出去，后背全是汗。';
+    }, null, 10],
+  ],
+});
+
+ev({ id: 'z5', realm: 2, w: 7, title: '南疆兽潮',
+  text: '南疆妖兽潮起，宗门征调筑基弟子守山。城墙上，你看见黑压压的兽群像潮水一样漫过来。',
+  opts: [
+    ['死守城墙', '险', () => {
+      if (chk(0.5)) { addStones(10); addMood(10); gainPct(0.25); return '你在城头守了十七日，剑砍卷了三把。兽潮退去那天，活着的人坐在血水里，谁也没有说话。'; }
+      shortenLife(18); loseHp(0.6);
+      return '一头三阶妖兽撞塌了半段城墙。你被埋在砖石下面，是被人刨出来的。';
+    }],
+    ['负责后勤', '稳', () => { addStones(4); gainPct(0.14); return '你负责押运丹药和箭矢。城破那日，你离城墙最远，也活得最久。'; }],
+    ['趁乱去兽潮后方取妖丹', '险', () => {
+      if (chk(0.35)) { addPills(2); addStones(20); addArtifact(randomArt()); return '你绕到兽潮后方，从几具妖兽尸骸里剖出内丹。回来时，城门已经重新关上了。'; }
+      shortenLife(22); loseHp(0.55);
+      return '你被一小股妖兽缠住，且战且退，最后是抱着一块浮木从河里漂回来的。';
+    }],
+  ],
+});
+
+ev({ id: 'z6', realm: 2, w: 7, title: '血里的人',
+  text: '你梦见那些死在你手里的人，一个个从血里爬起来，问你：修仙，就一定要杀人吗？',
+  opts: [
+    ['承认杀孽，以杀止杀', '险', () => {
+      if (chk(0.45)) { gainPct(0.35); addMood(-12); return '你在梦里把他们又杀了一遍。醒来时，心境反而通透了——你不后悔，也不打算后悔。'; }
+      addMood(-25); shortenLife(8); loseHp(0.3);
+      return '你杀到最后一个，发现那张脸是你自己。你在梦里崩溃了。';
+    }],
+    ['散去一身杀气', '稳', () => { addMood(10); gainPct(0.2); return '你在洞府里静坐了三个月，把心里的血一点点洗掉。修为慢了些，人却轻了。'; }],
+    ['饮酒忘事', '稳', () => { addMood(5); gainPct(0.1); return '你喝了三天三夜的酒。梦还是那个梦，只是醒来时不太记得了。'; }],
+  ],
+});
+
+ev({ id: 'z7', realm: 2, w: 6, title: '山洪冲开的洞府',
+  text: '山洪冲开一座古修士洞府，禁制已残。洞中石桌上摆着一只玉盒，盒上贴着一张血色符箓。',
+  opts: [
+    ['揭符开盒', '险', () => {
+      if (chk(0.42)) { addArtifact(randomArt()); addPills(2); return '符箓烧成灰烬，玉盒里的东西还在。你拿起来时，发现它比看上去要重得多。'; }
+      shortenLife(16); addMood(-10); loseHp(0.45);
+      return '符箓炸开，整座洞府开始崩塌。你抢出半个盒子，剩下的一起埋在了山里。';
+    }],
+    ['先破禁制，再取宝', '稳', () => {
+      if (chk(0.68)) { addPills(1); addStones(10); return '你花了七天七夜磨掉禁制。盒子里东西不多，但都是能用的。'; }
+      shortenLife(7); loseHp(0.3);
+      return '禁制比你想的复杂，反噬之下你吐了一口血，只抢出一只空盒。';
+    }],
+    ['记下位置，回去搬救兵', '稳', () => { addStones(5); gainPct(0.12); return '你带着宗门的人回来时，洞府已经塌了。你分到五枚灵石，算是带路的辛苦钱。'; }],
+  ],
+});
+
+ev({ id: 'z8', realm: 2, w: 6, title: '雷击木',
+  text: '你寻到一截雷击木，木质中空，内里竟封着一线天雷。',
+  opts: [
+    ['炼成本命法宝', '稳', () => { addArtifact('雷击木剑'); gainPct(0.12); return '你以精血温养了四十九日。木剑成形那夜，剑身上有一线紫电游走。'; }, null, 6],
+    ['卖出', '稳', () => { addStones(35); return '一位结丹修士出了三十五枚灵石。你揣着灵石下山，觉得自己做了笔好买卖。'; }],
+    ['引雷入体，淬炼金丹', '险', () => {
+      if (chk(0.35)) { gainPct(0.5); shortenLife(14); return '天雷入体，你浑身焦黑，金丹却被淬得莹润如玉。你在床上躺了半年。'; }
+      shortenLife(35); loseHp(0.6);
+      return '你没能驯服那线天雷。经脉断了三处，金丹也裂了一道缝。';
+    }],
+  ],
+});
+
+ev({ id: 'z9', realm: 2, w: 6, title: '将沸未沸',
+  text: '丹田里的灵气越来越稠，像一锅将沸未沸的水。你知道，结丹就在这几年了。',
+  opts: [
+    ['闭关冲击', '稳', () => { gainPct(0.4); return '你把洞府封了，每日只做一件事：让那锅水烧开。'; }, null, 12],
+    ['寻一处灵眼之泉', '险', () => {
+      if (chk(0.5)) { gainPct(0.5); return '你在深山找到一眼灵泉，在泉边坐了三年。泉水凉，丹田热，一冷一热之间，金丹有了雏形。'; }
+      shortenLife(9); loseHp(0.35);
+      return '灵泉没找到，你在山里迷了路，靠吃野果撑了两个月。';
+    }, null, 8],
+    ['压下修为，先炼一件本命法器', '稳', () => { addArtifact('青元剑'); gainPct(0.12); return '你花三年炼了一柄青元剑。剑成之日，你觉得结丹的把握多了几分。'; }, null, 5],
+  ],
+});
+
+ev({ id: 'z10', realm: 2, w: 5, title: '青元剑冢',
+  text: '你在无名山谷里找到一处剑冢。冢中剑器早已朽尽，唯有石壁上刻着的剑诀还清晰——起首三字：青元诀。',
+  opts: [
+    ['参悟壁上剑诀', '机', () => {
+      if (chk(0.55)) { learnTech('qingyuan'); addWits(1); gainPct(0.25); return '你在冢中坐了一月，把那篇<span class="em">青元剑诀</span>从头到尾背了下来。出冢时，天上下着雪。'; }
+      addMood(-5); shortenLife(3);
+      return '剑诀太过艰深，你参了一个月，只悟出三成，还耗得心神俱疲。';
+    }],
+    ['取走冢中残剑', '稳', () => { addArtifact('青元剑'); gainPct(0.15); return '你挑了一柄还算完整的残剑带出来，回去重新祭炼。'; }],
+    ['在冢前立碑，而后离去', '稳', () => { addMood(10); gainPct(0.2); return '你替这些无名剑客立了块碑。立碑时，你忽然觉得心里有什么东西落了地。'; }],
+  ], when: () => !hasTech('qingyuan'),
+});
+
+ev({ id: 'z11', realm: 2, w: 5, title: '玄阴洞',
+  text: '山腹深处有一处洞穴，洞口结着终年不化的黑冰。冰上刻着两个字：玄阴。洞里传来一种很轻的声音，像有人在耳边磨牙。',
+  opts: [
+    ['入洞，修习玄阴经', '险', () => {
+      if (chk(0.42)) {
+        learnTech('xuanyin'); gainPct(0.3); addMood(-6);
+        return '洞中石壁上刻满了扭曲的经文。你照着修了九日，指尖开始泛出淡淡的青黑。出洞那日，你听见自己心里有个声音在笑：<span class="em">阴魔斩</span>，已成。';
+      }
+      addMood(-20); shortenLife(10); loseHp(0.5);
+      return '经文修到一半，你体内阴气逆行，差点把自己冻成一具冰尸。爬出洞口时，你丢了半条命。';
+    }],
+    ['只在洞口记下几段经文', '机', () => {
+      addWits(1); gainPct(0.12); addMood(-3);
+      return '你抄了几段最浅的经文便退了出来。那些字迹在你脑子里转了很久，像一群不肯散的虫。';
+    }],
+    ['封了洞口，不留后患', '稳', () => {
+      addMood(8); gainPct(0.2);
+      return '你搬来巨石封死洞口。封口时，那磨牙声忽然停了，仿佛松了口气。';
+    }],
+  ], when: () => !hasTech('xuanyin'),
+});
+
+ev({ id: 'z12', realm: 2, w: 5, title: '金刚寺',
+  text: '荒山里有座只剩半间大殿的寺院，殿中佛像的金漆剥落殆尽，可佛号声还在——是檐角一只铜铃，被风吹了不知多少年。',
+  opts: [
+    ['在佛前静坐参禅', '稳', () => {
+      learnTech('jingang'); addMood(10); gainPct(0.2);
+      return '你在佛前坐了七日，心中那些杀念像尘一样落下来。临走时，你在佛像掌心找到一卷<span class="em">金刚诀</span>。';
+    }],
+    ['翻找寺中遗物', '机', () => {
+      if (chk(0.5)) { addArtifact('护心镜'); addStones(8); return '你在香案底下摸出半面铜镜，镜背刻着梵文。应该是哪位僧人留下的护身法器。'; }
+      addMood(-3); return '寺里什么也没有，只有一层厚厚的灰和你自己的脚印。';
+    }],
+    ['修好屋顶再走', '机', () => { addMood(15); addItem('calm', 2); gainPct(0.1); return '你花了一个月修好漏雨的屋顶。走时，那只铜铃忽然响了三声。'; }],
+  ], when: () => !hasTech('jingang'),
+});
+
+ev({ id: 'z13', realm: 2, w: 5, title: '散仙遗府',
+  text: '你误入一处半塌的洞府，案上玉简还亮着。一道极淡的虚影浮在案后，说他是洞府主人，只剩最后一缕神识。',
+  opts: [
+    ['拜他为师，受其传承', '机', () => {
+      if (!hasTech('dayan')) {
+        learnTech('dayan'); addWits(1); gainPct(0.2);
+        return '虚影一指点在你眉心。你识海里多了一篇<span class="em">大衍诀</span>，还有一句：神识所至，天地皆可入。';
+      }
+      addWits(1); gainPct(0.25);
+      return '虚影传了你一些神识运用的窍门，与你已知的大衍诀互相印证。';
+    }],
+    ['问他洞中还有什么', '机', () => {
+      if (chk(0.55)) { addArtifact(randomArt()); addStones(10); return '他指了指石壁。你敲开一处，里面藏着一件法宝和一小袋灵石。他说：拿走，别再来。'; }
+      addMood(-5); shortenLife(5);
+      return '他沉默了很久，忽然散了。洞府开始崩塌，你只抢出一只空玉盒。';
+    }],
+    ['替他圆满最后的心愿', '稳', () => {
+      addMood(18); gainPct(0.18); shortenLife(3);
+      return '他要你把他的一缕头发送回故乡。你走了一年，才找到那个已经没有名字的村子。';
+    }],
+  ],
+});
+
+ev({ id: 'z14', realm: 2, w: 6, title: '万宝楼',
+  text: '万宝楼三层今日开拍。你一进门，就看见台上摆着一件通体漆黑的幡，幡面浮着若有若无的人脸。',
+  opts: [
+    ['倾家荡产拍下黑幡', '耗', () => {
+      if (S.stones < 30) { addMood(-5); return '你把储物袋翻了三遍，还差一大截。黑幡被别人拍走，那人回头冲你笑了笑。'; }
+      addStones(-30); addArtifact('噬魂幡'); addMood(-5);
+      return '你举牌的手一直在抖。锤落之后，黑幡入手，凉得像抓住一只别人的手。';
+    }],
+    ['买些丹药就走', '稳', () => { addStones(-10); addPills(2); addItem('heal', 2); return '你换了一堆实在东西。走出万宝楼时，储物袋比来时沉。'; }],
+    ['只在前排看个热闹', '机', () => { addWits(1); addStones(3); gainPct(0.1); return '你看了一整场，记住了一件事：真正的好东西，从来不上拍卖台。'; }],
+  ],
+});
+
+ev({ id: 'z15', realm: 2, w: 5, title: '妖王娶亲',
+  text: '山中妖王要娶亲，迎亲的队伍从山下过，抬着的却是一口口红棺。村里人说，那里面装的都是“新娘”。',
+  opts: [
+    ['拦下迎亲队伍', '险', () => {
+      if (chk(0.4)) { addMood(15); addStones(18); addPills(2); return '你一剑劈开红棺，里面的人还活着。妖王赶来时，你已经带着人跑出了三十里。'; }
+      loseHp(0.55); shortenLife(12);
+      return '妖王的妖气比你想的重。你被一掌拍进山壁，靠一口遁符才捡回命。';
+    }],
+    ['暗中跟着，找机会', '机', () => {
+      if (chk(0.5)) { addStones(14); addWits(1); return '你跟了三天，摸清了妖王的巢穴，趁它外出时洗劫了一半库藏。'; }
+      loseHp(0.4); shortenLife(6);
+      return '你被发现，一路狂奔，最后是跳进河里漂走的。';
+    }],
+    ['绕道走，不与妖王结怨', '稳', () => { addMood(-8); gainPct(0.2); return '你绕了很远的路。那几口红棺的样子，你好些年都没忘。'; }],
+  ],
+});
+
+ev({ id: 'z16', realm: 2, w: 5, title: '元婴老怪的棋局',
+  text: '一位元婴老怪在山亭里独自下棋，见你路过，招手让你陪着走一局。棋盘上黑白交错，你根本看不懂。',
+  opts: [
+    ['硬着头皮下完', '险', () => {
+      if (chk(0.35)) { addWits(2); gainPct(0.35); addArtifact(randomArt()); return '你输了三十七子。老怪却笑了：“肯下完的人不多。”他随手丢给你一件东西。'; }
+      addMood(-10); shortenLife(5);
+      return '你下到中盘就被杀得片甲不留。老怪摇头：心浮气躁，难成气候。';
+    }],
+    ['老实说看不懂，求他指教', '稳', () => { addWits(1); gainPct(0.2); addMood(5); return '老怪笑了，一边落子一边讲。你听不懂其中九成，但那明白的一成，抵得上十年苦修。'; }],
+    ['推辞，躬身退下', '稳', () => { addMood(3); gainPct(0.1); return '你躬身退下。走出山亭时，听见老怪在身后自言自语：“又一个怕输的。”'; }],
+  ],
+});
+
+/* ---------------- 境界 2 · 日常 ---------------- */
+ev({ id: 'r2', realm: 2, repeat: true, w: 2, title: '山中无甲子',
+  texts: [
+    '山中无甲子，寒尽不知年。你从入定中睁眼，洞外的松树又粗了一圈。',
+    '这一闭关，外头已经换了三个年号。你听着山下传来的消息，觉得像在听别人的故事。',
+    '你在洞府里刻下新的一道痕。数了数，密密麻麻，已经数不清了。',
+  ],
+  opts: [
+    ['继续闭关', '稳', () => { gainPct(0.3); return '你又闭上了眼。洞里没有昼夜，只有丹田里那点光。'; }, null, 15],
+    ['出关会友', '稳', () => { addMood(10); gainPct(0.1); addStones(4); return '你去坊市见了几个旧友。有人老得快认不出，有人已经不在了。'; }],
+    ['游历名山', '险', () => {
+      if (chk(0.5)) { addArtifact(randomArt()); gainPct(0.2); return '你在路上捡了个漏，从一座废观里摸出一件没人要的东西，回来却越看越像件法宝。'; }
+      shortenLife(6); loseHp(0.3);
+      return '你在山里碰上一场斗法，被殃及池鱼，养了半年伤。';
+    }, null, 10],
+  ],
+});
+
+/* =============================================================
+   金丹期（境界 3）
+   ============================================================= */
+ev({ id: 'j1', realm: 3, w: 8, title: '乱星海',
+  text: '你渡海来到乱星海。这里的修士不问出身，只问修为；这里的海，下面埋着无数人的骨头。',
+  opts: [
+    ['加入猎妖船队', '险', () => {
+      if (chk(0.5)) { addStones(30); addPills(2); gainPct(0.2); return '你们的船追着一头四阶海兽跑了半个月。收网那日，整片海都红了。你分到三十枚灵石和两枚妖丹。'; }
+      shortenLife(25); loseHp(0.55);
+      return '海兽掀翻了船，你抱着一块船板在海上漂了七天，被路过的商船捞起来。';
+    }],
+    ['在岛上开一间丹药铺', '稳', () => { addStones(20); gainPct(0.14); return '你在坊市边上盘了间铺子。丹药卖得不算好，但消息灵通，日子安稳。'; }, null, 10],
+    ['独自出海，寻找沉没的仙府', '险', () => {
+      if (chk(0.32)) { addArtifact('定海珠'); gainPct(0.45); return '你在海底找到一座半塌的宫殿，供桌上供着一颗定海珠。你拿起它时，整座宫殿开始下沉。'; }
+      shortenLife(35); loseHp(0.5);
+      return '你在海上寻了三年，什么也没找到。回航时遇上风暴，船碎了，你游了三天三夜。';
+    }, null, 20],
+  ],
+});
+
+ev({ id: 'j2', realm: 3, w: 7, title: '虚天殿',
+  text: '虚天殿现世，万年一开。殿中宝物无数，殿外白骨如山。',
+  opts: [
+    ['入殿夺宝', '险', () => {
+      if (chk(0.4)) { addArtifact('虚天鼎影'); addPills(3); gainPct(0.2); return '你在大殿深处抢到一尊虚天鼎的影子。它没有实体，却重得像一座山。你抱着它冲出来时，身后死了很多人。'; }
+      shortenLife(45); loseHp(0.6);
+      return '殿门关闭的前一刻，你被挤了出来。一同进去的七个人，只出来了两个。';
+    }],
+    ['守在殿外做接应生意', '稳', () => { addStones(25); gainPct(0.1); return '你在殿外摆了三年摊，收丹药、收法宝、也收尸。这生意比进去抢安全得多。'; }],
+    ['远远观望，只记下地形', '稳', () => { addWits(1); gainPct(0.18); return '你把虚天殿的每一道门、每一处禁制都画了下来。这些东西，以后也许用得上。'; }],
+  ],
+});
+
+ev({ id: 'j3', realm: 3, w: 7, title: '魔道南侵',
+  text: '魔道六宗大举南侵，正道宗门节节败退。你的宗门也收到了求援令。',
+  opts: [
+    ['随军出征', '险', () => {
+      if (chk(0.45)) { addMood(10); addStones(30); gainPct(0.25); return '你在战场上守了三个月，杀退了两波魔修。回山时，宗门给你记了首功。'; }
+      shortenLife(35); loseHp(0.65);
+      return '魔修的血煞大阵困住了你们一整支队伍。你是踩着同门的尸体走出来的。';
+    }],
+    ['称病不出', '稳', () => { addMood(-8); gainPct(0.18); return '你说自己旧伤未愈，闭门不出。山外的喊杀声持续了半年，你一次也没出去。'; }],
+    ['暗中与魔道做交易', '险', () => {
+      if (chk(0.45)) { addStones(60); addMood(-10); return '你卖给魔道一份布防图。六十枚灵石，够你修炼很多年。'; }
+      addMood(-20); shortenLife(30); loseHp(0.5);
+      return '交易被宗门查了出来。你连夜出逃，从此成了丧家之犬。';
+    }],
+  ],
+});
+
+ev({ id: 'j4', realm: 3, w: 6, title: '元婴老怪的口信',
+  text: '一位元婴老怪看中了你的金丹，托人带话：自废修为，可留一命。',
+  opts: [
+    ['远遁千里', '险', () => {
+      if (chk(0.45)) { gainPct(0.25); return '你连夜遁走，一路换了七个身份。三年后，听说那老怪闭了死关。'; }
+      shortenLife(50); loseHp(0.6);
+      return '你没能逃出他的神识范围。一掌拍下，你坠入山涧，靠假死才躲过一劫。';
+    }, null, 8],
+    ['献上重宝求和', '耗', () => { addStones(-50); addMood(-10); return '你把大半身家送了出去。老怪收了东西，果然没再露面。'; }],
+    ['拼死一战', '险', () => {
+      if (chk(0.22)) { addArtifact('老怪遗宝'); gainPct(0.4); return '你以本命法宝自爆为代价，重创了那老怪。他遁走时留下了一只储物袋，里面的东西够你结婴。'; }
+      shortenLife(70); loseHp(0.7);
+      return '元婴老怪甚至没有认真出手。你像一只被拍落的飞蛾，摔进了乱石堆。';
+    }],
+  ],
+});
+
+ev({ id: 'j5', realm: 3, w: 6, title: '元磁神光',
+  text: '极北之地有元磁神光，可炼体魄，也可伤人。只是那地方，连元婴修士都不敢久留。',
+  opts: [
+    ['深入神光之中', '险', () => {
+      if (chk(0.38)) { gainPct(0.45); addLife(10); if (!hasTech('yuanci')) learnTech('yuanci'); return '你在极北站了七天七夜，任神光刮骨。回来时，你的骨头比法宝还硬，也悟出了<span class="em">元磁神光</span>的一点门道。'; }
+      shortenLife(35); loseHp(0.55);
+      return '神光割开了你的护体灵光。你逃出来时，半边身子已经没了知觉。';
+    }],
+    ['只在外围观摩', '稳', () => { gainPct(0.2); return '你站在神光外围，看它像一条发光的河从天上淌下来。看了三个月，也悟出些东西。'; }],
+    ['收集元磁石，卖与他人', '稳', () => { addStones(25); gainPct(0.08); return '你在外围捡了半袋元磁石，回坊市卖了个好价钱。'; }],
+  ], when: () => !hasTech('yuanci'),
+});
+
+ev({ id: 'j6', realm: 3, w: 6, title: '旧识',
+  text: '你在坊市遇见当年七玄门的旧识。他老得不成样子，看见你，愣了半天，才叫出你的名字。',
+  opts: [
+    ['赠他一笔灵石', '耗', () => { addStones(-10); addMood(15); gainPct(0.08); return '他捧着灵石，手一直在抖，说当年一起上山的人，只剩他还活着。你送他到镇口。'; }],
+    ['与他饮酒，说起往事', '稳', () => { addMood(10); gainPct(0.1); return '你们喝到半夜，说的都是些没出息的事：谁偷了谁的干粮，谁被罚扫了三个月的茅房。'; }],
+    ['装作不认识', '稳', () => { addMood(-10); gainPct(0.16); return '你从他身边走过去。他在身后喊了一声你的名字，你没有回头。'; }],
+  ],
+});
+
+ev({ id: 'j7', realm: 3, w: 6, title: '鬓角白发',
+  text: '金丹已圆，元婴未成。你在洞府中一坐就是三十年，出关时，鬓角竟有了白发。',
+  opts: [
+    ['继续闭关', '稳', () => { gainPct(0.35); shortenLife(4); return '你摸了摸鬓角，又坐了回去。修仙的人，不该在意这些。'; }, null, 30],
+    ['游历天下，寻访机缘', '险', () => {
+      if (chk(0.55)) { gainPct(0.4); addWits(1); return '你走了很多地方，见过会说话的树，也见过活了三千年的人。回来时，元婴的门槛近了一步。'; }
+      shortenLife(12); loseHp(0.4);
+      return '你在外头走了十年，机缘没遇上，倒是惹了一身伤。';
+    }, null, 12],
+    ['开坛讲道，广结善缘', '稳', () => { addMood(15); addStones(20); gainPct(0.12); return '你讲了三年道，来听的人从十几个变成几百个。香火钱收了不少，心境也开阔了。'; }, null, 8],
+  ],
+});
+
+ev({ id: 'j8', realm: 3, w: 6, title: '天上的眼睛',
+  text: '夜里，你感觉到天上有东西在看你。金丹在丹田中微微发颤，像一只预感到雷雨的鸟。',
+  opts: [
+    ['以雷淬丹', '险', () => {
+      if (chk(0.42)) { gainPct(0.45); shortenLife(8); return '你引下一道天雷，金丹在雷光中旋转。雷散之后，金丹上多了一圈细密的花纹。'; }
+      shortenLife(30); loseHp(0.6);
+      return '天雷落下的位置偏了半寸。你半边身子焦黑，金丹也暗淡了许多。';
+    }],
+    ['收敛气息，静观其变', '稳', () => { gainPct(0.16); addMood(5); return '你把气息压到最低，像一块石头。天上的“眼睛”看了很久，终于移开了。'; }],
+    ['布阵迎劫', '稳', () => { addStones(-15); gainPct(0.25); return '你花了三年布下一座引雷阵。天劫若来，至少不会毫无准备。'; }, null, 6],
+  ],
+});
+
+ev({ id: 'j9', realm: 3, w: 5, title: '雷池遗篇',
+  text: '一座被雷劈开的古观里，焦黑的梁柱间还残留着雷意。墙上有人用剑刻了一篇雷法，字字如电。',
+  opts: [
+    ['以身为引，参悟雷法', '险', () => {
+      if (chk(0.42)) { learnTech('wulei'); gainPct(0.3); addWits(1); return '你在焦柱下坐了四十九日。第五十日，指尖第一次跳出一缕紫电。墙上那篇<span class="em">五雷正法</span>，你已经记住了七成。'; }
+      shortenLife(20); loseHp(0.5);
+      return '雷意太盛，你被劈得经脉寸断，在那座破观里躺了三个月。';
+    }],
+    ['只记下经文，回去慢慢参', '稳', () => { addWits(1); gainPct(0.2); return '你把墙上的字一个一个拓了下来。虽有缺漏，也够你琢磨很多年。'; }],
+    ['取走观中雷击木', '稳', () => { addArtifact('雷击木剑'); gainPct(0.1); return '你把那根被劈得焦黑的横梁拖了出来，回去炼成一柄木剑。'; }],
+  ], when: () => !hasTech('wulei'),
+});
+
+ev({ id: 'j10', realm: 3, w: 5, title: '托天老魔',
+  text: '一个浑身肌肉虬结的老魔拦住你，说你根骨不错，问你要不要学他的托天魔功——代价是从此不能再用五谷养身。',
+  opts: [
+    ['拜他为师，修托天魔功', '险', () => {
+      if (chk(0.45)) { learnTech('tuotian'); gainPct(0.3); loseHp(0.2); return '老魔往你身上拍了三掌，每一掌都像把你骨头敲碎了重接。三个月后，你站起来时，比从前高了一寸。'; }
+      loseHp(0.6); shortenLife(15);
+      return '第三掌拍下时，你听见自己肋骨断裂的声音。老魔摇头：“不成，太脆。”';
+    }],
+    ['只求一观其法', '机', () => {
+      if (chk(0.5)) { addWits(1); gainPct(0.25); return '老魔念了一遍口诀，念得极快。你只听懂了三分，可这三分里，有他一身横练的根本。'; }
+      addMood(-8);
+      return '老魔看出你在打探，一把揪住你的领子，又放开了。什么都没教。';
+    }],
+    ['婉拒，转身就走', '稳', () => { gainPct(0.18); return '你抱拳谢过，转身就走。身后传来老魔的大笑，震得树叶簌簌地落。'; }],
+  ], when: () => !hasTech('tuotian'),
+});
+
+ev({ id: 'j11', realm: 3, w: 5, title: '星宫拍卖',
+  text: '星宫的拍卖会三年一次，入场需验资。你倾其所有，也只能坐到最末一排。',
+  opts: [
+    ['仔细挑一件实用的', '耗', () => {
+      if (S.stones < 40) { addMood(-4); return '你翻了翻储物袋，连叫价的底气都没有。'; }
+      addStones(-40); addArtifact(randomArt()); return '你没有去抢那些压轴的宝贝，只买了一件没人要的旧物。回去一祭炼，竟是件好东西。';
+    }],
+    ['与人合伙竞拍压轴货', '险', () => {
+      if (chk(0.45)) { addStones(35); addArtifact(randomArt()); return '你和两个散修凑钱拍下一件重宝，转手卖了个好价。分账那日，谁也没多说话。'; }
+      addStones(-20); addMood(-8);
+      return '合伙人卷着东西跑了，只留下你面对星宫的账单。你赔了个精光。';
+    }],
+    ['只看不买，记住行情', '稳', () => { addWits(1); addStones(5); gainPct(0.1); return '你记了满满一册价格。下回再遇到有人兜售，你就知道该还多少价了。'; }],
+  ],
+});
+
+ev({ id: 'j12', realm: 3, w: 5, title: '血祭秘法',
+  text: '一位魔道朋友给你看了他的血祭秘法：以同族之血浇灌金丹，可速成。他说，修仙界里，谁不是踩着人往上走？',
+  opts: [
+    ['学他的法，用死囚之血', '险', () => {
+      if (chk(0.5)) { gainPct(0.45); addMood(-20); return '你在刑场边等了三个月。秘法果然有用，金丹上的金光浓了一倍，只是你开始闻不得血腥味。'; }
+      addMood(-30); shortenLife(15); loseHp(0.4);
+      return '血祭反噬，你整夜听见有人在墙外哭。金丹没成，心境先崩了一半。';
+    }],
+    ['断然拒绝，从此不来往', '稳', () => { addMood(12); gainPct(0.15); return '你把他的酒推回去，起身走了。走出很远，才发现自己一直在攥拳。'; }],
+    ['假装答应，套出秘法后烧掉', '机', () => {
+      if (chk(0.5)) { addWits(1); addMood(8); gainPct(0.2); return '你抄下秘法，转头就烧了，还把那魔修的行踪透露给了正道。他没活过那个冬天。'; }
+      addMood(-12); shortenLife(10); loseHp(0.35);
+      return '他识破了你的打算。一场恶战，你带着一身伤逃进山里。';
+    }],
+  ],
+});
+
+ev({ id: 'j13', realm: 3, w: 5, title: '海底古墓',
+  text: '退潮时，海面露出一座古墓的尖顶。墓门上的纹路不是中土样式，倒像是很久以前就沉在这里的另一支传承。',
+  opts: [
+    ['趁退潮入墓', '险', () => {
+      if (chk(0.4)) { addArtifact(randomArt()); addStones(30); addWits(1); return '墓中无棺，只有一座石台，台上摆着几件随葬之物。你取了东西就往外跑，身后海水已经漫过了门槛。'; }
+      loseHp(0.55); shortenLife(20);
+      return '潮水提前涨了。你被困在墓道里，靠闭气硬撑，最后是被冲出来的。';
+    }],
+    ['在墓外刻下方位，改日再来', '稳', () => { addWits(1); gainPct(0.18); return '你把方位刻在玉简里。可等你再来时，那片海域已经换了模样。'; }],
+    ['绕开，不去惊动', '稳', () => { addMood(5); gainPct(0.22); return '你从墓顶旁边游了过去。海水里有一种很沉的气息，让你想起很久以前的事。'; }],
+  ],
+});
+
+ev({ id: 'j14', realm: 3, w: 5, title: '魔道巨枭的邀请',
+  text: '一位魔道巨枭遣人送来请帖，说他很欣赏你，想请你到血魔殿一叙。帖子上还附了一件小礼。',
+  opts: [
+    ['单身赴会', '险', () => {
+      if (chk(0.4)) { addStones(50); addArtifact(randomArt()); gainPct(0.3); addMood(-8); return '血魔殿里坐满了魔修，没人看你。巨枭只问了你一句话：你想要什么？你答了。他笑了，给了你东西。'; }
+      shortenLife(40); loseHp(0.6); addMood(-10);
+      return '那是一场鸿门宴。你杀出殿门时，身上多了七道伤口。';
+    }],
+    ['回帖婉拒，退还礼物', '稳', () => { addMood(6); gainPct(0.12); return '你把礼物原样退了回去，附了一张措辞客气的回帖。巨枭没有再找过你。'; }],
+    ['把请帖交给正道宗门', '险', () => {
+      if (chk(0.5)) { addStones(25); addMood(10); return '正道循着帖子摸到了血魔殿的一处暗桩。你没露面，却分到了一份赏。'; }
+      addMood(-15); shortenLife(25); loseHp(0.5);
+      return '消息走漏了。你成了魔、正两道的眼中钉，被追杀了整整一年。';
+    }],
+  ],
+});
+
+/* ---------------- 境界 3 · 日常 ---------------- */
+ev({ id: 'r3', realm: 3, repeat: true, w: 2, title: '沧海桑田',
+  texts: [
+    '又过了几十年。你出关时，山下那个村子已经变成了镇子，镇子里没有人认得你。',
+    '洞府的石门已经锈死了。你推开它，看见外面长满了从没见过的草。',
+    '你数了数，这已经是你在这座山里待的第九个十年。',
+  ],
+  opts: [
+    ['闭关不出', '稳', () => { gainPct(0.3); return '你重新封了洞口。外头的事，让外头的人去操心。'; }, null, 40],
+    ['游历红尘', '稳', () => { addMood(12); addStones(8); gainPct(0.1); return '你在人间走了几年，看了一场戏，喝了几坛酒。回山时，心境松快了不少。'; }, null, 12],
+    ['寻觅灵药', '险', () => {
+      if (chk(0.5)) { addItem('heal', 2); addItem('break', 1); gainPct(0.2); return '你翻了三座大山，采到几株稀罕灵药，还挖到一株能炼破障丹的。'; }
+      shortenLife(15); loseHp(0.4);
+      return '你在山里迷了路，靠着辟谷硬撑了半年才走出来。';
+    }, null, 20],
+  ],
+});
+
+/* =============================================================
+   元婴期（境界 4）
+   ============================================================= */
+ev({ id: 'y1', realm: 4, w: 8, title: '元婴出窍',
+  text: '元婴初成那夜，你第一次以元婴之身离体。天地忽然变得很轻，风从你身体里穿过去。',
+  opts: [
+    ['远游千里，看看这天', '稳', () => { gainPct(0.2); addMood(10); return '你飘过山河，飘过海，飘到云层上面。那里很静，静得能听见自己的心跳。'; }],
+    ['立刻回体，稳固境界', '稳', () => { gainPct(0.16); addMood(5); return '你不敢贪恋，转身回了洞府。元婴归位时，肉身像一件穿旧了的衣裳。'; }],
+    ['试着再往高处去', '险', () => {
+      if (chk(0.45)) { gainPct(0.4); addWits(1); return '你一直往上飘，直到看见天穹上有一道极细的裂缝。你想再看一眼，却被一股大力推了回来。'; }
+      addMood(-20); shortenLife(25); loseHp(0.5);
+      return '高处有东西。你只看见一片金光，元婴就差点被震散，狼狈逃回肉身。';
+    }],
+  ],
+});
+
+ev({ id: 'y2', realm: 4, w: 7, title: '天南大战',
+  text: '天南修仙界与慕兰法士决战，元婴修士是战场上的旗帜。',
+  opts: [
+    ['出战', '险', () => {
+      if (chk(0.48)) { addStones(50); addMood(15); gainPct(0.28); return '你一人挡下了对方三名元婴。战后论功，你的名字被刻在了宗门的石碑上。'; }
+      shortenLife(70); loseHp(0.65);
+      return '慕兰法士的圣禽撕开了你的护体灵光。你被抬下战场时，元婴已经黯淡。';
+    }, null, 30],
+    ['留守宗门', '稳', () => { gainPct(0.18); return '你留在山门，替出征的人守着家。战报一封封传回来，有胜有败。'; }, null, 20],
+    ['趁乱夺取一处灵脉', '险', () => {
+      if (chk(0.4)) { addStones(80); gainPct(0.3); return '你趁着两边打得不可开交，把一条上品灵脉划进了自己的洞府。'; }
+      addMood(-15); shortenLife(45); loseHp(0.55);
+      return '你夺灵脉的事被两边同时知道了。你成了众矢之的，逃了整整一年。';
+    }, null, 25],
+  ],
+});
+
+ev({ id: 'y3', realm: 4, w: 7, title: '空间裂缝',
+  text: '你在极西之地发现一道空间裂缝，裂缝那头，灵气浓得化不开。',
+  opts: [
+    ['探入裂缝', '险', () => {
+      if (chk(0.38)) { gainPct(0.45); addArtifact('界外残片'); return '你在裂缝那头站了一炷香。那里的山是倒着的，水往天上流。你捡了一块石头回来，它一直在发光。'; }
+      shortenLife(55); loseHp(0.6);
+      return '裂缝在你面前合拢。你的左臂被切在了另一头。';
+    }],
+    ['在裂缝外打坐，借灵气修炼', '稳', () => { gainPct(0.3); return '你在裂缝外坐了十年。灵气像潮水一样从缝里涌出来，你只管张口去接。'; }, null, 25],
+    ['记下位置，悄悄离去', '稳', () => { gainPct(0.1); addMood(5); return '你把位置刻在玉简里，贴身收好。有些门，现在还不能进。'; }],
+  ],
+});
+
+ev({ id: 'y4', realm: 4, w: 6, title: '太肥了',
+  text: '一位化神期前辈路过，看了你一眼，说：“你这元婴，养得太肥了。”',
+  opts: [
+    ['低头请教', '稳', () => { addWits(2); gainPct(0.2); return '前辈只说了一句话：“化神不是把元婴养大，是把它忘了。”你琢磨了很多年。'; }],
+    ['警惕后退', '稳', () => { addMood(-5); gainPct(0.14); return '你退了半步，护住丹田。前辈笑了笑，走了。'; }],
+    ['出手试探', '险', () => {
+      if (chk(0.28)) { gainPct(0.45); addWits(2); return '你一击落空，前辈却停住了脚，回头看你：“有点胆色。”他随手点化了你的元婴。'; }
+      shortenLife(60); addMood(-15); loseHp(0.6);
+      return '你连他的衣角都没碰到。一股大力压下来，你在原地跪了半个时辰才爬起来。';
+    }],
+  ],
+});
+
+ev({ id: 'y5', realm: 4, w: 6, title: '元婴睁眼',
+  text: '元婴盘坐丹田，忽然睁开眼，问你：你修仙，究竟是为了长生，还是为了不再被人踩在脚下？',
+  opts: [
+    ['静坐观心', '稳', () => { addMood(20); gainPct(0.18); return '你想了很久，最后什么也没想出来。可元婴闭上了眼，似乎满意了。'; }, null, 15],
+    ['以杀伐斩断执念', '险', () => {
+      if (chk(0.48)) { gainPct(0.35); addMood(-15); return '你提剑下山，杀了三个该杀的人。回来时，元婴不再问了。'; }
+      addMood(-30); shortenLife(25); loseHp(0.5);
+      return '你杀红了眼，最后连自己为什么下山都忘了。元婴在丹田里冷冷地看着你。';
+    }],
+    ['不去想，继续修炼', '稳', () => { gainPct(0.2); addMood(-5); return '你闭上眼，把那个问题压回丹田最深处。它还在那里，只是不说话了。'; }],
+  ],
+});
+
+ev({ id: 'y6', realm: 4, w: 6, title: '云上的大陆',
+  text: '一次入定，你恍惚看见云层之上有一片大陆，山川倒悬，日月同辉。有声音在你耳边说：上来。',
+  opts: [
+    ['循声而上', '险', () => {
+      if (chk(0.42)) { gainPct(0.42); return '你往上走了一步，又一步。云层裂开一线，灵气的浓度让你几乎站不稳。你记住了那条路。'; }
+      shortenLife(45); loseHp(0.55);
+      return '你走到一半，云层合拢。你从万丈高空坠回肉身，七窍流血。';
+    }],
+    ['守住心神，不去窥探', '稳', () => { addMood(10); gainPct(0.16); return '你咬破舌尖，强行出定。有些东西，没到那个境界，看了就是祸。'; }],
+    ['将所见刻在玉简上，慢慢参悟', '稳', () => { addWits(1); gainPct(0.22); return '你画了整整三年，才把那一瞬间的景象画完。画到最后，你发现那其实是一张地图。'; }, null, 10],
+  ],
+});
+
+ev({ id: 'y7', realm: 4, w: 6, title: '薄冰',
+  text: '你已能感觉到那道门槛。它像一层薄冰，冰下是另一个天地。',
+  opts: [
+    ['闭关百年，积蓄法力', '稳', () => { gainPct(0.38); shortenLife(10); return '你封了洞府，一坐就是百年。出关时，山门前的松树已经长成了三个人合抱那么粗。'; }, null, 100],
+    ['寻找化神丹', '险', () => {
+      if (chk(0.45)) { addPills(3); gainPct(0.2); return '你在一个大拍卖会上倾家荡产，换回三枚化神丹。丹香入鼻，元婴都在颤抖。'; }
+      shortenLife(25); addStones(-20);
+      return '化神丹现世的消息是假的。你白跑了一趟，还在路上丢了不少东西。';
+    }, null, 30],
+    ['散去部分修为，重铸根基', '险', () => {
+      if (chk(0.55)) { gainPct(0.45); return '你把元婴散了一部分，重新养起。境界跌了，路却宽了。'; }
+      gainPct(-0.15); shortenLife(18);
+      return '散功容易，聚功难。你跌了一个小境界，花了很久才爬回来。';
+    }, null, 20],
+  ],
+});
+
+ev({ id: 'y8', realm: 4, w: 5, title: '血海秘窟',
+  text: '一处上古血海秘窟现世。窟中所修化血神光，可炼血为光，以命换命。凡是进去的人，出来时都少了几分人味。',
+  opts: [
+    ['入窟修习化血神光', '险', () => {
+      if (chk(0.42)) { learnTech('huaxue'); gainPct(0.3); addMood(-10); return '血海没过你的膝盖，又没过你的腰。你在里面站了三个月，出来时，皮肤白得透明。'; }
+      addMood(-25); shortenLife(35); loseHp(0.6);
+      return '血海差点把你化在里面。你爬出来时，身上少了一层皮。';
+    }],
+    ['取一瓶血海之水', '机', () => { addItem('heal', 2); addItem('mana', 2); gainPct(0.15); return '你小心地取了一瓶血水，封进玉瓶。这瓶东西，日后或可炼成一炉好丹。'; }],
+    ['封了窟口，转身离开', '稳', () => { addMood(8); gainPct(0.2); return '你搬来巨石封死窟口。封口时，血海里传来一声很轻的叹息。'; }],
+  ], when: () => !hasTech('huaxue'),
+});
+
+ev({ id: 'y9', realm: 4, w: 5, title: '灵界来客',
+  text: '一个自称来自灵界的人找到了你。他说，这方天地的飞升之路早已残缺，若想上去，须另寻一条路。',
+  opts: [
+    ['信他，随他去一处秘境', '险', () => {
+      if (chk(0.38)) { gainPct(0.4); addWits(2); addStones(60); return '他带你穿过一道你从未见过的门。门后没有天地，只有一片流动的光。你在光里看见了这条路。'; }
+      shortenLife(50); loseHp(0.6);
+      return '门后是陷阱。你拼了命才撕开一道口子退出来，那人已经不见了。';
+    }, null, 25],
+    ['追问他飞升的真相', '稳', () => { addWits(2); gainPct(0.2); return '他讲了很久，讲到你听不懂为止。最后他说：你到了那一天，自然会明白。'; }],
+    ['不信，送客', '稳', () => { addMood(4); gainPct(0.1); return '你把他送到山门。他回头看了你一眼：你会后悔的。'; }],
+  ],
+});
+
+ev({ id: 'y10', realm: 4, w: 5, title: '散功重修',
+  text: '你发现自己的根基有一处旧伤，是当年结丹时留下的。若想化神，须先散功重修，把那一处补上。',
+  opts: [
+    ['散功重修', '险', () => {
+      if (chk(0.55)) { gainPct(0.5); addWits(1); shortenLife(30); return '你把元婴散成漫天星光，又一粒一粒收回。这个过程用了三十年。收回最后一粒时，你觉得整个人都换了一遍。'; }
+      gainPct(-0.2); shortenLife(60); loseHp(0.5);
+      return '星光散得太快，你没能全部收回。境界跌了一截，根基却还是那个根基。';
+    }, null, 30],
+    ['就这么带着伤往前走', '稳', () => { gainPct(0.2); addMood(-5); return '你没有那个耐心。旧伤就旧伤吧，走到哪一步算哪一步。'; }],
+    ['寻找上古灵药补伤', '险', () => {
+      if (chk(0.42)) { addLife(20); gainPct(0.3); return '你在极深的古渊里找到一株说不清年份的灵药。服下之后，那处旧伤像被水润开了。'; }
+      shortenLife(40); addMood(-10);
+      return '灵药找到了，却是假的。你服下去之后，又多了一处新伤。';
+    }, null, 20],
+  ],
+});
+
+ev({ id: 'y11', realm: 4, w: 5, title: '天劫预兆',
+  text: '最近你总能听见雷声，可天上并无云。那是化神天劫在找你——它在等一个最好的时机。',
+  opts: [
+    ['主动引劫', '险', () => {
+      if (chk(0.42)) { gainPct(0.45); addLife(15); return '你走到山巅，朝天一指。雷云瞬间聚集。你硬生生挨了半劫，也摸清了劫的脾气。'; }
+      shortenLife(80); loseHp(0.6);
+      return '劫雷比你想的狠。你从山巅滚下去的时候，只剩半口气。';
+    }],
+    ['布下大阵，静待其来', '稳', () => { addStones(-30); gainPct(0.25); return '你花了十年布阵。阵成之日，山中的鸟兽都退了三十里。'; }, null, 10],
+    ['散去几分修为，再拖一拖', '稳', () => { gainPct(-0.05); addLife(30); addMood(-3); return '你散了一点修为。雷声果然远了，可你知道，它还会回来。'; }],
+  ],
+});
+
+ev({ id: 'y12', realm: 4, w: 5, title: '一念之间',
+  text: '入定时，你看见了自己的一生：青牛镇的雨，七玄门的石阶，那些死在你手里的人，那些你没能救下的人。它们排成一条线，等着你走过去。',
+  opts: [
+    ['走完这条线', '险', () => {
+      if (chk(0.5)) { addMood(20); gainPct(0.35); addWits(1); return '你一步一步走过去，走到最后，看见一个十六岁的自己站在镇口。他对你点了点头。'; }
+      addMood(-25); shortenLife(20);
+      return '你走到一半就走不动了。那些脸转过来看着你，你连抬脚的力气都没有。';
+    }],
+    ['转身不看', '稳', () => { gainPct(0.18); addMood(-6); return '你转过身。那条线还在身后，只是不再催你了。'; }],
+    ['把这条线烧了', '险', () => {
+      if (chk(0.4)) { addMood(-15); gainPct(0.4); return '你一把火点了。火光里，所有的人都笑了。你忽然觉得轻了。'; }
+      addMood(-35); shortenLife(25);
+      return '火没烧起来，反烧到你自己。你在入定中惊醒，冷汗湿透了衣裳。';
+    }],
+  ],
+});
+
+/* ---------------- 境界 4 · 日常 ---------------- */
+ev({ id: 'r4', realm: 4, repeat: true, w: 2, title: '千年一瞬',
+  texts: [
+    '千年一瞬。你从闭关中醒来，觉得这个名字、这具身体，都有点陌生了。',
+    '山门换了七代弟子。新来的小童指着你的洞府说，那里住着一位老前辈。',
+    '你已经记不清这是第几次出关了。外头的世界，一次比一次陌生。',
+  ],
+  opts: [
+    ['再闭一关', '稳', () => { gainPct(0.28); return '你再次合上眼。时间对你来说，已经不是时间了。'; }, null, 80],
+    ['下山看看人间', '稳', () => { addMood(15); addStones(10); gainPct(0.1); return '你在人间住了一年，看人娶亲、生子、下葬，看得津津有味。'; }, null, 20],
+    ['寻访旧友', '险', () => {
+      if (chk(0.5)) { addMood(18); addStones(20); addWits(1); return '你找到一位还活着的老友。他请你喝了一杯茶，说他等这一天等了三百年。'; }
+      addMood(-12); shortenLife(20);
+      return '你找到的只有一座荒坟。碑上的字被风磨平了，你不知道是不是他。';
+    }, null, 25],
+  ],
+});
+
+/* =============================================================
+   通用事件（各境界皆可出现）
+   ============================================================= */
+ev({ id: 'n1', realm: -1, w: 3, title: '灵鹿引路',
+  text: '山涧边一只白鹿不逃，反倒咬住你的衣角，引你到一处石缝。缝里长着几株灵草，最边上那株还嫩得发青。白鹿看看草，又看看你。',
+  opts: [
+    ['全部采摘', '险', () => {
+      gainPct(0.25); addItem('heal', 1); addMood(-4);
+      return '你连根拔了个干净。白鹿退了两步，转头跑进林子，再没回头。';
+    }],
+    ['取一半，留一半', '稳', () => {
+      gainPct(0.18); addItem('heal', 1); addMood(3);
+      return '你采了三株，留下根茎。白鹿低头嗅了嗅，跟了你一段路才离开。';
+    }],
+    ['只取成熟的，留下幼草', '机', () => {
+      gainPct(0.1); addMood(8); S.flags.deer = true;
+      return '你只摘了最老的两株。白鹿在你手背上蹭了蹭。此后你进山，总觉得有什么在暗处替你看着。';
+    }],
+  ],
+});
+
+ev({ id: 'n2', realm: -1, w: 3, title: '废弃洞府',
+  text: '一处废弃修士洞府的阵纹大半失效，里面只有一只储物袋，和一卷记载着残缺遁法的手札。角落留着原主遗书：山下有仇家，拿了东西尽快离开。',
+  opts: [
+    ['取了储物袋便走', '稳', () => {
+      addStones(6); addItem('escape', 1);
+      return '你没有多看那卷手札一眼，收起袋子就下了山。身后山风呜呜地响。';
+    }],
+    ['参悟那门残缺遁法', '机', () => {
+      if (chk(0.58)) { addWits(1); addItem('escape', 1); return '你在洞中坐了七日，悟出半式遁法。临走时捏碎一块玉符，身影一晃已在十丈之外。'; }
+      addMood(-3);
+      return '你参悟了七日，只看出满纸错字。下山时天已经黑了。';
+    }],
+    ['按遗书所言，替他引开仇家', '险', () => {
+      if (chk(0.48)) { addStones(10); addMood(8); return '你在山下故布疑阵，把追来的人引向了另一条路。洞府里的东西，你分文未取。'; }
+      shortenLife(4); loseHp(0.3);
+      return '你低估了那些人的手段，被追了三天三夜，险些把命丢在山里。';
+    }],
+  ],
+});
+
+ev({ id: 'n3', realm: -1, w: 3, title: '雨后灵雾',
+  text: '雨后林间凝成一片灵雾，吸入后经脉温润。只是雾里虫鸣越来越密，像有什么东西在靠近。',
+  opts: [
+    ['就地吐纳', '稳', () => {
+      healMp(0.5); gainPct(0.08);
+      if (chk(0.35)) return battleWith(0.8, '噬灵蛛', '雾里垂下几缕黏腻的蛛丝。');
+      return '你坐在雾里吐纳了半日，法力恢复了小半。';
+    }],
+    ['收集雾露', '机', () => {
+      addItem('mana', 1);
+      if (chk(0.3)) return battleWith(0.85, '噬灵蛛', '你伸手去接露水，指尖却碰到一张冰凉的网。');
+      return '你用玉瓶收集了一瓶雾露，日后可炼成聚灵丹。';
+    }],
+    ['立刻离开', '稳', () => { addMood(2); return '你屏住呼吸退出林子。身后的虫鸣追了几步，又停了。'; }],
+  ],
+});
+
+ev({ id: 'n4', realm: -1, w: 3, title: '赌石',
+  text: '坊市角落，一个不起眼的老叟低价兜售一块灰扑扑的石头，说里面封着一丝灵韵。旁边的人说，十块里有九块是顽石。',
+  opts: [
+    ['买下这块石头', '耗', () => {
+      if (S.stones < 6) { addMood(-2); return '你摸遍全身，凑不出六枚灵石。老叟把石头收了回去。'; }
+      addStones(-6);
+      if (chk(0.32)) { addArtifact(randomArt()); return '石头切开，里面竟嵌着一件小东西。老叟叹了口气，说这本该是他的机缘。'; }
+      addMood(-4);
+      return '石头切开，里面什么也没有。老叟已经不见了。';
+    }],
+    ['先用灵识探一探', '机', () => {
+      if (chk(0.5)) {
+        if (S.stones >= 6) { addStones(-6); addArtifact(randomArt()); return '你的灵识探到一丝微弱的灵韵，当即买下。切开后，果然有东西。'; }
+        return '你探出石头里有灵韵，却拿不出六枚灵石。老叟收摊走了。';
+      }
+      return '你探了半晌，什么也没探出来，只当是块顽石。';
+    }],
+    ['不赌', '稳', () => { gainPct(0.06); return '你摇摇头走了。身后传来一声脆响，不知是谁赌中了。'; }],
+  ],
+});
+
+ev({ id: 'n5', realm: -1, w: 3, title: '流星余辉',
+  text: '打坐时，一缕天外流星余辉恰好落在你身上。神魂短暂清明，往日参不透的功法忽然清晰起来。只是当夜，你总觉得有什么在暗处窥探。',
+  opts: [
+    ['趁机参悟', '机', () => {
+      gainPct(0.3); addMood(-6);
+      return '你借着那一线清明，把功法推演到了从前不敢想的境地。入夜后，窗外有影子一闪而过。';
+    }],
+    ['只取一丝余辉', '稳', () => { gainPct(0.16); addMood(2); return '你见好就收，收功时天边刚泛起鱼肚白。'; }],
+    ['追逐余辉', '险', () => {
+      if (chk(0.48)) { addWits(1); gainPct(0.24); return '你循着余辉走了很远，在一处山巅看见半枚残破的道纹。你把它记进了心里。'; }
+      addMood(-10); shortenLife(3);
+      return '余辉散得太快，你追到一半便什么也看不见了。夜里做了整夜的噩梦。';
+    }],
+  ],
+});
+
+ev({ id: 'n6', realm: -1, minRealm: 1, w: 3, title: '灵泉之争',
+  text: '前方两伙修士正为一处灵泉争得剑拔弩张，撞见你路过，两边都想拉你入伙。',
+  opts: [
+    ['帮其中一方', '险', () => {
+      if (chk(0.5)) { addStones(10); addMood(3); return '你出手帮一方逼退了对手，分到十枚灵石。输的那方走时，把你的脸记下了。'; }
+      loseHp(0.25); addMood(-5);
+      return '你刚出手就被对面两人夹击，挨了一记法术，狼狈退走。';
+    }],
+    ['悄悄绕路', '稳', () => { addMood(-2); return '你贴着山壁绕了过去。身后的喝骂声渐渐远了。'; }],
+    ['出面调停', '机', () => {
+      if (chk(0.38)) { addStones(8); addMood(5); return '你把两边的利害摆开，竟真说和了。两边各出四枚灵石谢你。'; }
+      loseHp(0.3); addMood(-10);
+      return '你话没说完，两边同时把剑指向了你。你成了他们共同的敌人。';
+    }],
+  ],
+});
+
+ev({ id: 'n7', realm: -1, minRealm: 1, w: 3, title: '心幻之境',
+  text: '赶路误入一处幻境。幻境里，那个你最放不下的人正坐在旧屋中，抬眼看你，说：你终于回来了。',
+  opts: [
+    ['沉溺其中', '险', () => {
+      gainPct(0.15); addMood(-15);
+      return '你在幻境里过了很多年，几乎忘了自己是来修仙的。醒来时，嘴角还带着笑，心魔却已生了根。';
+    }],
+    ['勘破幻境', '机', () => {
+      if (chk(0.52)) { addWits(1); addMood(8); return '你看着那张脸，轻声说：你不是她。幻境碎了，神魂却比从前更清亮。'; }
+      addMood(-10);
+      return '你明知是假，却还是伸出了手。幻境碎时，你的心也跟着裂了一道缝。';
+    }],
+    ['强行破阵', '险', () => {
+      shortenLife(3); addMood(5); addWits(1);
+      return '你咬破舌尖，以痛楚压过幻象。冲出阵时吐了一口血，人却清醒了。';
+    }],
+  ],
+});
+
+ev({ id: 'n8', realm: -1, minRealm: 1, w: 3, title: '无主玉符',
+  text: '你捡到一枚无主传讯玉符，里面还在不断接收消息。最后一条写着：秘境坐标已到手，速来。玉符上有原主留下的印记。',
+  opts: [
+    ['循坐标寻秘境', '险', () => {
+      if (chk(0.52)) { gainPct(0.3); addStones(12); return '你抢先一步进了秘境，取走最外层的几样东西便退了出来。坐标很快失效了。'; }
+      return battleWith(1.3, '追来的修士', '玉符上的印记亮了，一道遁光正朝你赶来。');
+    }],
+    ['毁掉玉符', '稳', () => { addMood(-3); gainPct(0.04); return '你捏碎了玉符。那些消息、坐标、还有原主的追查，都一起碎了。'; }],
+    ['守株待兔，等原主', '机', () => {
+      if (chk(0.48)) { addStones(15); return '你在约定之处守了三日，等来的却是一个重伤的散修。你救了他，他拿灵石谢你。'; }
+      return battleWith(1.1, '玉符原主', '原主循着印记找上门来，脸色很不好看。');
+    }],
+  ],
+});
+
+ev({ id: 'n9', realm: -1, minRealm: 1, w: 3, title: '受伤的散修',
+  text: '一个受伤散修拦住你，愿意用一张妖兽分布图换一枚疗伤丹药。他的手一直在抖，眼睛却盯着你的储物袋。',
+  opts: [
+    ['用疗伤丹换图', '耗', () => {
+      if (itemCount('heal') <= 0) return '你摸遍袖中，一枚疗伤丹也没有。那人失望地走了。';
+      addItem('heal', -1); addWits(1);
+      if (chk(0.45)) return battleWith(1.1, '翻脸的散修', '他接过丹药吞下，忽然从袖中抽出一柄短刀。');
+      gainPct(0.12);
+      return '他千恩万谢，把分布图塞给你，一瘸一拐地走了。图上标着几处妖巢，很准。';
+    }],
+    ['白送他一枚丹', '机', () => {
+      if (itemCount('heal') <= 0) { addMood(3); return '你没有丹药，只能给他指了条下山的路。'; }
+      addItem('heal', -1); addMood(8);
+      return '你把丹药放在他手里就走了。走出很远，还听见他在身后喊你的名字。';
+    }],
+    ['假意靠近，先下手', '险', () => {
+      if (chk(0.48)) { addStones(12); addMood(-8); return '你先一步按住了他的储物袋。他没有反抗，只是看着你，眼神很平静。'; }
+      return battleWith(1.2, '受伤的散修', '他早有防备，短刀比你的手更快。');
+    }],
+  ],
+});
+
+ev({ id: 'n10', realm: -1, minRealm: 1, w: 3, title: '空间乱流',
+  text: '灵舟被空间乱流余波掀出航线，落进一片地图上没有的山脉。谷中灵药成片，远处却传来沉重的兽息。',
+  opts: [
+    ['先采灵药', '稳', () => { gainPct(0.18); addItem('heal', 1); return '你采了满满一篓灵药，没敢往谷深处去。'; }],
+    ['探一探妖兽巢穴', '险', () => {
+      if (chk(0.42)) { addArtifact(randomArt()); return '巢里只剩一件被压在兽骨下的东西，妖兽已不知去向。你抱起东西就跑。'; }
+      return battleWith(1.5, '巢中妖蟒', '巢穴深处，一双竖瞳缓缓睁开。');
+    }],
+    ['寻路离开', '稳', () => { addMood(-2); gainPct(0.06); return '你花了半个月才走出这片山脉，回到官道上时，人瘦了一圈。'; }],
+  ],
+});
+
+ev({ id: 'n11', realm: -1, minRealm: 2, w: 3, title: '古妖破封',
+  text: '地底传来一声闷响，封印古妖的气息席卷群山。它刚刚破封，力量远未恢复，可那股妖气仍压得林木低头。',
+  opts: [
+    ['趁其虚弱斩杀', '险', () => battleWith(1.8, '古妖残魂', '你逆着妖气冲了上去。')],
+    ['远遁百里', '稳', () => {
+      if (chk(0.55)) { addMood(-4); return '你头也不回地遁出百里。身后那道妖气冲上半空，又缓缓落了下去。'; }
+      return battleWith(1.4, '古妖残魂', '妖气锁定了你，跑不掉了。');
+    }],
+    ['加固封印', '机', () => {
+      if (chk(0.48)) { addLife(10); addMood(10); return '你以自身法力补全了封印的一角。古妖的怒吼沉回地底，山中灵气都清了几分。'; }
+      shortenLife(12); loseHp(0.35);
+      return '封印反噬，你被震飞出去，经脉里像灌了铅。';
+    }],
+  ],
+});
+
+ev({ id: 'n12', realm: -1, minRealm: 1, w: 3, title: '战场煞灵',
+  text: '路过一处古战场，残留的杀伐怨气凝成煞灵，无声无息地跟在你身后，一点点啃食你的气血。',
+  opts: [
+    ['以清心法器净化', '机', () => {
+      if (S.artifacts.length && chk(0.55)) { addMood(10); healHp(0.3); addStones(5); return '你祭出法宝，清光一照，煞灵像雪一样化了。你捡起它留下的阴晶。'; }
+      loseHp(0.3); addMood(-5);
+      return '你身上没有能克它的东西，只能硬拼。煞灵散了，你也脱了层皮。';
+    }],
+    ['咬牙硬扛', '险', () => { loseHp(0.35); shortenLife(6); return '你一路走一路扛，等出了战场，气血已亏了大半，寿元也被磨去一截。'; }],
+    ['退走', '稳', () => { loseHp(0.12); return '你退出战场边缘，煞灵跟到界碑处便停了。'; }],
+  ],
+});
+
+ev({ id: 'n13', realm: -1, minRealm: 2, w: 3, title: '重犯同行',
+  text: '你雇的向导一路沉默。追兵赶到时你才知道，他是宗门通缉的重犯，而你被当成了同党。',
+  opts: [
+    ['交出对方', '稳', () => { addMood(-8); addStones(5); return '你退开一步，指了指他。追兵押走他时，他回头看了你一眼，什么也没说。'; }],
+    ['与他联手', '险', () => battleWith(1.2, '宗门追兵', '你和向导背靠背站定。')],
+    ['自证清白', '机', () => {
+      if (chk(0.32)) { addStones(8); addMood(5); return '你亮出宗门玉牌，又说出他三处破绽。追兵信了，还赔了你八枚灵石。'; }
+      return battleWith(1.4, '宗门追兵', '领头的修士冷笑：拿下再说。');
+    }],
+  ],
+});
+
+ev({ id: 'n14', realm: -1, minRealm: 2, w: 3, title: '雷劫余波',
+  text: '远处有人在渡劫，溢散的雷光扫过你头顶。这不是你的劫，可被劈中一样会死。',
+  opts: [
+    ['借雷淬体', '险', () => {
+      if (chk(0.42)) { loseHp(0.2); gainPct(0.25); addWits(1); return '雷光穿体，你疼得几乎昏过去。等雷散时，肉身却比从前结实了一大截。'; }
+      loseHp(0.4); shortenLife(4);
+      return '雷光落得偏了半寸，你半边身子焦黑，养了很久。';
+    }],
+    ['远远避开', '稳', () => { loseHp(0.08); return '你退到山背，雷光擦着山头过去。'; }],
+    ['以法宝挡雷', '耗', () => {
+      if (S.artifacts.length) { gainPct(0.14); return '你祭出法宝硬接了一道余雷。法宝上多了一道焦痕，人却无碍。'; }
+      loseHp(0.25);
+      return '你身上没法宝可挡，只能以肉身去接。';
+    }],
+  ],
+});
+
+ev({ id: 'n15', realm: -1, minRealm: 1, w: 3, title: '古匣诅咒',
+  text: '黑市买来的古匣上刻满看不懂的符纹。打开之后，你每夜都被同一个梦魇缠住，修为在睡梦中一点点倒退。',
+  opts: [
+    ['打开古匣，看看里面', '险', () => {
+      if (chk(0.5)) { addArtifact('噬魂幡'); return '匣中是一面黑色小幡。你握住它的瞬间，梦魇停了。它似乎很满意你这个新主人。'; }
+      S.flags.curse = true; addMood(-18);
+      return '匣中只有一缕黑气，钻进你的眉心。从今夜起，梦魇成了你的常客。';
+    }],
+    ['请人解咒', '耗', () => {
+      if (S.stones < 15) { addMood(-5); return '你掏不出十五枚灵石，那位老道摇了摇头。'; }
+      addStones(-15); addMood(6); S.flags.curse = false;
+      return '老道画了三道符，烧在你眉心。当夜你睡了很久以来第一个安稳觉。';
+    }],
+    ['一把火烧了', '稳', () => { addMood(-3); return '你把古匣扔进火里。火烧了一夜，匣子没化，梦魇却轻了些。'; }],
+  ],
+});
+
+ev({ id: 'n16', realm: -1, minRealm: 2, w: 2, title: '时间洞天',
+  text: '你误入一处小洞天。洞内一日，外界一月。洞天有存续时限，一旦错过出口，就会被永远关在里面。',
+  opts: [
+    ['闭关苦修', '险', () => {
+      if (chk(0.7)) { gainPct(0.5); shortenLife(3); return '你在洞中坐了不知多久。出来时，外界只过了数月，你的修为却涨了一大截。'; }
+      shortenLife(25); addMood(-20);
+      return '你出来晚了半日，出口已经闭合。你在洞天里困了三年，才等到下一次缝隙。';
+    }],
+    ['采药便走', '稳', () => { addItem('heal', 2); gainPct(0.1); return '你采了两株外界早已绝迹的灵药，赶在出口闭合前退了出来。'; }],
+    ['探索洞天深处', '机', () => {
+      if (chk(0.5)) { addWits(1); addArtifact(randomArt()); return '洞天深处有一座枯坐的骸骨，手里还握着一件东西。你替他把骨头埋了。'; }
+      shortenLife(8);
+      return '你在深处迷了路，靠着一线灵光才摸回出口，寿元折了几年。';
+    }],
+  ],
+});
+
+ev({ id: 'n17', realm: -1, minRealm: 2, w: 2, title: '残魂传术',
+  text: '一具陨落大能的残魂浮在阵中，说愿传你一招秘术，条件是你答应替他完成一件遗愿。违誓者，神魂受创。',
+  opts: [
+    ['答应下来', '机', () => {
+      addWits(1); gainPct(0.15); S.flags.oath = true;
+      const t = randomTech(2);
+      if (t) { learnTech(t.id); return '残魂点头，一指点在你眉心。你识海里多了一篇《' + t.name + '》，还有一句没说完的遗愿。'; }
+      addArtifact(randomArt());
+      return '残魂点头，一指点在你眉心。你识海里多了一件东西的用法，还有一句没说完的遗愿。';
+    }],
+    ['只求一门保命之术', '稳', () => { addItem('escape', 2); return '残魂沉默片刻，传了你两道遁符。他没有再提遗愿的事。'; }],
+    ['婉拒', '稳', () => { addMood(3); return '你后退一步，拱手谢过。残魂叹了口气，散了。'; }],
+  ],
+});
+
+ev({ id: 'n18', realm: -1, w: 2, title: '先天灵种',
+  text: '灵河中浮出一枚先天灵种，认主后能慢慢长成灵根。可它会持续吸食你的本源精气，在灵根成型前，你的修为会停滞不前。',
+  opts: [
+    ['认主', '机', () => {
+      const before = S.root.name;
+      const ok = upgradeRoot();
+      if (ok) { shortenLife(10); addMood(-5); }
+      return ok
+        ? '灵种没入丹田。你的灵根从「' + before + '」化作了「' + S.root.name + '」，代价是十年寿元与一段停滞的修行。'
+        : '灵种在你掌心转了一圈，似乎觉得你的天灵根已无可补，化作一点灵光散了。';
+    }],
+    ['取一滴灵液', '稳', () => { addItem('mana', 2); gainPct(0.1); return '你只取了一滴灵液，装进玉瓶。灵种沉回河底。'; }],
+    ['不取', '稳', () => { addMood(2); return '你看了它很久，最终转身离开。有些机缘，未必接得住。'; }],
+  ],
+});
+
+ev({ id: 'n19', realm: -1, minRealm: 2, w: 2, title: '上古道音',
+  text: '一段上古道音凭空浮现在脑海，你短暂地窥见了一角大道。可道音也引来了天道的注视——往后渡劫，怕是更难了。',
+  opts: [
+    ['全力参悟', '险', () => {
+      gainPct(0.35); S.flags.tribulation = true; addMood(-5);
+      return '你顺着道音推演下去，直到七窍渗血才停下。从此天上多了一双看着你的眼睛。';
+    }],
+    ['浅尝辄止', '稳', () => { gainPct(0.18); return '你只记下开头三句，便主动断了感应。'; }],
+    ['封闭六识', '稳', () => { addMood(5); return '你封闭六识，任由道音在识海外徘徊。它响了很久，终于散了。'; }],
+  ],
+});
+
+ev({ id: 'n20', realm: -1, minRealm: 1, w: 2, title: '照世铜镜',
+  text: '你捡到一面铜镜，能照见他人短暂的未来片段，每天只能用一次。每用一次，镜中就会吞掉你的一段记忆。',
+  opts: [
+    ['窥看未来', '机', () => {
+      if (chk(0.58)) { gainPct(0.2); addStones(10); addMood(-10); return '你在镜中看见一处即将塌方的矿洞，提前避开了。只是那天夜里，你想不起母亲的脸了。'; }
+      addMood(-15);
+      return '镜中只有一片白雾。你盯着它看了太久，回过神来，已经忘了自己为何站在这里。';
+    }],
+    ['收起不用', '稳', () => { gainPct(0.04); return '你把铜镜包好，收进储物袋最底层。'; }],
+    ['砸碎铜镜', '稳', () => { addMood(5); return '你一掌拍碎了铜镜。碎片里映出无数个你，都松了一口气。'; }],
+  ],
+});
+
+ev({ id: 'n21', realm: -1, w: 3, title: '丹师炸炉',
+  text: '坊市丹师炼药炸了炉，丹香四散，不少丹药碎片崩到街上。众人一拥而上，可空气里也弥漫着丹毒。',
+  opts: [
+    ['冲进去抢丹', '险', () => {
+      if (chk(0.55)) { addItem('heal', 1); addItem('mana', 1); return '你抢到两枚半成的丹药，虽然卖相不好，药力还在。'; }
+      loseHp(0.25);
+      return '你吸了一口丹毒，头晕目眩，被人群挤了出来。';
+    }],
+    ['退到上风口', '稳', () => { addMood(2); return '你站在上风口看热闹。丹师灰头土脸地从废墟里爬出来，骂了半条街。'; }],
+    ['帮丹师灭火', '机', () => { addMood(8); addStones(5); return '你一道法术压住火势。丹师抹了把脸，塞给你五枚灵石。'; }],
+  ],
+});
+
+ev({ id: 'n22', realm: -1, minRealm: 1, w: 2, title: '宗门小比',
+  text: '宗门小比结束，一名落败的年轻弟子坐在台阶上，拳头攥得发白。你看得出，他心里的郁结再压一压，就要生出心魔了。',
+  opts: [
+    ['开导他', '机', () => { addMood(8); S.flags.kindness = true; return '你在他旁边坐下，讲了自己当年输得最惨的一战。他听着听着，忽然笑了。'; }],
+    ['冷眼旁观', '稳', () => { addMood(-2); gainPct(0.05); return '你从他身边走过去。修仙路上，这样的坎只能自己过。'; }],
+    ['收他为徒', '稳', () => {
+      if (chk(0.5)) { addMood(5); addStones(5); return '他愣了很久，磕了三个头。从此你洞府里多了一个扫地的少年。'; }
+      addMood(-5);
+      return '他抬头看了你一眼，说：我不需要人可怜。';
+    }],
+  ],
+});
+
+ev({ id: 'n23', realm: -1, minRealm: 1, w: 2, title: '海族',
+  text: '渔村海边浮上来一只昏迷的海族，鳞片在日光下泛着蓝。村里人围了一圈，有人说该卖，有人说该放。',
+  opts: [
+    ['救醒他，做笔交易', '机', () => { addItem('mana', 2); addStones(8); return '海族醒来后，用两瓶海灵露和八枚灵石谢你。他说，海里的人会记得你。'; }],
+    ['卖给路过的修士', '险', () => {
+      addStones(20); addMood(-15);
+      if (chk(0.4)) return battleWith(1.1, '寻来的海族', '海面翻涌，几道鳞光破水而出。');
+      return '你把海族卖了二十枚灵石。当晚，你梦见一片很深的海。';
+    }],
+    ['放回海里', '稳', () => { addMood(10); addItem('heal', 1); return '你把海族推回水里。他回头看了你一眼，吐出一颗珠子，沉了下去。'; }],
+  ],
+});
+
+ev({ id: 'n24', realm: -1, w: 2, title: '仿品符箓',
+  text: '你买的符箓是仿品。画符的修士在里面动了手脚，真到用时，符箓会反向炸开。',
+  opts: [
+    ['当场试用', '险', () => {
+      if (chk(0.5)) { loseHp(0.2); return '符箓刚离手就炸了。你被气浪掀翻，半边袖子烧没了。'; }
+      addStones(5);
+      return '你当场试符，符纸亮了一下就灭了。摊主怕事情闹大，赔了你五枚灵石。';
+    }],
+    ['找卖家算账', '险', () => {
+      if (chk(0.52)) { addStones(8); return '你把符箓拍在摊子上。摊主看了看你腰间的法器，乖乖退了八枚灵石。'; }
+      return battleWith(1.0, '符铺打手', '摊主一招手，后堂转出两个人来。');
+    }],
+    ['扔掉', '稳', () => { addMood(-3); return '你把符箓扔进河里。它沉下去时，还在冒泡。'; }],
+  ],
+});
+
+ev({ id: 'n25', realm: -1, minRealm: 1, w: 2, title: '黑市功法',
+  text: '黑市深处有个蒙面的摊主，摊上只摆着几卷玉简，不标价，只问你想拿什么换。',
+  opts: [
+    ['用五十枚灵石换一卷', '耗', () => {
+      if (S.stones < 50) { addMood(-4); return '你摸了摸储物袋，蒙面人已经收起了玉简。'; }
+      addStones(-50);
+      const t = randomTech(3);
+      if (t) { learnTech(t.id); return '玉简里是一门《' + t.name + '》。你回去练了半年，竟真练成了几分。'; }
+      addArtifact(randomArt());
+      return '玉简里是一幅法器图。你照着炼了半年，居然真的炼成了。';
+    }],
+    ['用一则消息换', '机', () => {
+      if (chk(0.5)) {
+        const t = randomTech(2);
+        if (t) { learnTech(t.id); return '你告诉他一处秘境的下落。他点点头，推来一卷《' + t.name + '》。'; }
+      }
+      addMood(-5); addStones(-5);
+      return '你编了一则消息。他听完，只笑了笑，把你请了出去，还收了你五枚陪客费。';
+    }],
+    ['不可靠，走开', '稳', () => { addMood(2); gainPct(0.06); return '你转身就走。这种地方，多待一刻都是风险。'; }],
+  ],
+});
+
+ev({ id: 'n26', realm: -1, minRealm: 2, w: 2, title: '古修洞府',
+  text: '你在荒原上踩空，掉进一座埋了几千年的洞府。四壁的夜明珠还亮着，照见一具端坐的骸骨。',
+  opts: [
+    ['取走骸骨旁的遗物', '险', () => {
+      if (chk(0.55)) { addArtifact(randomArt()); addStones(15); return '骸骨旁的玉台上摆着一件法器。你取走它时，骸骨忽然塌成了一把灰。'; }
+      loseHp(0.35); shortenLife(6);
+      return '洞府里有禁制。你被弹飞出去，摔在荒原上，肋骨断了两根。';
+    }],
+    ['把骸骨安葬，再取余物', '稳', () => { addMood(12); addArtifact(randomArt()); return '你在洞府外挖了个坑，把骸骨埋了。再回去时，玉台上的东西还在。'; }],
+    ['只记下地形，空手离开', '稳', () => { addWits(1); gainPct(0.12); return '你把洞府画在玉简上。有些东西，等你有把握了再来拿。'; }],
+  ],
+});
+
+ev({ id: 'n27', realm: -1, minRealm: 1, w: 2, title: '妖潮袭村',
+  text: '山下的村子被妖潮围了三天。村口的木栅已经破了，村民拿着锄头站在雨里。',
+  opts: [
+    ['出手护村', '险', () => {
+      if (chk(0.5)) { addMood(15); addStones(10); gainPct(0.15); return '你在村口站了一夜。天亮时妖潮退了，村长带着全村人给你磕头。'; }
+      loseHp(0.45); shortenLife(8);
+      return '妖潮比你想的多。你护住了村口，却没护住自己，被撕下了一大块皮肉。';
+    }],
+    ['带村民往山上撤', '稳', () => { addMood(8); addStones(4); shortenLife(2); return '你带他们躲进山洞，烧起大火。三天后回来，村子已经没了，人都还在。'; }],
+    ['不管，绕路走', '稳', () => { gainPct(0.1); addMood(-12); return '你从村子侧面绕了过去。身后的哭喊声，你听了很久。'; }],
+  ],
+});
+
+ev({ id: 'n28', realm: -1, minRealm: 2, w: 2, title: '同门相残',
+  text: '你撞见两个同门在崖边动手，一个要抢另一个的筑基丹。见你来了，两人都停了手，等你开口。',
+  opts: [
+    ['出手制止', '稳', () => { addMood(8); addStones(5); gainPct(0.1); return '你一剑劈开两人之间的石头。抢丹的那个骂了一句，走了。被抢的塞给你五枚灵石。'; }],
+    ['站在强者一边', '险', () => {
+      if (chk(0.5)) { addStones(14); addMood(-10); return '你帮强的那一个按住了另一个。事后分账，他给了你十四枚灵石，还拍了拍你的肩。'; }
+      addMood(-18); loseHp(0.4); shortenLife(5);
+      return '你站错了边。那个看似弱的，其实是藏了修为的，你被两人合力打成重伤。';
+    }],
+    ['转身走开，当作没看见', '稳', () => { addMood(-6); gainPct(0.08); return '你转身走开。身后的打斗声很快就停了，你不知道是谁赢了。'; }],
+  ],
+});
+
+/* ---------------- 通用日常 ---------------- */
+ev({ id: 'r5', realm: -1, minRealm: 1, repeat: true, w: 2, title: '坊市采买',
+  texts: [
+    '又到了下山采买的日子。坊市里人声嘈杂，讨价还价的声音从街头传到街尾。',
+    '你在坊市里逛了半日，买了几味常用的药材，顺带听了一耳朵的闲话。',
+    '坊市换了一批新面孔，摊子还是那些摊子，卖的东西却一年比一年贵。',
+  ],
+  opts: [
+    ['买些丹药备用', '耗', () => {
+      if (S.stones < 6) { addMood(-2); return '你摸了摸储物袋，还是转身走了。'; }
+      addStones(-6); addItem('heal', 1); addItem('mana', 1);
+      return '你买了些丹药，心里踏实了些。';
+    }],
+    ['听消息，认人', '机', () => { addWits(1); addStones(3); gainPct(0.05); return '你在一间茶楼坐了一天，听来不少有用的东西。'; }],
+    ['摆摊卖些杂物', '稳', () => { addStones(8); gainPct(0.05); return '你把用不上的东西摆出来，居然真卖掉了大半。'; }],
+  ],
+});
+
+ev({ id: 'r6', realm: -1, minRealm: 2, repeat: true, w: 2, title: '静修',
+  texts: [
+    '你在洞府里静修，日复一日，只有丹田里那点光陪着你。',
+    '这一次入定，你又忘了时间。醒来时，洞口的蛛网已经结了三层。',
+    '真气在经脉里走了一个大周天，又一个大周天。窗外的月亮升起来，又落下去。',
+  ],
+  opts: [
+    ['长坐不出', '稳', () => { gainPct(0.3); return '你一动不动。时间在洞外流过去，与你无关。'; }, null, 20],
+    ['调息养神', '稳', () => { addMood(8); healHp(0.3); healMp(0.4); gainPct(0.1); return '你收功调息，把这些年积下的暗伤一点点养回来。'; }],
+    ['以战代修', '险', () => {
+      if (chk(0.5)) { gainPct(0.25); addStones(12); return '你下山找了一头作恶的妖兽，一场恶斗之后，修为反而更纯了。'; }
+      loseHp(0.45); shortenLife(8);
+      return '你挑了头硬茬子，差点没回来。';
+    }, null, 10],
+  ],
+});
+
+</script>
+<script>
+/* ---- game.js ---- */
+'use strict';
+/* =============================================================
+   凡人修仙传 · 寿元 —— 引擎层
+   ============================================================= */
+
+let S = null;
+const SAVE_KEY = 'fanren_shouyuan_v4';
+const ROOT_REF = 0.22;
+const $ = (id) => document.getElementById(id);
+
+/* ---------------- 状态 ---------------- */
+function freshState(name, root, diff) {
+  const d = typeof diff === 'number' ? diff : 1;
+  return {
+    name: name || '无名',
+    root: root || ROOTS[3],
+    diff: d,
+    age: 16,
+    realm: 0,
+    progress: 0,
+    life: REALMS[0].life,
+    wits: 5 + (root ? root.wits || 0 : 0),
+    mood: clamp(60 + (root ? root.mood || 0 : 0), 0, 100),
+    stones: 3,
+    hp: REALMS[0].hp,
+    mp: REALMS[0].mp,
+    items: { heal: 1, mana: 1, break: 0, escape: 1, revive: d === 0 ? 1 : 0, marrow: 0, calm: 0 },
+    artifacts: [],
+    techs: [],
+    bottle: false,
+    world: pick(WORLD_MOODS).id,
+    used: {},
+    recent: [],
+    eventId: null,
+    phase: 'event',
+    result: null,
+    deltas: null,
+    pending: false,
+    over: null,
+    overText: '',
+    battle: null,
+    flags: {},
+    turn: 1,
+  };
+}
+
+/* ---------------- 难度与世界 ---------------- */
+function diffInfo() { return DIFFS[(S && S.diff) || 1] || DIFFS[1]; }
+function worldInfo() { return WORLD_MOODS.find((w) => w.id === (S && S.world)) || WORLD_MOODS[0]; }
+
+/* 难度修正后的判定 */
+function chk(p) {
+  const d = S ? S.diff : 1;
+  const base = DIFFS[d] ? DIFFS[d].check : 0;
+  const moodMod = S ? ((S.mood - 50) / 100) * 0.08 : 0;
+  const witsMod = S ? clamp((S.wits - 5) * 0.006, 0, 0.06) : 0;
+  return Math.random() < clamp(p - base + moodMod + witsMod, 0.03, 0.97);
+}
+
+/* ---------------- 功法 ---------------- */
+function hasTech(id) { return !!(S && S.techs && S.techs.includes(id)); }
+function learnTech(id) {
+  const t = TECHS[id];
+  if (!t || !S || hasTech(id)) return false;
+  S.techs.push(id);
+  const ps = t.passive || {};
+  if (ps.hp) S.hp = Math.min(maxHp(), S.hp + ps.hp);
+  if (ps.mp) S.mp = Math.min(maxMp(), S.mp + ps.mp);
+  if (ps.wits) addWits(ps.wits);
+  return true;
+}
+function techStats() {
+  const s = { hp: 0, mp: 0, atk: 0, def: 0, crit: 0, lifesteal: 0, flee: 0, cult: 0, dmgReduce: 0, wits: 0 };
+  (S.techs || []).forEach((id) => {
+    const t = TECHS[id];
+    if (!t || !t.passive) return;
+    Object.keys(t.passive).forEach((k) => {
+      if (typeof t.passive[k] === 'number' && typeof s[k] === 'number') s[k] += t.passive[k];
+    });
+  });
+  return s;
+}
+function knownSpells() {
+  const out = [];
+  (S.techs || []).forEach((tid) => {
+    const t = TECHS[tid];
+    if (!t) return;
+    (t.spells || []).forEach((sid) => { if (SPELLS[sid] && !out.includes(sid)) out.push(sid); });
+  });
+  return out;
+}
+function hasSpell(id) { return knownSpells().includes(id); }
+function artifactActives() {
+  const out = [];
+  (S.artifacts || []).forEach((n) => {
+    const a = ARTS[n];
+    if (a && a.fx && a.fx.active && SPELLS[a.fx.active]) out.push({ art: n, spell: a.fx.active });
+  });
+  return out;
+}
+function randomTech(maxTier) {
+  const pool = Object.keys(TECHS)
+    .filter((id) => TECHS[id].tier <= (maxTier || 4) && !hasTech(id))
+    .map((id) => ({ id: id, name: TECHS[id].name }));
+  return pool.length ? pick(pool) : null;
+}
+function randomArt() {
+  const pool = ART_KEYS.filter((n) => !S.artifacts.includes(n));
+  return pool.length ? pick(pool) : null;
+}
+
+/* ---------------- 属性 ---------------- */
+function artStats() {
+  const s = { atk: 0, def: 0, hp: 0, mp: 0, cult: 0, crit: 0, lifesteal: 0, flee: 0, mood: 0, wits: 0,
+    dmgReduce: 0, spellPower: 0, healOnKill: 0, execute: 0, manaRegen: 0, thorns: 0, shieldStart: 0 };
+  (S.artifacts || []).forEach((n) => {
+    const a = ARTS[n];
+    if (!a) return;
+    Object.keys(a).forEach((k) => {
+      if (typeof a[k] === 'number' && typeof s[k] === 'number') s[k] += a[k];
+    });
+    if (a.fx) {
+      Object.keys(a.fx).forEach((k) => {
+        if (typeof a.fx[k] === 'number' && typeof s[k] === 'number') s[k] += a.fx[k];
+      });
+    }
+  });
+  return s;
+}
+function maxHp() { return Math.round(REALMS[S.realm].hp + artStats().hp + techStats().hp); }
+function maxMp() { return Math.round(REALMS[S.realm].mp + artStats().mp + techStats().mp); }
+function pAtk() { return Math.round(REALMS[S.realm].atk + artStats().atk + techStats().atk + S.wits * 2); }
+function pDef() { return Math.round(REALMS[S.realm].def + artStats().def + techStats().def); }
+function pCrit() { return clamp(0.05 + artStats().crit + techStats().crit, 0, 0.7); }
+function pLifeSteal() { return clamp(artStats().lifesteal + techStats().lifesteal, 0, 0.8); }
+function pDmgReduce() { return clamp(artStats().dmgReduce + techStats().dmgReduce, 0, 0.6); }
+
+function rootMult() {
+  const rel = (S.root.mult || 0.22) / ROOT_REF;
+  return rel * (1 + (S.wits - 5) * 0.01) * (S.bottle ? 1.35 : 1) *
+    (1 + artStats().cult + techStats().cult) * worldInfo().cult;
+}
+function gainPct(p) {
+  const need = REALMS[S.realm].need;
+  if (!need) return 0;
+  const v = need * p * rootMult() * rnd(0.85, 1.15);
+  S.progress = clamp(S.progress + v, 0, need);
+  if (S.progress >= need - 0.001 && S.realm < 5) S.pending = true;
+  return v;
+}
+function addStones(n) { S.stones = Math.max(0, S.stones + n); }
+function addItem(id, n) {
+  if (!ITEMS[id]) return;
+  S.items[id] = clamp((S.items[id] || 0) + n, 0, 99);
+}
+function addPills(n) { addItem('break', n); }
+function itemCount(id) { return S.items[id] || 0; }
+function addMood(n) {
+  S.mood = clamp(S.mood + n, 0, 100);
+  if (S.mood <= 0) die('demon');
+}
+function addWits(n) { S.wits = clamp(S.wits + n, 1, 30); }
+function shortenLife(n) {
+  S.life = Math.max(S.age, S.life - n);
+  if (S.age >= S.life) die('old');
+}
+function addLife(n) { S.life = Math.max(S.age + 1, S.life + n); }
+function addArtifact(name) {
+  if (!name || !ARTS[name] || S.artifacts.includes(name)) return false;
+  S.artifacts.push(name);
+  S.hp = Math.min(maxHp(), Math.max(S.hp, S.hp + (ARTS[name].hp || 0)));
+  S.mp = Math.min(maxMp(), Math.max(S.mp, S.mp + (ARTS[name].mp || 0)));
+  return true;
+}
+function healHp(frac) { S.hp = clamp(S.hp + Math.round(maxHp() * frac), 0, maxHp()); }
+function healMp(frac) { S.mp = clamp(S.mp + Math.round(maxMp() * frac), 0, maxMp()); }
+function loseHp(frac) { S.hp = Math.max(1, S.hp - Math.round(maxHp() * frac)); }
+function loseMp(frac) { S.mp = Math.max(0, S.mp - Math.round(maxMp() * frac)); }
+function upgradeRoot() {
+  const i = ROOTS.findIndex((r) => r.name === S.root.name);
+  if (i <= 0) return false;
+  S.root = ROOTS[i - 1];
+  return true;
+}
+function die(kind, text) {
+  if (S.over) return;
+  S.over = kind;
+  S.overText = text || '';
+}
+
+/* =============================================================
+   战斗
+   ============================================================= */
+function pushLog(t) {
+  if (!S.battle) return;
+  S.battle.log.push(t);
+  if (S.battle.log.length > 60) S.battle.log.shift();
+}
+function stSum(st, k) {
+  if (!st) return 0;
+  return st.filter((x) => x.k === k).reduce((a, x) => a + x.v, 0);
+}
+function stHas(st, k) { return stSum(st, k) > 0; }
+function addSt(st, k, v, turns) {
+  if (!v) return;
+  st.push({ k: k, v: v, turns: Math.max(1, turns || 1) });
+}
+function pSt() { return S.battle ? S.battle.p.st : []; }
+function eSt() { return S.battle ? S.battle.e.st : []; }
+
+const TRAIT_SKILLS = {
+  caster: ['cast', 'wail'],
+  drain: ['drain'],
+  poison: ['poison'],
+  physResist: ['heavy'],
+  enrage: ['heavy'],
+  fast: [],
+  regen: [],
+  shieldStart: [],
+  bleed: ['heavy'],
+  spellImmune: [],
+};
+
+function makeEnemy(power, forcedName, opts) {
+  power = power || 1;
+  opts = opts || {};
+  const r = S.realm;
+  const pool = ENEMY_POOL[r] || ENEMY_POOL[0];
+  let proto = null;
+  if (forcedName) {
+    proto = pool.find((p) => p.name === forcedName) || null;
+    if (!proto) proto = pick(pool);
+  } else {
+    const total = pool.reduce((a, p) => a + (p.w || 1), 0);
+    let x = Math.random() * total;
+    proto = pool[pool.length - 1];
+    for (const p of pool) { x -= (p.w || 1); if (x <= 0) { proto = p; break; } }
+  }
+  const di = diffInfo();
+  const wd = worldInfo();
+  const eliteChance = di.el + (wd.el || 0) + (opts.elite ? 1 : 0);
+  const elite = chance(clamp(eliteChance, 0, 1));
+  const traits = (proto.traits || []).slice();
+  if (elite && !traits.includes('enrage')) traits.push('enrage');
+
+  const baseHp = REALMS[r].hp;
+  let hp = Math.round(baseHp * proto.hp * rnd(0.9, 1.1) * power * di.enemy);
+  if (elite) hp = Math.round(hp * 1.35);
+  const e = {
+    name: forcedName || (elite ? '强悍的' : '') + proto.name,
+    baseName: proto.name,
+    tags: proto.tags || [],
+    hp: hp,
+    maxHp: hp,
+    mp: Math.round(maxMp() * 0.6),
+    maxMp: Math.max(1, Math.round(maxMp() * 0.6)),
+    atk: Math.round(baseHp * proto.atk * (0.9 + power * 0.18) * di.enemy * (elite ? 1.18 : 1)),
+    def: Math.round(pDef() * proto.def * (elite ? 1.1 : 1)),
+    elite: elite,
+    traits: traits,
+    power: power,
+    skills: [],
+    cd: {},
+    rage: 0,
+  };
+  traits.forEach((t) => {
+    (TRAIT_SKILLS[t] || []).forEach((sid) => {
+      if (ENEMY_SKILLS[sid] && !e.skills.includes(sid)) e.skills.push(sid);
+    });
+  });
+  // 精英必带一门强力招式
+  if (elite && !e.skills.includes('breath')) e.skills.push('breath');
+  if (!e.skills.length) e.skills.push('heavy');
+  return e;
+}
+
+function startBattle(enemy, intro) {
+  S.battle = {
+    enemy: enemy,
+    turn: 1,
+    log: [],
+    over: null,
+    cd: {},
+    artCd: {},
+    p: { st: [], shield: 0 },
+    e: { st: [], shield: 0 },
+    extraTurn: false,
+    before: snapshot(),
+  };
+  S.phase = 'battle';
+  if (intro) pushLog(intro);
+  pushLog('【' + enemy.name + '】拦住了去路。');
+  // 法宝开局效果
+  const as = artStats();
+  if (as.shieldStart > 0) {
+    S.battle.p.shield = Math.round(maxHp() * as.shieldStart);
+    pushLog('法宝自行护主，凝成一层护罩。');
+  }
+  if (as.firstStrike > 0) {
+    const d = Math.round(pAtk() * as.firstStrike);
+    enemy.hp = Math.max(1, enemy.hp - d);
+    pushLog('遁光梭抢先发难，伤敌 <b>' + d + '</b> 点。');
+  }
+  if (enemy.traits.includes('shieldStart')) {
+    S.battle.e.shield = Math.round(enemy.maxHp * 0.18);
+    pushLog('【' + enemy.name + '】周身浮起一层灵光。');
+  }
+
+  // 先手判定
+  if (chance(0.25)) {
+    pushLog('【' + enemy.name + '】抢了先手！');
+    enemyTurn();
+  }
+}
+
+function spellCost(sp) {
+  if (!sp) return 0;
+  let mod = 1;
+  const root = S.root || {};
+  if (root.cost) mod *= root.cost;
+  if (root.elem && sp.elem && root.elem === sp.elem) mod *= 0.85;
+  if (root.elem === '天') mod *= 0.94;
+  return Math.max(1, Math.round(maxMp() * sp.cost * mod));
+}
+function spellReady(id) {
+  const sp = SPELLS[id];
+  if (!sp) return { ok: false, reason: '无此术' };
+  const cost = spellCost(sp);
+  if (S.mp < cost) return { ok: false, reason: '法力不足' };
+  const cd = (S.battle && S.battle.cd[id]) || 0;
+  if (cd > 0) return { ok: false, reason: '冷却 ' + cd + ' 回合' };
+  if (sp.hpCost && S.hp <= maxHp() * (sp.hpCost + 0.05)) return { ok: false, reason: '气血不足' };
+  return { ok: true, reason: '' };
+}
+
+/* 对敌造成伤害 */
+function hitEnemy(mult, opts) {
+  opts = opts || {};
+  const b = S.battle, e = b.enemy;
+  const raw = pAtk() * mult * (1 + stSum(b.p.st, 'atk')) * rnd(0.92, 1.08);
+  const ignore = opts.ignoreDef || 0;
+  const def = e.def * (1 - clamp(ignore, 0, 1)) * (1 - stSum(b.e.st, 'sund'));
+  let d = raw - def * 0.6;
+  if (opts.spell) d *= (1 + artStats().spellPower + techStats().spellPower + stSum(b.p.st, 'spellPower'));
+  if (opts.bonusVs && opts.bonus) {
+    const hitTag = e.tags.some((t) => opts.bonusVs.includes(t));
+    if (hitTag) d *= (1 + opts.bonus);
+  }
+  const exec = Math.max(artStats().execute, opts.execute || 0);
+  if (exec && e.hp / e.maxHp <= exec) d *= 2;
+  d *= (1 - stSum(b.e.st, 'dmgReduce'));
+  let crit = false;
+  if (chance(pCrit() + stSum(b.p.st, 'crit'))) { crit = true; d *= 1.85; }
+  d = Math.max(1, Math.round(d));
+  // 护盾吸收
+  if (b.e.shield > 0) {
+    const abs = Math.min(b.e.shield, d);
+    b.e.shield -= abs; d -= abs;
+    if (abs > 0 && d <= 0) {
+      pushLog('【' + e.name + '】的护体灵光挡下了这一击。');
+      return 0;
+    }
+  }
+  e.hp = Math.max(0, e.hp - d);
+  return { dmg: d, crit: crit };
+}
+
+function playerHealSelf(frac) {
+  const h = Math.round(maxHp() * frac);
+  S.hp = clamp(S.hp + h, 0, maxHp());
+  return h;
+}
+
+/* 施法 */
+function castSpell(id) {
+  const b = S.battle;
+  if (!b || b.over || S.over) return;
+  const sp = SPELLS[id];
+  if (!sp) return;
+  const ready = spellReady(id);
+  if (!ready.ok) return;
+  const cost = spellCost(sp);
+  S.mp = Math.max(0, S.mp - cost);
+  if (sp.hpCost) {
+    S.hp = Math.max(1, S.hp - Math.round(maxHp() * sp.hpCost));
+  }
+  if (S.battle.cd) S.battle.cd[id] = sp.cd || 0;
+
+  pushLog('你施展「<b>' + sp.name + '</b>」。');
+  const e = b.enemy;
+
+  if (sp.kind === 'heal') {
+    const h = playerHealSelf(sp.power);
+    pushLog('气血恢复 <b>' + h + '</b> 点。');
+    b.p.st = b.p.st.filter((x) => x.k !== 'poison');
+  } else if (sp.kind === 'shield') {
+    const sh = Math.round(maxHp() * sp.power);
+    b.p.shield += sh;
+    if (sp.fx && sp.fx.thorns) addSt(b.p.st, 'thorns', sp.fx.thorns, sp.fx.turns || 3);
+    pushLog('护罩成形，可挡 <b>' + sh + '</b> 点伤害。');
+  } else if (sp.kind === 'buff') {
+    const fx = sp.fx || {};
+    if (fx.atk) addSt(b.p.st, 'atk', fx.atk, fx.turns || 3);
+    if (fx.def) addSt(b.p.st, 'def', fx.def, fx.turns || 3);
+    if (fx.crit) addSt(b.p.st, 'crit', fx.crit, fx.turns || 3);
+    if (fx.evade) addSt(b.p.st, 'evade', fx.evade, fx.turns || 3);
+    if (fx.dmgReduce) addSt(b.p.st, 'dmgReduce', fx.dmgReduce, fx.turns || 3);
+    if (fx.spellPower) addSt(b.p.st, 'spellPower', fx.spellPower, fx.turns || 3);
+    pushLog('气机一变，威势大涨。');
+  } else if (sp.kind === 'special') {
+    castSpecial(id, sp);
+  } else {
+    // attack
+    const hits = sp.hits || 1;
+    let total = 0, anyCrit = false;
+    for (let i = 0; i < hits; i++) {
+      if (e.hp <= 0) break;
+      const r = hitEnemy(sp.power, {
+        spell: true, ignoreDef: sp.fx && sp.fx.ignoreDef,
+        bonusVs: sp.fx && sp.fx.bonusVs, bonus: sp.fx && sp.fx.bonus,
+        execute: sp.fx && sp.fx.execute,
+      });
+      if (r === 0) break;
+      total += r.dmg; anyCrit = anyCrit || r.crit;
+    }
+    if (total > 0) {
+      pushLog('击中【' + e.name + '】，造成 <b>' + total + '</b> 点伤害' + (anyCrit ? '（暴击）' : '') +
+        (hits > 1 ? '（' + hits + ' 段）' : '') + '。');
+    }
+    const ls = (sp.fx && sp.fx.lifesteal) || 0;
+    if (ls > 0 && total > 0) {
+      const h = Math.round(total * ls);
+      S.hp = Math.min(maxHp(), S.hp + h);
+      pushLog('血光回涌，你回复了 <b>' + h + '</b> 点气血。');
+    }
+    if (sp.fx && sp.fx.poison) {
+      addSt(b.e.st, 'poison', sp.fx.poison, sp.fx.turns || 3);
+      pushLog('【' + e.name + '】中了毒。');
+    }
+    if (sp.fx && sp.fx.stun) addSt(b.e.st, 'stun', 1, sp.fx.stun);
+    if (sp.fx && sp.fx.sund) addSt(b.e.st, 'sund', sp.fx.sund, sp.fx.turns || 3);
+  }
+
+  if (b.enemy.hp <= 0) { winBattle(); return; }
+  finishPlayerTurn();
+}
+
+function castSpecial(id, sp) {
+  const b = S.battle, e = b.enemy;
+  const fx = sp.fx || {};
+  if (id === 'fenshen') {
+    b.extraTurn = true;
+    pushLog('分神代劳，你还有一次出手机会。');
+    return;
+  }
+  if (id === 'yuancishu') {
+    addSt(b.e.st, 'stun', 1, fx.stun || 2);
+    addSt(b.e.st, 'sund', fx.sund || 0.25, fx.turns || 3);
+    pushLog('元磁之力将【' + e.name + '】钉在原地。');
+    return;
+  }
+  if (id === 'xuedun') {
+    const gain = Math.round(maxMp() * (fx.mpGain || 0.25));
+    S.mp = clamp(S.mp + gain, 0, maxMp());
+    addSt(b.p.st, 'evade', fx.evade || 0.4, fx.turns || 2);
+    pushLog('血光一闪，你遁出数丈，法力回复 <b>' + gain + '</b>。');
+    return;
+  }
+  if (id === 'mingwang') {
+    // 伤害 + 回血
+    const r = hitEnemy(sp.power, { spell: true });
+    if (r && r.dmg) pushLog('明王法相镇下，造成 <b>' + r.dmg + '</b> 点伤害。');
+    const h = playerHealSelf(fx.heal || 0.2);
+    pushLog('佛光回流，你回复 <b>' + h + '</b> 点气血。');
+    return;
+  }
+  // 通用：重击型（血魔遁、天魔解体）
+  const r = hitEnemy(sp.power, { spell: true, ignoreDef: fx.ignoreDef });
+  if (r && r.dmg) {
+    pushLog('重创【' + e.name + '】，造成 <b>' + r.dmg + '</b> 点伤害' + (r.crit ? '（暴击）' : '') + '。');
+  }
+  if (fx.evade) addSt(b.p.st, 'evade', fx.evade, fx.turns || 2);
+}
+
+function finishPlayerTurn() {
+  const b = S.battle;
+  if (!b) return;
+  if (b.extraTurn) {
+    b.extraTurn = false;
+    S.battle.turn += 1;
+    return;
+  }
+  if (b.enemy.hp <= 0) { winBattle(); return; }
+  enemyTurn();
+  if (!S.battle || S.battle.over || S.over) return;
+  tickRound();
+}
+
+function tickRound() {
+  const b = S.battle;
+  if (!b) return;
+  // 久战不下：避免永远打不死的僵局
+  if (b.turn >= 30) {
+    endBattle('这一战缠斗了太久，' + b.enemy.name + '见讨不到便宜，退走了。你也没有再追。');
+    return;
+  }
+  // 中毒
+  const ep = stSum(b.e.st, 'poison');
+  if (ep > 0) {
+    const d = Math.max(1, Math.round(b.enemy.maxHp * ep));
+    b.enemy.hp = Math.max(0, b.enemy.hp - d);
+    pushLog('毒素发作，【' + b.enemy.name + '】失了 <b>' + d + '</b> 点气血。');
+    if (b.enemy.hp <= 0) { winBattle(); return; }
+  }
+  const pp = stSum(b.p.st, 'poison');
+  if (pp > 0) {
+    const d = Math.max(1, Math.round(maxHp() * pp));
+    S.hp = Math.max(0, S.hp - d);
+    pushLog('你中了毒，失了 <b>' + d + '</b> 点气血。');
+    if (S.hp <= 0) { loseBattle(); return; }
+  }
+  // 状态计时
+  [b.p, b.e].forEach((side) => {
+    side.st = side.st.filter((x) => {
+      x.turns -= 1;
+      return x.turns > 0;
+    });
+  });
+  // 冷却
+  Object.keys(b.cd || {}).forEach((k) => { if (b.cd[k] > 0) b.cd[k] -= 1; });
+  Object.keys(b.artCd || {}).forEach((k) => { if (b.artCd[k] > 0) b.artCd[k] -= 1; });
+  // 法宝每回合回法
+  const mr = artStats().manaRegen;
+  if (mr > 0) S.mp = clamp(S.mp + Math.round(maxMp() * mr), 0, maxMp());
+  // 敌恢复
+  if (b.enemy.traits.includes('regen')) {
+    const h = Math.round(b.enemy.maxHp * 0.04);
+    b.enemy.hp = Math.min(b.enemy.maxHp, b.enemy.hp + h);
+  }
+  b.turn += 1;
+}
+
+function enemyTurn(opening) {
+  const b = S.battle;
+  if (!b || b.over || S.over) return;
+  const e = b.enemy;
+  if (stHas(b.e.st, 'stun')) {
+    pushLog('【' + e.name + '】被禁制缠住，动弹不得。');
+    return;
+  }
+  // 玩家闪避
+  if (chance(stSum(b.p.st, 'evade'))) {
+    pushLog('你身形一晃，避开了【' + e.name + '】的攻势。');
+    return;
+  }
+  // 选招
+  const ready = (e.skills || []).filter((sid) => (e.cd[sid] || 0) <= 0);
+  let skill = null;
+  if (ready.length && chance(0.62)) skill = pick(ready);
+  if (skill) {
+    e.cd[skill] = ENEMY_SKILLS[skill].cd;
+    const sk = ENEMY_SKILLS[skill];
+    if (sk.mpDamage) S.mp = Math.max(0, S.mp - Math.round(maxMp() * sk.mpDamage));
+    let mult = sk.power;
+    if (e.traits.includes('enrage') && e.hp / e.maxHp < 0.35) mult *= 1.35;
+    mult *= (1 + b.turn * 0.01);
+    const d = enemyStrike(mult);
+    pushLog('【' + e.name + '】' + sk.log + '，' +
+      (d > 0 ? '你受了 <b>' + d + '</b> 点伤。' : '<span class="good">被护罩尽数化去。</span>'));
+    if (sk.drain && d > 0) {
+      const h = Math.round(d * sk.drain);
+      e.hp = Math.min(e.maxHp, e.hp + h);
+      pushLog('它吸走你一缕气血，回复了 <b>' + h + '</b> 点。');
+    }
+    if (sk.poison) addSt(b.p.st, 'poison', sk.poison, 3);
+  } else {
+    const d = enemyStrike(1.0, true);
+    pushLog('【' + e.name + '】欺身攻来，' +
+      (d > 0 ? '你受了 <b>' + d + '</b> 点伤。' : '<span class="good">被护罩挡了下来。</span>'));
+  }
+  if (e.traits.includes('fast') && chance(0.4) && S.hp > 0) {
+    const d2 = enemyStrike(0.7);
+    pushLog('【' + e.name + '】身形再动，又补上一击，' +
+      (d2 > 0 ? '<b>' + d2 + '</b> 点。' : '<span class="good">被护罩挡下。</span>'));
+  }
+  if (S.hp <= 0) loseBattle();
+}
+
+function enemyStrike(mult, basic) {
+  const b = S.battle, e = b.enemy;
+  let d = e.atk * mult * (1 + e.rage * 0.02) * rnd(0.9, 1.12);
+  const def = pDef() * (1 + stSum(b.p.st, 'def'));
+  d -= def * 0.42;
+  // 物理抗性：普通攻击减半
+  if (basic && e.traits.includes('physResist')) d *= 0.62;
+  d *= (1 - pDmgReduce());
+  if (e.traits.includes('physResist') && !basic) d *= 0.85;
+  if (e.traits.includes('spellImmune')) d *= 0.9;
+  d = Math.max(1, Math.round(d));
+  // 护盾
+  if (b.p.shield > 0) {
+    const abs = Math.min(b.p.shield, d);
+    b.p.shield -= abs; d -= abs;
+  }
+  S.hp = Math.max(0, S.hp - d);
+  // 反弹
+  const th = stSum(b.p.st, 'thorns') + artStats().thorns;
+  if (th > 0) {
+    const r = Math.round(d * th);
+    e.hp = Math.max(0, e.hp - r);
+    if (r > 0) pushLog('护体之力反震，【' + e.name + '】受了 <b>' + r + '</b> 点伤。');
+  }
+  return d;
+}
+
+function endBattle(text) {
+  if (!S.battle) return;
+  S.result = text;
+  S.deltas = diffOf(S.battle.before);
+  S.phase = 'result';
+  S.battle = null;
+  S.eventId = null;
+}
+
+function loseBattle() {
+  if (S.over) return;
+  if (itemCount('revive') > 0) {
+    addItem('revive', -1);
+    S.hp = Math.round(maxHp() * 0.3);
+    const e = S.battle ? S.battle.enemy : { name: '对手' };
+    endBattle('你还魂丹碎裂，硬生生从' + e.name + '爪下抢回一条命。气血只剩三成，这一战你输了。');
+    return;
+  }
+  const e = S.battle ? S.battle.enemy : { name: '对手' };
+  die('dead', '你倒在' + e.name + '面前。血很快渗进土里，修仙界又多了一具无名的尸骨。');
+  endBattle('你倒了下去。');
+}
+
+function winBattle() {
+  if (!S.battle) return;
+  const e = S.battle.enemy;
+  const gain = 0.06 + 0.035 * e.power;
+  gainPct(gain);
+  const stones = Math.round((3 + S.realm * 7) * rnd(0.7, 1.4) * (e.elite ? 1.7 : 1));
+  addStones(stones);
+  addMood(4);
+  let extra = '你得了 ' + stones + ' 枚灵石。';
+  const hk = artStats().healOnKill;
+  if (hk > 0) {
+    const h = Math.round(maxHp() * hk);
+    S.hp = clamp(S.hp + h, 0, maxHp());
+    extra += ' 法宝饮血，你回复了 ' + h + ' 点气血。';
+  }
+  if (chance(0.5)) {
+    const id = chance(0.5) ? 'heal' : 'mana';
+    addItem(id, 1);
+    extra += ' 从它身上搜出一枚' + ITEMS[id].name + '。';
+  }
+  if (chance(0.05)) { addItem('marrow', 1); extra += ' 残骸里还藏着一枚<span class="good">洗髓丹</span>。'; }
+  if (chance(0.04)) { addItem('revive', 1); extra += ' 你摸到一枚<span class="good">还魂丹</span>，收进贴身的玉瓶。'; }
+  if (chance(e.elite ? 0.26 : 0.08)) {
+    const n = randomArt();
+    if (n) { addArtifact(n); extra += ' 你还得到一件法宝：<span class="good">' + n + '</span>。'; }
+  }
+  endBattle('你斩落' + e.name + '。' + extra);
+}
+
+function battleAct(kind, id) {
+  const b = S.battle;
+  if (!b || b.over || S.over) return;
+
+  if (kind === 'flee') {
+    const p = clamp(0.38 + artStats().flee + techStats().flee + (S.flags.deer ? 0.05 : 0) - (b.enemy.elite ? 0.12 : 0), 0.10, 0.85);
+    if (chance(p)) {
+      endBattle('你且战且退，借着山势甩脱了' + b.enemy.name + '。这一战没有输赢，只是又耗去了几年。');
+    } else {
+      pushLog('<span class="warn">遁走失败！</span>');
+      enemyTurn();
+      if (S.battle && !S.battle.over && !S.over) tickRound();
+    }
+    return;
+  }
+
+  if (kind === 'item') {
+    if (id === 'escape') {
+      if (itemCount('escape') <= 0) return;
+      addItem('escape', -1);
+      endBattle('你捏碎遁地符，化作一道黄光遁出百里。' + b.enemy.name + '追之不及。');
+      return;
+    }
+    if (id === 'heal' || id === 'mana' || id === 'calm') {
+      if (itemCount(id) <= 0) return;
+      if (id === 'heal' && S.hp >= maxHp()) return;
+      if (id === 'mana' && S.mp >= maxMp()) return;
+      addItem(id, -1);
+      if (id === 'heal') { healHp(0.42); pushLog('你服下回春丹，气血恢复。'); }
+      else if (id === 'mana') { healMp(0.42); pushLog('你服下聚灵丹，法力恢复。'); }
+      else { addMood(8); pushLog('你服下凝神丹，心神一清。'); }
+      enemyTurn();
+      if (S.battle && !S.battle.over && !S.over) tickRound();
+      return;
+    }
+    return;
+  }
+
+  if (kind === 'attack') {
+    const r = hitEnemy(1.0, {});
+    if (r && r.dmg) {
+      pushLog('你一剑命中【' + b.enemy.name + '】，造成 <b>' + r.dmg + '</b> 点伤害' + (r.crit ? '（暴击）' : '') + '。');
+      const ls = pLifeSteal();
+      if (ls > 0) {
+        const h = Math.round(r.dmg * ls);
+        S.hp = Math.min(maxHp(), S.hp + h);
+      }
+    }
+    if (b.enemy.hp <= 0) { winBattle(); return; }
+    finishPlayerTurn();
+    return;
+  }
+
+  if (kind === 'spell') {
+    castSpell(id);
+    return;
+  }
+
+  if (kind === 'art') {
+    // id 为法术 id（法宝祭出）或法宝名（普通祭出）
+    if (id && SPELLS[id] && SPELLS[id].art) {
+      const sp = SPELLS[id];
+      const cost = spellCost(sp);
+      if (S.mp < cost) return;
+      const cd = (b.artCd[id] || 0);
+      if (cd > 0) return;
+      S.mp -= cost;
+      b.artCd[id] = sp.cd || 0;
+      pushLog('你祭出「<b>' + sp.art + '</b>」。');
+      const e = b.enemy;
+      const r = hitEnemy(sp.power, { spell: true, ignoreDef: sp.fx && sp.fx.ignoreDef });
+      if (r && r.dmg) pushLog('法宝威能加身，造成 <b>' + r.dmg + '</b> 点伤害。');
+      const ls = (sp.fx && sp.fx.lifesteal) || 0;
+      if (ls > 0 && r && r.dmg) {
+        const h = Math.round(r.dmg * ls);
+        S.hp = Math.min(maxHp(), S.hp + h);
+        pushLog('阴魂回噬，你回复了 ' + h + ' 点气血。');
+      }
+      if (sp.fx && sp.fx.poison) addSt(e.st, 'poison', sp.fx.poison, sp.fx.turns || 3);
+      if (e.hp <= 0) { winBattle(); return; }
+      finishPlayerTurn();
+      return;
+    }
+    // 普通祭出：取攻击最高的法宝
+    let best = null;
+    S.artifacts.forEach((n) => {
+      const a = ARTS[n];
+      if (a && a.atk && (!best || a.atk > ARTS[best].atk)) best = n;
+    });
+    if (!best) return;
+    const r = hitEnemy(1.15 + (ARTS[best].atk / Math.max(1, pAtk())) * 1.2, {});
+    if (r && r.dmg) {
+      pushLog('你祭出「' + best + '」，造成 <b>' + r.dmg + '</b> 点伤害' + (r.crit ? '（暴击）' : '') + '。');
+      const ls = pLifeSteal();
+      if (ls > 0) S.hp = Math.min(maxHp(), S.hp + Math.round(r.dmg * ls));
+    }
+    if (b.enemy.hp <= 0) { winBattle(); return; }
+    finishPlayerTurn();
+  }
+}
+
+/* 遭遇事件 */
+function encounterEvent() {
+  const elite = chance(0.16 + (diffInfo().el || 0));
+  const e = makeEnemy(elite ? 1.4 : 1, null, { elite: false });
+  const cost = 6 + S.realm * 12;
+  const intro = e.name + '从暗处现身，' + (e.elite ? '气息沉凝，显然不是寻常角色。' : '目光在你身上来回打量。');
+  return {
+    id: 'enc', realm: S.realm, title: '遭遇 · ' + e.name, text: intro, battle: true,
+    opts: [
+      ['拔剑迎战', '险', () => { startBattle(e); return '你握紧了手中的剑。'; }],
+      ['屏息退走', '稳', () => {
+        if (chk(clamp(0.5 + artStats().flee + techStats().flee, 0.2, 0.9))) {
+          addMood(-2);
+          return '你缓缓后退，退进林子里，转身便走。' + e.name + '没有追来。';
+        }
+        startBattle(e);
+        return '你刚退半步，' + e.name + '已经扑了上来！';
+      }],
+      ['掷灵石买路', '耗', () => {
+        if (S.stones >= cost) {
+          addStones(-cost); addMood(-2);
+          return '你抛出 ' + cost + ' 枚灵石。' + e.name + '接住掂了掂，让开了路。';
+        }
+        startBattle(e);
+        return '你摸遍全身也凑不出买路的灵石，' + e.name + '已经不耐烦了。';
+      }],
+    ],
+  };
+}
+
+function battleWith(power, name, intro) {
+  startBattle(makeEnemy(power || 1, name), intro);
+  return '你迎了上去。';
+}
+
+/* =============================================================
+   冲关
+   ============================================================= */
+function breakChance() {
+  const r = REALMS[S.realm];
+  return clamp(
+    r.bb + S.root.bb + S.wits * 0.006 + S.mood / 900 +
+    Math.min(S.artifacts.length, 3) * 0.012 + Math.min(S.techs.length, 3) * 0.01 -
+    (S.flags.tribulation ? 0.06 : 0) - (S.diff === 2 ? 0.04 : S.diff === 0 ? -0.03 : 0),
+    0.05, 0.95
+  );
+}
+
+function attemptBreak(extra) {
+  const info = BREAK_INFO[S.realm];
+  const p = clamp(breakChance() + (extra || 0), 0.05, 0.95);
+  if (chance(p)) {
+    S.realm += 1;
+    S.pending = false;
+    S.progress = 0;
+    S.life = REALMS[S.realm].life;
+    S.hp = maxHp();
+    S.mp = maxMp();
+    S.eventId = null;
+    addMood(6);
+    if (!S.breakAges) S.breakAges = {};
+    S.breakAges[S.realm] = S.age;
+    if (S.realm === 5) {
+      S.over = 'ascend';
+      S.overText = info.win;
+    }
+    return info.win;
+  }
+  S.pending = false;
+  S.progress = Math.round(S.progress * (S.realm === 4 ? 0.4 : 0.55));
+  addMood(-10);
+  shortenLife(info.pen);
+  if (!S.over && chance(0.25)) {
+    shortenLife(Math.round(info.pen * 0.5));
+    return info.lose + ' 伤势比预想的更重，你又折损了一些寿元。';
+  }
+  return info.lose;
+}
+
+function breakEvent() {
+  const r = S.realm;
+  const info = BREAK_INFO[r];
+  const isHua = r === 4;
+  const pct = Math.round(breakChance() * 10);
+  const body = info.text + '\n\n以你如今的状态，约有 ' + pct + ' 成把握。';
+  return {
+    id: 'brk' + r, realm: r, title: info.title, text: body, brk: true,
+    opts: [
+      [isHua ? '硬抗天劫，以己身渡之' : '静心冲关，以己身之力破境', '险', () => attemptBreak(0)],
+      [isHua ? '服下化神丹，借药力护体' : '服下一枚丹药，借药力冲关', '耗',
+        () => { addItem('break', -1); return attemptBreak(0.16); },
+        () => itemCount('break') > 0],
+      [isHua ? '散去三成修为，避开此劫' : '散去部分修为，另寻时机', '稳', () => {
+        S.progress = Math.round(REALMS[r].need * (isHua ? 0.6 : 0.8));
+        S.pending = false;
+        addMood(isHua ? -5 : 6);
+        return isHua
+          ? '你咬破舌尖，强行散去三成修为。劫云失去了目标，在天上盘桓了半日，终于散了。你保住了命，也离化神更远了一步。'
+          : '你缓缓收功，把那股冲劲化去。修为退回了一截，但人还活着——活着就还有机会。';
+      }],
+    ],
+  };
+}
+
+/* =============================================================
+   事件抽取与结算
+   ============================================================= */
+function eventText(e) {
+  if (typeof e.text === 'function') return e.text();
+  if (e.texts && e.texts.length) return pick(e.texts);
+  return e.text || '';
+}
+function eventEligible(e) {
+  if (e.realm === -1) {
+    if (e.minRealm && S.realm < e.minRealm) return false;
+  } else if (e.realm !== S.realm) return false;
+  if (e.when && !e.when()) return false;
+  return true;
+}
+function drawEvent() {
+  if (S.pending) return breakEvent();
+  const wd = worldInfo();
+  const battleP = 0.13 + (wd.battle || 0) + (S.diff === 2 ? 0.05 : 0);
+  if (S.turn > 1 && !S.battle && chance(clamp(battleP, 0.02, 0.5))) return encounterEvent();
+
+  let pool = EVENTS.filter((e) => eventEligible(e) && !e.repeat && !S.used[e.id]);
+  if (!pool.length) pool = EVENTS.filter((e) => eventEligible(e) && e.repeat);
+  if (!pool.length) pool = EVENTS.filter((e) => e.realm === -1 && !S.used[e.id]);
+  if (!pool.length) pool = EVENTS.filter((e) => e.realm === 0);
+
+  // 回避最近出现的
+  const fresh = pool.filter((e) => !S.recent.includes(e.id));
+  const use = fresh.length ? fresh : pool;
+
+  let total = use.reduce((a, e) => a + (e.w || 1), 0);
+  let x = Math.random() * total;
+  let chosen = use[use.length - 1];
+  for (const e of use) {
+    x -= (e.w || 1);
+    if (x <= 0) { chosen = e; break; }
+  }
+  if (!chosen.repeat) S.used[chosen.id] = 1;
+  S.recent.push(chosen.id);
+  if (S.recent.length > 6) S.recent.shift();
+  return chosen;
+}
+
+function snapshot() {
+  return {
+    realm: S.realm, progress: S.progress, stones: S.stones,
+    items: Object.assign({}, S.items), mood: S.mood, life: S.life,
+    hp: S.hp, mp: S.mp, arts: S.artifacts.slice(), techs: S.techs.slice(), age: S.age,
+  };
+}
+
+function diffOf(before) {
+  const out = [];
+  if (S.realm !== before.realm) {
+    out.push({ t: 'gold', v: '境界突破 · ' + REALMS[S.realm].name });
+  } else if (Math.abs(S.progress - before.progress) >= 1) {
+    const d = Math.round(S.progress - before.progress);
+    out.push({ t: d > 0 ? 'up' : 'down', v: '修为 ' + (d > 0 ? '+' : '') + d });
+  }
+  const dAge = S.age - before.age;
+  if (dAge) out.push({ t: 'plain', v: '光阴 -' + dAge + ' 年' });
+  const ds = S.stones - before.stones;
+  if (ds) out.push({ t: ds > 0 ? 'up' : 'down', v: '灵石 ' + (ds > 0 ? '+' : '') + ds });
+  const dh = Math.round(S.hp - before.hp);
+  if (dh) out.push({ t: dh > 0 ? 'up' : 'down', v: '气血 ' + (dh > 0 ? '+' : '') + dh });
+  const dmp = Math.round(S.mp - before.mp);
+  if (dmp) out.push({ t: dmp > 0 ? 'up' : 'down', v: '法力 ' + (dmp > 0 ? '+' : '') + dmp });
+  Object.keys(ITEMS).forEach((id) => {
+    const d = (S.items[id] || 0) - (before.items[id] || 0);
+    if (d) out.push({ t: d > 0 ? 'up' : 'down', v: ITEMS[id].name + ' ' + (d > 0 ? '+' : '') + d });
+  });
+  const dm = Math.round(S.mood - before.mood);
+  if (dm) out.push({ t: dm > 0 ? 'up' : 'down', v: '心境 ' + (dm > 0 ? '+' : '') + dm });
+  const dl = S.life - before.life;
+  if (dl) out.push({ t: dl > 0 ? 'up' : 'down', v: '寿元 ' + (dl > 0 ? '+' : '') + dl });
+  (S.artifacts || []).forEach((name) => {
+    if (!before.arts.includes(name)) out.push({ t: 'gold', v: '法宝「' + name + '」' });
+  });
+  (S.techs || []).forEach((id) => {
+    if (!before.techs.includes(id)) out.push({ t: 'gold', v: '功法《' + TECHS[id].name + '》' });
+  });
+  return out;
+}
+
+/* 选项耗年数：显式指定优先；否则按境界基准，再按抉择性质浮动
+   稳妥之路耗时更久，凶险之举往往速决 */
+function optYears(opt) {
+  if (opt[4] != null) return opt[4];
+  const base = YEAR_COST[S.realm] || 1;
+  const tag = opt[1];
+  let mult = 1;
+  if (tag === '稳') mult = 1.15;
+  else if (tag === '险') mult = 0.85;
+  else if (tag === '机') mult = 0.9;
+  return Math.max(1, Math.round(base * mult));
+}
+
+function applyOption(opt) {
+  const before = snapshot();
+  const years = optYears(opt);
+  let text = '';
+  try {
+    text = opt[2]() || '';
+  } catch (err) {
+    console.error('event error', err);
+    text = '……';
+  }
+  S.age += years;
+  S.turn += 1;
+  if (!S.over && S.age >= S.life) die('old');
+  if (!S.over && S.mood <= 0) die('demon');
+  if (!S.over) {
+    // 静养恢复随流逝的年数增长：闭关几十载，自然养得回来
+    const hpFrac = clamp(0.02 + 0.022 * years, 0.03, 0.6);
+    const mpFrac = clamp(0.06 + 0.05 * years, 0.08, 0.9);
+    S.hp = clamp(S.hp + Math.round(maxHp() * hpFrac), 0, maxHp());
+    S.mp = clamp(S.mp + Math.round(maxMp() * mpFrac), 0, maxMp());
+    const am = artStats().mood;
+    if (am) addMood(am);
+  }
+  if (!S.over && S.flags.curse) {
+    addMood(-1);
+    if (!S.over) S.progress = Math.max(0, S.progress - REALMS[S.realm].need * 0.008);
+  }
+  const need = REALMS[S.realm].need;
+  if (!S.over && !S.pending && S.realm < 5 && need && S.progress >= need - 0.001) S.pending = true;
+  return { text: text, deltas: diffOf(before) };
+}
+
+/* =============================================================
+   界面
+   ============================================================= */
+const UI_IDS = ['hud-realm', 'hud-phase', 'hud-age', 'hud-lifespan', 'hud-life-bar',
+  'hud-life-bar-wrap', 'hud-prog-text', 'hud-prog-bar', 'hud-stones', 'hud-pills',
+  'hud-mood', 'hud-year', 'hud-tech', 'hud-diff', 'hud-world',
+  'artifact-line', 'artifact-list', 'scene-title', 'scene-text',
+  'scene-options', 'scene-result', 'result-text', 'result-deltas', 'btn-next',
+  'screen-title', 'screen-game', 'screen-end', 'end-inner', 'end-kicker', 'end-title',
+  'end-text', 'end-stats', 'btn-restart', 'input-name', 'btn-roll', 'btn-continue',
+  'title-start', 'root-panel', 'root-name', 'root-stars', 'root-desc', 'btn-reroll',
+  'btn-enter', 'battle', 'battle-turn', 'enemy-name', 'enemy-art', 'enemy-hp-bar',
+  'enemy-hp-text', 'enemy-atk', 'enemy-status', 'battle-log', 'battle-hp-bar',
+  'battle-hp-text', 'battle-mp-bar', 'battle-mp-text', 'battle-status',
+  'skill-panel', 'battle-hint', 'bag-modal', 'bag-items', 'bag-arts', 'bag-techs',
+  'bag-art-count', 'toast'];
+
+function toParas(t) {
+  return String(t || '').split('\n').map((s) => s.trim()).filter(Boolean)
+    .map((s) => '<p>' + s + '</p>').join('');
+}
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function phaseText() {
+  if (S.realm === 0) return '红尘';
+  if (S.realm >= 5) return '神游太虚';
+  const p = REALMS[S.realm].need ? S.progress / REALMS[S.realm].need : 0;
+  return p < 0.34 ? '初期' : p < 0.67 ? '中期' : '后期';
+}
+
+function renderHUD() {
+  const r = REALMS[S.realm];
+  $('hud-realm').textContent = r.name;
+  $('hud-phase').textContent = phaseText() + ' · ' + S.root.name;
+  $('hud-age').textContent = cn(S.age) + '岁';
+  const remain = Math.max(0, S.life - S.age);
+  $('hud-lifespan').textContent = '寿元 ' + remain + ' / ' + S.life;
+  const lp = clamp((remain / Math.max(1, S.life)) * 100, 0, 100);
+  $('hud-life-bar').style.width = lp + '%';
+  $('hud-life-bar-wrap').classList.toggle('low', lp < 22);
+  const need = REALMS[S.realm].need || 1;
+  $('hud-prog-text').textContent = Math.floor(S.progress) + ' / ' + need;
+  $('hud-prog-bar').style.width = clamp((S.progress / need) * 100, 0, 100) + '%';
+  $('hud-stones').textContent = S.stones;
+  const pillTotal = ['heal', 'mana', 'break', 'revive', 'marrow', 'calm']
+    .reduce((a, id) => a + (S.items[id] || 0), 0);
+  $('hud-pills').textContent = pillTotal;
+  $('hud-mood').textContent = Math.round(S.mood);
+  $('hud-year').textContent = '第' + cn(S.turn) + '幕 · 历' + cn(S.age - 16) + '载';
+  const mh = maxHp(), mm = maxMp();
+  const hp = clamp(S.hp, 0, mh), mp = clamp(S.mp, 0, mm);
+  $('hud-hp-text').textContent = Math.round(hp) + ' / ' + mh;
+  $('hud-hp-bar').style.width = clamp((hp / mh) * 100, 0, 100) + '%';
+  $('hud-mp-text').textContent = Math.round(mp) + ' / ' + mm;
+  $('hud-mp-bar').style.width = clamp((mp / mm) * 100, 0, 100) + '%';
+  if ($('hud-tech')) {
+    $('hud-tech').textContent = S.techs.length
+      ? S.techs.map((id) => TECHS[id].name).join(' · ')
+      : '尚未修习功法';
+  }
+  if ($('hud-diff')) $('hud-diff').textContent = diffInfo().name;
+  if ($('hud-world')) $('hud-world').textContent = worldInfo().name;
+  if (S.artifacts.length) {
+    $('artifact-line').hidden = false;
+    $('artifact-list').textContent = S.artifacts.join(' · ');
+  } else {
+    $('artifact-line').hidden = true;
+  }
+}
+
+/* ---------------- 战斗界面 ---------------- */
+let panelMode = null;
+
+function statusChips(st) {
+  const names = {
+    atk: '攻', def: '防', shield: '盾', poison: '毒', stun: '缚', evade: '闪',
+    crit: '暴', dmgReduce: '减', thorns: '反', spellPower: '术', sund: '破',
+  };
+  const agg = {};
+  (st || []).forEach((x) => {
+    if (!agg[x.k]) agg[x.k] = { v: 0, t: 0 };
+    agg[x.k].v += x.v; agg[x.k].t = Math.max(agg[x.k].t, x.turns);
+  });
+  return Object.keys(agg).map((k) => {
+    const a = agg[k];
+    let v = '';
+    if (k === 'evade' || k === 'crit' || k === 'dmgReduce' || k === 'thorns' || k === 'spellPower' || k === 'sund') {
+      v = Math.round(a.v * 100) + '%';
+    } else if (k === 'poison') {
+      v = Math.round(a.v * 100) + '%';
+    } else {
+      v = Math.round(a.v * 100) + '%';
+    }
+    return '<span class="st st-' + k + '">' + (names[k] || k) + v + '<i>' + a.t + '</i></span>';
+  }).join('');
+}
+
+function renderBattle() {
+  if (!S.battle) { $('battle').hidden = true; return; }
+  const b = S.battle, e = b.enemy;
+  $('battle').hidden = false;
+  $('enemy-name').textContent = e.name;
+  $('enemy-art').textContent = (e.tags || []).join('·') + (e.elite ? ' · 强敌' : '');
+  const ehp = clamp(e.hp, 0, e.maxHp);
+  $('enemy-hp-bar').style.width = clamp((ehp / e.maxHp) * 100, 0, 100) + '%';
+  $('enemy-hp-text').textContent = '气血 ' + Math.round(ehp) + ' / ' + e.maxHp;
+  $('enemy-atk').textContent = '攻击 ' + e.atk + (b.e.shield > 0 ? ' · 护体 ' + b.e.shield : '');
+  $('enemy-status').innerHTML = statusChips(b.e.st);
+  $('battle-turn').textContent = '第' + cn(b.turn) + '回合';
+  const mh = maxHp(), mm = maxMp();
+  $('battle-hp-text').textContent = Math.round(S.hp) + ' / ' + mh;
+  $('battle-hp-bar').style.width = clamp((S.hp / mh) * 100, 0, 100) + '%';
+  $('battle-mp-text').textContent = Math.round(S.mp) + ' / ' + mm;
+  $('battle-mp-bar').style.width = clamp((S.mp / mm) * 100, 0, 100) + '%';
+  $('battle-status').innerHTML =
+    (b.p.shield > 0 ? '<span class="st st-shield">盾' + b.p.shield + '</span>' : '') +
+    statusChips(b.p.st) +
+    (b.extraTurn ? '<span class="st st-extra">再动</span>' : '');
+  const log = $('battle-log');
+  log.innerHTML = b.log.map((t) => '<p>' + t + '</p>').join('');
+  log.scrollTop = log.scrollHeight;
+  renderBattleActions();
+  renderSkillPanel();
+  renderHUD();
+  save();
+}
+
+function renderBattleActions() {
+  const b = S.battle;
+  if (!b) return;
+  document.querySelectorAll('#battle-actions button').forEach((btn) => {
+    const act = btn.dataset.act;
+    if (act === 'spell') {
+      btn.disabled = knownSpells().length === 0;
+      btn.classList.toggle('on', panelMode === 'spell');
+    }
+    if (act === 'art') {
+      btn.disabled = S.artifacts.length === 0;
+      btn.classList.toggle('on', panelMode === 'art');
+    }
+    if (act === 'item') {
+      btn.disabled = !['heal', 'mana', 'escape', 'calm'].some((id) => itemCount(id) > 0);
+    }
+  });
+  const fp = Math.round(clamp(0.38 + artStats().flee + techStats().flee + (S.flags.deer ? 0.05 : 0) -
+    (b.enemy.elite ? 0.12 : 0), 0.10, 0.85) * 100);
+  const hints = [];
+  hints.push('遁走 ' + fp + '%');
+  if (panelMode === 'spell') hints.push('选择要施展的法术');
+  if (panelMode === 'art') hints.push('选择要祭出的法宝');
+  if (b.extraTurn) hints.push('分神未散，可再动一次');
+  $('battle-hint').textContent = hints.join(' · ');
+}
+
+function renderSkillPanel() {
+  const el = $('skill-panel');
+  if (!el) return;
+  if (!panelMode || !S.battle) { el.hidden = true; el.innerHTML = ''; return; }
+  el.hidden = false;
+  let html = '';
+  if (panelMode === 'spell') {
+    const list = knownSpells();
+    if (!list.length) {
+      html = '<div class="sk-empty">尚未修习任何功法，无法术可用。</div>';
+    } else {
+      list.forEach((id) => {
+        const sp = SPELLS[id];
+        const ready = spellReady(id);
+        const cost = spellCost(sp);
+        const cd = (S.battle.cd[id] || 0);
+        html += '<button class="sk" data-spell="' + id + '"' + (ready.ok ? '' : ' disabled') + '>' +
+          '<span class="sk-name">' + sp.name + '</span>' +
+          '<span class="sk-cost">' + cost + ' 法力</span>' +
+          '<span class="sk-cd">' + (cd > 0 ? '冷却 ' + cd : (sp.cd ? '冷却 ' + sp.cd : '无冷却')) + '</span>' +
+          '<span class="sk-desc">' + sp.desc + '</span>' +
+          (ready.ok ? '' : '<span class="sk-no">' + ready.reason + '</span>') +
+          '</button>';
+      });
+    }
+  } else {
+    const acts = artifactActives();
+    if (!S.artifacts.length) {
+      html = '<div class="sk-empty">尚无法宝。</div>';
+    } else {
+      acts.forEach((x) => {
+        const sp = SPELLS[x.spell];
+        const cost = spellCost(sp);
+        const cd = (S.battle.artCd[x.spell] || 0);
+        const ok = S.mp >= cost && cd <= 0;
+        html += '<button class="sk" data-artspell="' + x.spell + '"' + (ok ? '' : ' disabled') + '>' +
+          '<span class="sk-name">' + sp.name + '</span>' +
+          '<span class="sk-cost">' + cost + ' 法力</span>' +
+          '<span class="sk-cd">' + (cd > 0 ? '冷却 ' + cd : '冷却 ' + (sp.cd || 0)) + '</span>' +
+          '<span class="sk-desc">' + sp.desc + '</span>' +
+          '<span class="sk-owner">' + x.art + '</span>' +
+          '</button>';
+      });
+      const hasAtk = S.artifacts.some((n) => ARTS[n] && ARTS[n].atk);
+      if (hasAtk) {
+        html += '<button class="sk sk-plain" data-plainart="1">' +
+          '<span class="sk-name">祭出法宝</span><span class="sk-cost">不耗法力</span>' +
+          '<span class="sk-cd">普通攻击</span>' +
+          '<span class="sk-desc">以攻击最高的法宝硬生生砸过去。</span></button>';
+      }
+    }
+  }
+  el.innerHTML = html;
+}
+
+function afterBattle() {
+  $('battle').hidden = true;
+  panelMode = null;
+  closeBag();
+  renderHUD();
+  if (S.phase === 'result') {
+    $('scene-options').hidden = true;
+    $('scene-result').hidden = false;
+    renderResult();
+    save();
+  }
+}
+
+function battleActionUI(act, id) {
+  if (!S.battle) return;
+  if (act === 'item') { openBag(true); return; }
+  if (act === 'spell' || act === 'art') {
+    panelMode = panelMode === act ? null : act;
+    renderBattle();
+    return;
+  }
+  if (act === 'spell-cast') {
+    battleAct('spell', id);
+    panelMode = null;
+    if (!S.battle) afterBattle(); else renderBattle();
+    return;
+  }
+  if (act === 'art-cast') {
+    battleAct('art', id);
+    panelMode = null;
+    if (!S.battle) afterBattle(); else renderBattle();
+    return;
+  }
+  if (act === 'art-plain') {
+    battleAct('art', null);
+    panelMode = null;
+    if (!S.battle) afterBattle(); else renderBattle();
+    return;
+  }
+  battleAct(act, id);
+  if (!S.battle) afterBattle();
+  else renderBattle();
+}
+
+/* ---------------- 储物袋 ---------------- */
+let bagInBattle = false;
+function openBag(inBattle) {
+  bagInBattle = !!inBattle;
+  $('bag-modal').hidden = false;
+  renderBag();
+}
+function closeBag() {
+  const el = $('bag-modal');
+  if (el) el.hidden = true;
+  bagInBattle = false;
+}
+function canUse(id) {
+  if (id === 'heal') return itemCount('heal') > 0 && S.hp < maxHp();
+  if (id === 'mana') return itemCount('mana') > 0 && S.mp < maxMp();
+  if (id === 'calm') return itemCount('calm') > 0;
+  if (id === 'escape') return S.phase === 'battle';
+  if (id === 'marrow') return ROOTS.findIndex((r) => r.name === S.root.name) > 0;
+  return false;
+}
+
+function renderBag() {
+  const wrap = $('bag-items');
+  wrap.innerHTML = '';
+  const ids = ['heal', 'mana', 'calm', 'break', 'escape', 'revive', 'marrow'];
+  let any = false;
+  ids.forEach((id) => {
+    const n = itemCount(id);
+    if (!n) return;
+    any = true;
+    const row = document.createElement('div');
+    row.className = 'bag-item';
+    row.innerHTML = '<span class="bi-name">' + ITEMS[id].name + '</span>' +
+      '<span class="bi-desc">' + ITEMS[id].desc + '</span>' +
+      '<span class="bi-count">×' + n + '</span>';
+    const btn = document.createElement('button');
+    btn.className = 'bi-use';
+    btn.textContent = id === 'break' ? '冲关用' : id === 'revive' ? '自动' :
+      id === 'escape' && S.phase !== 'battle' ? '战斗用' : '使用';
+    btn.disabled = !canUse(id) && S.phase !== 'battle';
+    btn.addEventListener('click', () => useBagItem(id));
+    row.appendChild(btn);
+    wrap.appendChild(row);
+  });
+  if (!any) wrap.innerHTML = '<div class="bag-empty">囊中空空。</div>';
+
+  const arts = $('bag-arts');
+  arts.innerHTML = '';
+  $('bag-art-count').textContent = S.artifacts.length ? '· ' + S.artifacts.length + ' 件' : '';
+  if (!S.artifacts.length) {
+    arts.innerHTML = '<div class="bag-empty">尚无法宝。斩妖、探秘、奇遇皆有可能得到。</div>';
+  } else {
+    S.artifacts.forEach((n) => {
+      const a = ARTS[n];
+      if (!a) return;
+      const d = document.createElement('div');
+      d.className = 'bag-art';
+      d.innerHTML = '<b>' + n + '</b><span>' + a.desc + '</span>';
+      arts.appendChild(d);
+    });
+  }
+
+  const techs = $('bag-techs');
+  if (techs) {
+    techs.innerHTML = '';
+    if (!S.techs.length) {
+      techs.innerHTML = '<div class="bag-empty">尚未修习功法。奇遇、洞府、传承皆可习得。</div>';
+    } else {
+      S.techs.forEach((id) => {
+        const t = TECHS[id];
+        if (!t) return;
+        const d = document.createElement('div');
+        d.className = 'bag-art bag-tech';
+        const sp = (t.spells || []).map((sid) => SPELLS[sid] ? SPELLS[sid].name : '').filter(Boolean).join(' · ');
+        d.innerHTML = '<b>' + t.name + '</b><span>' + t.desc + '</span>' +
+          (sp ? '<em>法术：' + sp + '</em>' : '');
+        techs.appendChild(d);
+      });
+    }
+  }
+}
+
+function useBagItem(id) {
+  if (S.phase === 'battle' && S.battle) {
+    if (id === 'heal' || id === 'mana' || id === 'escape' || id === 'calm') {
+      battleAct('item', id);
+      closeBag();
+      if (!S.battle) afterBattle();
+      else renderBattle();
+    }
+    return;
+  }
+  if (id === 'heal') {
+    if (!canUse(id)) return;
+    addItem('heal', -1); healHp(0.42);
+    showToast('服下回春丹，气血恢复。');
+  } else if (id === 'mana') {
+    if (!canUse(id)) return;
+    addItem('mana', -1); healMp(0.42);
+    showToast('服下聚灵丹，法力恢复。');
+  } else if (id === 'calm') {
+    if (!canUse(id)) return;
+    addItem('calm', -1); addMood(8);
+    showToast('服下凝神丹，心魔稍退。');
+  } else if (id === 'marrow') {
+    if (!canUse(id)) return;
+    addItem('marrow', -1);
+    upgradeRoot();
+    showToast('洗髓易骨，灵根化为「' + S.root.name + '」。');
+  } else {
+    return;
+  }
+  renderHUD();
+  renderBag();
+  save();
+}
+
+let toastTimer = null;
+function showToast(t) {
+  const el = $('toast');
+  if (!el) return;
+  el.textContent = t;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.hidden = true; }, 1900);
+}
+
+function renderResult() {
+  $('result-text').innerHTML = toParas(S.result || '');
+  const d = $('result-deltas');
+  d.innerHTML = '';
+  (S.deltas || []).forEach((x) => {
+    const s = document.createElement('span');
+    s.className = 'chip ' + x.t;
+    s.textContent = x.v;
+    d.appendChild(s);
+  });
+  $('btn-next').textContent = S.over ? '此 生 已 尽' : '又 是 一 载';
+}
+
+function renderEvent(e, withResult) {
+  $('battle').hidden = true;
+  panelMode = null;
+  closeBag();
+  S.eventId = e.id;
+  S.phase = withResult ? 'result' : 'event';
+  $('scene-title').textContent = e.title;
+  $('scene-text').innerHTML = toParas(eventText(e));
+  $('scene-text').classList.toggle('dim', !!withResult);
+  const optsEl = $('scene-options');
+  const resEl = $('scene-result');
+  if (withResult) {
+    optsEl.innerHTML = '';
+    optsEl.hidden = true;
+    resEl.hidden = false;
+    renderResult();
+  } else {
+    optsEl.hidden = false;
+    resEl.hidden = true;
+    optsEl.innerHTML = '';
+    e.opts.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.className = 'opt';
+      b.style.animationDelay = (i * 55) + 'ms';
+      const disabled = o[3] && !o[3]();
+      const yrs = optYears(o);
+      b.innerHTML = '<span class="num">' + (NUM_CN[i] || (i + 1)) + '</span><span class="label">' +
+        o[0] + '<span class="tag tag-' + o[1] + '">' + o[1] + '</span></span>' +
+        '<span class="cost">' + yrs + ' 年</span>';
+      if (disabled) {
+        b.disabled = true;
+        b.title = o[1] === '耗' ? '条件不足' : '条件不足';
+        const cost = b.querySelector('.cost');
+        if (cost) cost.textContent = '不可选';
+      }
+      b.addEventListener('click', () => chooseOption(e, o));
+      optsEl.appendChild(b);
+    });
+  }
+  renderHUD();
+  save();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+let busy = false;
+function chooseOption(e, o) {
+  if (busy || S.phase !== 'event') return;
+  busy = true;
+  const res = applyOption(o);
+  S.result = res.text;
+  S.deltas = res.deltas;
+  S.phase = S.battle ? 'battle' : 'result';
+  renderHUD();
+  if (S.battle) {
+    $('scene-options').hidden = true;
+    $('scene-result').hidden = true;
+    renderBattle();
+  } else {
+    $('scene-options').hidden = true;
+    $('scene-result').hidden = false;
+    renderResult();
+  }
+  save();
+  busy = false;
+}
+
+function nextScene() {
+  if (S.over) { showEnding(); return; }
+  const e = drawEvent();
+  renderEvent(e, false);
+}
+
+/* ---------------- 结局 ---------------- */
+const ENDINGS = {
+  ascend: {
+    kicker: '飞 升 · 通 关', title: '灵界之门', cls: 'win',
+    text: '你踏出最后一步。天穹裂开一道金色的缝隙，灵气如瀑，倾泻而下。\n你回头看了一眼这片山河——青牛镇的炊烟、七玄门的石阶、乱星海的风浪，都小得像一粒尘埃。\n然后你一步踏入灵界，再没有回头。',
+  },
+  old: {
+    kicker: '寿 元 耗 尽', title: '坐 化', cls: 'dark',
+    text: () => '你坐在洞府深处，数着石壁上的刻痕。第' + cn(S.age) + '道刻痕落下时，手已经抬不起来了。\n此生修行' + cn(S.age - 16) + '年，止步于' + REALMS[S.realm].name + '。\n山外的桃花开了又谢，再没有人记得你的名字。',
+  },
+  dead: {
+    kicker: '身 死 道 消', title: '陨 落', cls: 'dark',
+    text: () => S.overText || '你死在一场没有名字的争斗里。修仙界每天都有这样的人死去，连一块碑都不会留下。',
+  },
+  demon: {
+    kicker: '走 火 入 魔', title: '道 消', cls: 'dark',
+    text: '心魔自内而外，把你的神识啃得干干净净。\n最后那一刻，你听见很多人在笑——有你的仇人，有你的故人，也有你自己。',
+  },
+};
+
+function showEnding() {
+  const kind = S.over || 'dead';
+  const info = ENDINGS[kind] || ENDINGS.dead;
+  if ($('battle')) $('battle').hidden = true;
+  closeBag();
+  const inner = $('end-inner');
+  inner.className = 'end-inner ' + (info.cls || '');
+  $('end-kicker').textContent = info.kicker;
+  $('end-title').textContent = info.title;
+  const txt = typeof info.text === 'function' ? info.text() : info.text;
+  $('end-text').textContent = txt;
+  const cells = [
+    [S.name, '道号'],
+    [REALMS[S.realm].name, '境界'],
+    [S.age + '岁', '享年'],
+    [S.root.name, '灵根'],
+    [S.techs.length ? S.techs.length + ' 门' : '无', '功法'],
+    [S.artifacts.length ? S.artifacts.length + ' 件' : '无', '法宝'],
+  ];
+  $('end-stats').innerHTML = cells.map((c) =>
+    '<div><b>' + esc(c[0]) + '</b><span>' + c[1] + '</span></div>').join('');
+  clearSave();
+  showScreen('end');
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- 屏幕与存档 ---------------- */
+function showScreen(name) {
+  ['title', 'game', 'end'].forEach((k) => { $('screen-' + k).hidden = (k !== name); });
+  closeBag();
+  if (name !== 'game' && $('battle')) $('battle').hidden = true;
+  window.scrollTo(0, 0);
+}
+
+let suppressSave = false;
+function save() {
+  if (suppressSave || !S) return;
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ v: 4, S: S })); } catch (e) { /* 忽略 */ }
+}
+function clearSave() {
+  if (suppressSave) return;
+  try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* 忽略 */ }
+}
+function loadSave() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    if (!obj || !obj.S || obj.S.realm > 5) return null;
+    const s = obj.S;
+    if (s.over) return null;
+    // 兼容性补齐
+    s.techs = s.techs || [];
+    s.recent = s.recent || [];
+    s.items = Object.assign({ heal: 0, mana: 0, break: 0, escape: 0, revive: 0, marrow: 0, calm: 0 }, s.items || {});
+    s.diff = typeof s.diff === 'number' ? s.diff : 1;
+    s.world = s.world || WORLD_MOODS[0].id;
+    if (!s.breakAges) s.breakAges = {};
+    if (s.phase === 'battle' && !s.battle) s.phase = 'event';
+    return s;
+  } catch (e) { return null; }
+}
+
+function findEvent(id) {
+  if (!id) return null;
+  if (id.indexOf('brk') === 0) return breakEvent();
+  return EVENTS.find((e) => e.id === id) || null;
+}
+
+/* ---------------- 存档导出 / 导入 ---------------- */
+function b64enc(str) { return btoa(unescape(encodeURIComponent(str))); }
+function b64dec(str) { return decodeURIComponent(escape(atob(str))); }
+
+function exportSave() {
+  if (!S) return { ok: false, msg: '还没有开始游戏' };
+  const code = b64enc(JSON.stringify({ v: 4, S: S }));
+  return { ok: true, code: code, msg: '存档码已生成（共 ' + code.length + ' 字）' };
+}
+
+function importSave(code) {
+  try {
+    const obj = JSON.parse(b64dec(String(code || '').trim()));
+    if (!obj || !obj.S) return { ok: false, msg: '存档码无效' };
+    S = obj.S;
+    S.techs = S.techs || [];
+    S.recent = S.recent || [];
+    S.items = Object.assign({ heal: 0, mana: 0, break: 0, escape: 0, revive: 0, marrow: 0, calm: 0 }, S.items || {});
+    S.diff = typeof S.diff === 'number' ? S.diff : 1;
+    S.world = S.world || WORLD_MOODS[0].id;
+    S.battle = null;
+    if (S.phase === 'battle') S.phase = 'event';
+    showScreen('game');
+    renderHUD();
+    const e = findEvent(S.eventId);
+    if (e) renderEvent(e, S.phase === 'result');
+    else nextScene();
+    save();
+    return { ok: true, msg: '存档已导入' };
+  } catch (err) {
+    return { ok: false, msg: '存档码无效' };
+  }
+}
+
+function openImportDialog() {
+  const code = window.prompt('粘贴存档码：');
+  if (!code) return;
+  const r = importSave(code);
+  showToast(r.msg);
+}
+
+/* ---------------- 开局 ---------------- */
+let pendingName = '';
+let pendingRoot = null;
+let rerolled = false;
+
+function rollRoot() {
+  const total = ROOTS.reduce((a, r) => a + r.weight, 0);
+  let x = Math.random() * total;
+  for (const r of ROOTS) { x -= r.weight; if (x <= 0) return r; }
+  return ROOTS[3];
+}
+function showRootPanel() {
+  $('title-start').hidden = true;
+  $('root-panel').hidden = false;
+  $('root-name').textContent = pendingRoot.name;
+  $('root-stars').textContent = '★'.repeat(pendingRoot.stars) + '☆'.repeat(5 - pendingRoot.stars);
+  $('root-desc').textContent = pendingRoot.desc;
+  $('btn-reroll').disabled = rerolled;
+  $('btn-reroll').style.opacity = rerolled ? 0.35 : 1;
+}
+function startGame(name, root) {
+  S = freshState(name, root, currentDiff);
+  showScreen('game');
+  renderHUD();
+  nextScene();
+  save();
+}
+function resetToTitle() {
+  clearSave();
+  S = null;
+  pendingRoot = null;
+  rerolled = false;
+  $('title-start').hidden = false;
+  $('root-panel').hidden = true;
+  $('btn-continue').hidden = !loadSave();
+  showScreen('title');
+}
+
+let currentDiff = 1;
+
+/* ---------------- 绑定 ---------------- */
+function bindUI() {
+  $('btn-roll').addEventListener('click', () => {
+    pendingName = $('input-name').value.trim().slice(0, 8);
+    pendingRoot = rollRoot();
+    rerolled = false;
+    showRootPanel();
+  });
+  $('input-name').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') $('btn-roll').click();
+  });
+  $('btn-reroll').addEventListener('click', () => {
+    if (rerolled) return;
+    rerolled = true;
+    pendingRoot = rollRoot();
+    showRootPanel();
+  });
+  $('btn-enter').addEventListener('click', () => {
+    if (!pendingRoot) pendingRoot = rollRoot();
+    startGame(pendingName, pendingRoot);
+  });
+  $('btn-continue').addEventListener('click', () => {
+    const data = loadSave();
+    if (!data) return;
+    S = data;
+    currentDiff = S.diff || 1;
+    showScreen('game');
+    renderHUD();
+    if (S.phase === 'battle' && S.battle) { renderBattle(); return; }
+    const e = findEvent(S.eventId);
+    if (e) renderEvent(e, S.phase === 'result');
+    else nextScene();
+  });
+  $('btn-next').addEventListener('click', () => {
+    if (!S) return;
+    if (S.over) showEnding();
+    else nextScene();
+  });
+  $('btn-restart').addEventListener('click', resetToTitle);
+
+  // 难度选择
+  document.querySelectorAll('[data-diff]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentDiff = parseInt(btn.dataset.diff, 10) || 0;
+      document.querySelectorAll('[data-diff]').forEach((b) => b.classList.toggle('on', b === btn));
+      const tip = $('diff-tip');
+      if (tip) tip.textContent = DIFFS[currentDiff].desc;
+    });
+  });
+
+  $('btn-bag').addEventListener('click', () => { openBag(); });
+  $('btn-bag-close').addEventListener('click', closeBag);
+  $('btn-export').addEventListener('click', async () => {
+    const r = exportSave();
+    if (!r.ok) { showToast(r.msg); return; }
+    let copied = false;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(r.code);
+        copied = true;
+      }
+    } catch (err) { copied = false; }
+    if (!copied) window.prompt('复制下面的存档码，粘贴到新设备：', r.code);
+    showToast(copied ? '存档码已复制到剪贴板' : r.msg);
+  });
+  $('btn-import').addEventListener('click', openImportDialog);
+  $('bag-modal').addEventListener('click', (e) => {
+    if (e.target === $('bag-modal')) closeBag();
+  });
+
+  document.querySelectorAll('#battle-actions button').forEach((btn) => {
+    btn.addEventListener('click', () => battleActionUI(btn.dataset.act));
+  });
+
+  // 技能面板委托
+  $('skill-panel').addEventListener('click', (ev2) => {
+    const t = ev2.target.closest('button');
+    if (!t || t.disabled) return;
+    if (t.dataset.spell) { battleActionUI('spell-cast', t.dataset.spell); return; }
+    if (t.dataset.artspell) { battleActionUI('art-cast', t.dataset.artspell); return; }
+    if (t.dataset.plainart) { battleActionUI('art-plain'); return; }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!S || $('screen-game').hidden) return;
+    if (e.key === 'Escape') { closeBag(); panelMode = null; if (S.battle) renderBattle(); return; }
+    if (e.key === 'b' || e.key === 'B') {
+      if (!$('bag-modal').hidden) closeBag();
+      else openBag();
+      return;
+    }
+    if (!$('bag-modal').hidden) return;
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'E' || e.key === 'e')) {
+      const r = exportSave();
+      showToast(r.msg);
+      if (r.ok) window.prompt('存档码（复制到新设备导入）：', r.code);
+      return;
+    }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+      e.preventDefault();
+      openImportDialog();
+      return;
+    }
+    if (S.phase === 'battle' && S.battle) {
+      const n = parseInt(e.key, 10);
+      const acts = ['attack', 'spell', 'art', 'item', 'flee'];
+      if (n >= 1 && n <= 5) battleActionUI(acts[n - 1]);
+      return;
+    }
+    if (S.phase === 'event') {
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= 4) {
+        const btns = document.querySelectorAll('#scene-options .opt');
+        const b = btns[n - 1];
+        if (b && !b.disabled) b.click();
+      }
+    }
+    if (S.phase === 'result' && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      $('btn-next').click();
+    }
+  });
+}
+
+/* 扩展 battleActionUI 处理具体施法（已内联于 battleActionUI） */
+
+/* =============================================================
+   模拟（调试用）
+   ============================================================= */
+function simulate(games, mode, rootIdx, diff) {
+  const res = { ascend: 0, old: 0, dead: 0, demon: 0, timeout: 0, err: 0, turns: [], ages: [], realms: [], breakAges: {} };
+  for (let i = 0; i < games; i++) {
+    try {
+      S = freshState('试', ROOTS[typeof rootIdx === 'number' ? rootIdx : 4], diff);
+      let guard = 0;
+      while (!S.over && guard++ < 1200) {
+        const e = drawEvent();
+        const opts = e.opts.filter((o) => !o[3] || o[3]());
+        if (!opts.length) break;
+        let o;
+        if (e.brk) {
+          // 遇到冲关：谨慎策略也会尝试，有丹药就用药
+          o = opts.find((x) => x[1] === '耗') || opts[0];
+        } else if (mode === 'greedy') {
+          const order = ['险', '机', '稳', '耗'];
+          o = opts.slice().sort((a, b) => order.indexOf(a[1]) - order.indexOf(b[1]))[0];
+        } else if (mode === 'safe') {
+          const order = ['稳', '机', '耗', '险'];
+          o = opts.slice().sort((a, b) => order.indexOf(a[1]) - order.indexOf(b[1]))[0];
+        } else {
+          o = opts[Math.floor(Math.random() * opts.length)];
+        }
+        applyOption(o);
+        let bg = 0;
+        while (S.battle && !S.over && bg++ < 120) {
+          const acts = ['attack'];
+          const spells = knownSpells();
+          if (S.mp > maxMp() * 0.25 && spells.length && chance(0.6)) acts.push('spell');
+          if (S.hp < maxHp() * 0.4 && itemCount('heal') > 0) acts.push('item');
+          const act = pick(acts);
+          if (act === 'item') battleAct('item', 'heal');
+          else if (act === 'spell') battleAct('spell', pick(spells));
+          else battleAct('attack');
+        }
+        if (S.battle) endBattle('战斗拖延过久。');
+      }
+      if (!S.over) S.over = 'timeout';
+      res[S.over] = (res[S.over] || 0) + 1;
+      res.turns.push(S.turn);
+      res.ages.push(S.age);
+      res.realms.push(S.realm);
+      Object.keys(S.breakAges || {}).forEach((k) => {
+        const a = S.breakAges[k];
+        if (typeof a !== 'number') return;
+        if (!res.breakAges[k]) res.breakAges[k] = { sum: 0, n: 0 };
+        res.breakAges[k].sum += a;
+        res.breakAges[k].n += 1;
+      });
+    } catch (err) {
+      res.err += 1;
+      if (res.err === 1) console.error(err);
+    }
+  }
+  return res;
+}
+function avg(a) { return a.length ? Math.round(a.reduce((x, y) => x + y, 0) / a.length) : 0; }
+
+function runSim(n) {
+  let out = '模拟 ' + n + ' 局（四灵根 / 随机·激进·保守 · 寻常难度）\n';
+  ['random', 'greedy', 'safe'].forEach((mode) => {
+    const r = simulate(n, mode, 4, 1);
+    out += '\n[' + mode + '] 飞升 ' + (r.ascend || 0) + ' / 老死 ' + (r.old || 0) + ' / 身死 ' + (r.dead || 0) +
+      ' / 入魔 ' + (r.demon || 0) + ' / 超时 ' + (r.timeout || 0) + ' / 异常 ' + r.err +
+      ' | 平均幕数 ' + avg(r.turns) + ' | 平均寿数 ' + avg(r.ages) +
+      ' | 平均境界 ' + avg(r.realms) + '\n';
+    const ba = [];
+    [1, 2, 3, 4, 5].forEach((k) => {
+      const v = r.breakAges[k];
+      if (v && v.n) ba.push(REALMS[k].name + ' ' + Math.round(v.sum / v.n) + '岁(' + v.n + '人)');
+    });
+    if (ba.length) out += '    首次突破年龄：' + ba.join(' / ') + '\n';
+  });
+  const pre = document.createElement('pre');
+  pre.id = 'simout';
+  pre.textContent = out;
+  document.body.innerHTML = '';
+  document.body.appendChild(pre);
+}
+
+/* ---------------- 启动 ---------------- */
+function init() {
+  bindUI();
+  const params = new URLSearchParams(location.search);
+  if (params.has('static')) {
+    const st = document.createElement('style');
+    st.textContent = '*{animation:none!important;transition:none!important}';
+    document.head.appendChild(st);
+  }
+  if (params.has('sim')) {
+    runSim(clamp(parseInt(params.get('sim'), 10) || 100, 1, 2000));
+    return;
+  }
+  const saved = loadSave();
+  $('btn-continue').hidden = !saved;
+  if (params.has('demo')) {
+    S = freshState('无名', ROOTS[3], 1);
+    S.techs = ['lingjian', 'qingyuan', 'xuanyin'];
+    S.artifacts = ['青元剑', '定海珠', '紫电锥'];
+    S.realm = 2;
+    S.life = REALMS[2].life;
+    S.hp = maxHp();
+    S.mp = maxMp();
+    S.age = 46;
+    S.progress = 120;
+    showScreen('game');
+    renderHUD();
+    if (params.get('demo') === 'battle') {
+      startBattle(makeEnemy(1.2, null, {}), '妖风自林间卷出。');
+      renderBattle();
+    } else if (params.get('demo') === 'skills') {
+      startBattle(makeEnemy(1.2, null, {}), '妖风自林间卷出。');
+      panelMode = 'spell';
+      renderBattle();
+    } else if (params.get('demo') === 'art') {
+      startBattle(makeEnemy(1.4, null, {}), '强敌拦路。');
+      panelMode = 'art';
+      renderBattle();
+    } else if (params.get('demo') === 'bag') {
+      openBag();
+      renderHUD();
+    } else if (params.get('demo') === 'title') {
+      pendingRoot = ROOTS[2];
+      showScreen('title');
+      showRootPanel();
+    } else {
+      nextScene();
+    }
+    return;
+  }
+}
+
+init();
+
+</script>
+</body>
+</html>
